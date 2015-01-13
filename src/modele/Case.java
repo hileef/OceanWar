@@ -8,11 +8,9 @@ public class Case {
 	
 	private LinkedList<Bateau> listeBateaux;
 	
-	public Case() {
-		
-	}
 	public Case(boolean estUnBord) {
 		this.estUnBord = estUnBord;
+		listeBateaux = new LinkedList<Bateau>() ;
 	}
 	
 	public boolean estUnBord() {
@@ -28,8 +26,7 @@ public class Case {
 		
 		for (Bateau b : listeBateaux){
 			b.toucher();
-		}
-		
+		}	
 	}
 	public void reparerBateaux() {
 		

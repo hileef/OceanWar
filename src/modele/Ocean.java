@@ -18,7 +18,7 @@ public class Ocean {
 			for(int j = 0; j < TAILLE_MATRICE; ++j) {
 				if(i == 0 || i == TAILLE_MATRICE || j == 0 || j == TAILLE_MATRICE)
 					matrice[i][j] = new Case(true);
-				else matrice[i][j] = new Case();
+				else matrice[i][j] = new Case(false);
 			}
 				
 		
