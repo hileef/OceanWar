@@ -19,16 +19,23 @@ public class Case {
 		return estUnBord;
 	}
 	public void ajouterBateau(Bateau b) {
-		
+		this.listeBateaux.add(b);
 	}
 	public void enleverBateau(Bateau b) {
-		
+		this.listeBateaux.remove(b);
 	}
 	public void toucherBateaux() {
+		
+		for (Bateau b : listeBateaux){
+			b.toucher();
+		}
 		
 	}
 	public void reparerBateaux() {
 		
+		for (Bateau b : listeBateaux){
+			b.reparer();
+		}
 	}
 
 	
