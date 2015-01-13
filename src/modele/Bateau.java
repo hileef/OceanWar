@@ -18,10 +18,7 @@ public abstract class Bateau {
 	}
 	
 	public void positionner(Case destination) {
-		position.enleverBateau(this);
-		position = destination;
-		destination.ajouterBateau(this);
-		
+
 	}
 	
 	
