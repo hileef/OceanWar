@@ -12,19 +12,12 @@ public abstract class Bateau {
 	
 	public abstract void agir() ;
 	
-	public void toucher() { 
-		vies--;
-		if(vies == 0)
-			position.enleverBateau(this); // detruire bateau
-	}
-	public void reparer() { 
-		vies = resistanceMax;
-	}
+	public abstract void infoEntourage(Case bateauLePlusProche, DIRECTION dir, int distance) ;
 	
 	public void position(Case destination) {
-
+		this.position = destination;
 	}
-	protected Case position() {
+	public Case position() {
 		return position;
 	}
 	
@@ -46,7 +39,15 @@ public abstract class Bateau {
 	}
 	
 	public abstract DIRECTION determinerDirection() ;
-
 	
+	public void toucher() { 
+		vies--;
+	}
+	public void reparer() { 
+		vies = resistanceMax;
+	}
+	public int vies() {
+		return vies;
+	}
 	
 }

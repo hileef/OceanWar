@@ -42,4 +42,7 @@ public class Cible extends Bateau {
 	
 	public void agir() { ; }
 
+	public void infoEntourage(Case bateauLePlusProche, DIRECTION dir,
+			int distance) { ; }
+
 }

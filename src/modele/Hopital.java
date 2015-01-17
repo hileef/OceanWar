@@ -58,6 +58,8 @@ public class Hopital extends Bateau {
 	public void agir() {
 		position().reparerBateaux();
 	}
+
+	public void infoEntourage(Case bateauLePlusProche, DIRECTION dir, int distance) { ;	}
 	
 
 
