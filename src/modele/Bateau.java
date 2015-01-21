@@ -1,62 +1,79 @@
 package modele;
 
 import java.util.LinkedList;
+
+import affichage.Affichable;
+import controle.Simulation;
 /**
- * Contient les attributs et les méthodes permettant de gérer l'objet BATEAU.
+ * Contient les attributs et les mï¿½thodes permettant de gï¿½rer l'objet BATEAU.
  */
-public abstract class Bateau {
+public abstract class Bateau implements Affichable {
 	/**
-	 * Définit à combien de tirs peuvent résister les bateaux.
+	 * Dï¿½finit ï¿½ combien de tirs peuvent rï¿½sister les bateaux.
 	 */
 	private static final int resistanceMax = 5;
 	
 	/**
-	 * Définit le nombre de "vies" qu'a le bateau.
+	 * Dï¿½finit le nombre de "vies" qu'a le bateau.
 	 */
 	private int vies;
 	
 	/**
 	 * Attribut de typeCase contenant la case ou le bateau se trouve.
 	 */
-	private Case position;
+	// private Case position;
+	
+	// TODO DOC A REFAIRE
+	public abstract String toString();
+	private int rayonRadar = 3;
+	private Coordonee position;
+	public Bateau() {
+		this.id = Simulation.idUnique();
+		vies = resistanceMax;
+	}
+	private int id;
+	public int id() {
+		return id;
+	}
+	public int rayonRadar() {
+		return rayonRadar;
+	}
 	
 	/**
-	 * Attribut de type DIRECTION qui permet au bateau de connaître sa direction de déplacement.
+	 * Permet de mettre ï¿½ jour la position du bateau
+	 * @param destination Case dans laquelle il va ï¿½tre dï¿½placï¿½.
 	 */
-	private DIRECTION direction;
-	
-	/**
-	 * Définit l'action du bateau.
-	 */
-	public abstract void agir() ;
-	
-	/**
-	 * Permet de récupérer des informations sur l'entourage du bateau et ainsi changer certains attributs de BATEAU.
-	 * @param bateauLePlusProche
-	 * @param dir
-	 * @param distance
-	 */
-	public abstract void infoEntourage(Case bateauLePlusProche, DIRECTION dir, int distance) ;
-	
-	/**
-	 * Permet de mettre à jour la position du bateau
-	 * @param destination Case dans laquelle il va être déplacé.
-	 */
-	public void position(Case destination) {
+	public void position(Coordonee destination) {
 		this.position = destination;
 	}
 	
 	/**
-	 * Permet de connaître la case dans laquelle se trouve un bateau.
+	 * Permet de connaï¿½tre la case dans laquelle se trouve un bateau.
 	 * @return la case dans laquelle est le bateau.
 	 */
-	public Case position() {
+	public Coordonee position() {
 		return position;
 	}
 	
+	
+	/**
+	 * Attribut de type DIRECTION qui permet au bateau de connaï¿½tre sa direction de dï¿½placement.
+	 */
+	private DIRECTION direction;
+	
+	/**
+	 * Dï¿½finit l'action du bateau.
+	 */
+	public abstract void agir() ;
+	
+	// TODO DOC A REFAIRE
+	public abstract void infosRadar(LinkedList<Bateau> listeMemeEndroit, LinkedList<Bateau> listeTrieeEntourage) ;
+	
+
+	
 	/**
 	 * Getteur de direction
-	 * @return la direction dans laquelle se déplace le bateau.
+	 * @return la direction dans laquelle se dï¿½place le bateau.
 	 */
 	protected DIRECTION direction() {
 		return direction;
@@ -69,8 +86,57 @@ public abstract class Bateau {
 	protected void direction(DIRECTION d) {
 		direction = d;
 	}
-
 	protected DIRECTION directionAleatoire() {
+		LinkedList<DIRECTION> options = new LinkedList<DIRECTION>();
+		if(!position().estUneBordure(0, Ocean.TAILLE_MATRICE - 1))
+			return directionAleatoireSansPenserAuBords();
+		switch(position().interpreterDirectionBordure(0, Ocean.TAILLE_MATRICE - 1)) {
+		case NO :
+			options.add(DIRECTION.SE);
+			options.add(DIRECTION.S);
+			options.add(DIRECTION.E);
+			break;
+		case NE :
+			options.add(DIRECTION.SO);
+			options.add(DIRECTION.S);
+			options.add(DIRECTION.O);
+			break;
+		case SO :
+			options.add(DIRECTION.NE);
+			options.add(DIRECTION.N);
+			options.add(DIRECTION.E);
+			break;
+		case SE :
+			options.add(DIRECTION.NO);
+			options.add(DIRECTION.N);
+			options.add(DIRECTION.O);
+			break;
+		case N :
+			options.add(DIRECTION.S);
+			options.add(DIRECTION.SE);
+			options.add(DIRECTION.SO);
+			break;
+		case S :
+			options.add(DIRECTION.N);
+			options.add(DIRECTION.NE);
+			options.add(DIRECTION.NO);
+			break;
+		case O :
+			options.add(DIRECTION.E);
+			options.add(DIRECTION.NE);
+			options.add(DIRECTION.SE);
+			break;
+		case E :
+			options.add(DIRECTION.O);
+			options.add(DIRECTION.NO);
+			options.add(DIRECTION.SO);
+			break;
+		default:
+			return directionAleatoireSansPenserAuBords();
+		}
+		return directionAleatoireDepuis(options);
+	}
+	protected DIRECTION directionAleatoireSansPenserAuBords() {
 		LinkedList<DIRECTION> liste = new LinkedList<DIRECTION>();
 		for(DIRECTION d : DIRECTION.values())
 			liste.add(d);
@@ -83,14 +149,15 @@ public abstract class Bateau {
 	public abstract DIRECTION determinerDirection() ;
 	
 	/**
-	 * supprime une vie au bateau lorsque la méthode est appelée.
+	 * supprime une vie au bateau lorsque la mï¿½thode est appelï¿½e.
 	 */
 	public void toucher() { 
 		vies--;
+		System.out.println("DEBUG : " + this.toString() + "#" + this.id() + " Ã  Ã©tÃ© touchÃ©. vies = " + vies);
 	}
 	
 	/**
-	 * Remonte le niveau de vie à son maximum.
+	 * Remonte le niveau de vie ï¿½ son maximum.
 	 */
 	public void reparer() { 
 		vies = resistanceMax;

@@ -1,124 +1,153 @@
 package modele;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
-public class Ocean {
+import controle.Simulation;
+import affichage.Affichable;
+
+public class Ocean implements Affichable {
 
 	// CONSTANTES
-	private static final int TAILLE_MATRICE = 10;
-	private static final int RAYON_ENTOURAGE = 3;
+	public static final int TAILLE_MATRICE = 15;
 
 	// ATTRIBUTS
-	private Case matrice[][];
-	private ArrayList<Bateau> listeBateaux;
+	private HashMap<Integer, Bateau> bateaux;
+	private HashMap<Coordonee, LinkedList<Integer>> cases;
+	private int id;
 
 	// METHODES
+	// Construction
 	public Ocean() {
-		// initialization matrice new Coordonee(j, i)
-		matrice = new Case[TAILLE_MATRICE][TAILLE_MATRICE];
-		for (int i = 0; i < TAILLE_MATRICE; ++i)
-			for (int j = 0; j < TAILLE_MATRICE; ++j) {
-				if(i == 0) {
-					if(j == 0) matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.NO);
-					else if(j == TAILLE_MATRICE - 1)
-						matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.NE);
-					else matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.N);
-				} else if(i == TAILLE_MATRICE) {
-					if(j == 0) matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.SO);
-					else if(j == TAILLE_MATRICE - 1)
-						matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.SE);
-					else matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.S);
-				} else if(j == 0) {
-					matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.O);
-				} else if(j == TAILLE_MATRICE) {
-					matrice[i][j] = new Case(new Coordonee(j, i), DIRECTION.E);
-				} else matrice[i][j] = new Case(new Coordonee(j, i));
+		id = Simulation.idUnique();
+		bateaux = new HashMap<Integer, Bateau>();
+		cases = new HashMap<Coordonee, LinkedList<Integer>>();
+		for(int i = 0; i < TAILLE_MATRICE; ++i)
+			for(int j = 0; j < TAILLE_MATRICE; ++j)
+				cases.put(new Coordonee(j, i), new LinkedList<Integer>());
+	}
+	// Concerne affichage console
+	public String toString() {
+		String out = "      ";
+		for(int i = 0; i < TAILLE_MATRICE; ++i) {
+			out = out.concat(" ");
+			out = out.concat((i > 9) ? "" : "0");
+			out = out.concat(i + " ");
+		}
+		out = out.concat("\n");
+		for(int i = 0; i < TAILLE_MATRICE; ++i) {		
+			out = out.concat(ligneToString());
+			out = out.concat((i > 9) ? "" : "0");
+			out = out.concat(i + " >  ");
+			for(int j = 0; j < TAILLE_MATRICE; ++j) {
+				out = out.concat(" " + positionToString(new Coordonee(j, i)) + " ");
+				if(j == TAILLE_MATRICE - 1) out = out.concat(" ");
 			}
+				
+			out = out.concat("\n");
+			if(i == TAILLE_MATRICE - 1)
+				out = out.concat(ligneToString());
+		}
+		return out;
+				
+	}
+	private String ligneToString() {
+		String out = "";
+		out = out.concat("      ");
+		for(int j = 0; j < TAILLE_MATRICE; ++j) out = out.concat("    ");
+		out = out.concat(" \n");
+		return out;
+	}
+	private String positionToString(Coordonee position) {
+		if(listeBateauxDansPosition(position) == null) System.out.println("pos to string : " + position);
+		LinkedList<Bateau> liste = listeBateauxDansPosition(position);
+		if(liste.isEmpty()) return "~~";
+		else if(liste.size() == 1) return liste.peek().toString() + "" + (liste.peek().id());
+		else return liste.size() + "x";
+	}
+	
+	public int id() {
+		return id;
+	}
 
-	}
 	
-	private Case caseAPosition(Coordonee position) {
-		int x = position.x();
-		int y = position.y();
-		if(x < 0 || x >= TAILLE_MATRICE || y < 0 || y >= TAILLE_MATRICE)
-			throw new IllegalArgumentException("Position invalide (hors matrice)");
-		return matrice[y][x];
+	// Concerne gestion de bateaux
+	public void ajouterBateau(Bateau b, Coordonee position) {
+		b.position(position);
+		bateaux.put(b.id(), b);
+		cases.get(position).add(b.id());
 	}
-	
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
 		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
 	}
-	public void ajouterBateau(Bateau b, Coordonee position) {
-		caseAPosition(position).ajouterBateau(b);
-		listeBateaux.add(b);
+	private void supprimerBateau(Bateau b) {
+		Integer id = b.id();
+		cases.get(b.position()).remove(id);
+		bateaux.remove(id);
 	}
 
+	// Gestion d'un pas de simulations
 	public void pasDeSimulation() {
-		// pasDeSimulationMatrice(); // PROBLEME
-		pasDeSimulationArrayList();
-	}
-//	private void pasDeSimulationMatrice() {
-//		// PROBLEME : RISQUE DE RECONSIDERATION DE BATEAU DEJA RENCONTRE.
-//		for (int i = 0; i < TAILLE_MATRICE; ++i)
-//			for (int j = 0; j < TAILLE_MATRICE; ++j)
-//				if(!matrice[i][j].estVide()) {
-//					Coordonee position = new Coordonee(j, i);
-//					for(int k = 0; k < matrice[i][j].nombreDeBateaux(); ++k) {
-//						Bateau b = matrice[i][j].bateau(k);
-//						pasDeSimulationBateau(b, position);
-//					}
-//		}
-//	}
-	private void pasDeSimulationArrayList() {
-		for (Bateau b : listeBateaux)
-			pasDeSimulationBateau(b, b.position().coordonees());
-	}
-	private void pasDeSimulationBateau(Bateau b, Coordonee position) {
-		pasDeSimulationBateauInfos(b, position);
-		pasDeSimulationBateauDeplacement(b, position);
-		pasDeSimulationBateauAction(b, position);
-		retirerBateauDetruit(b, position);
-	}
-	private void pasDeSimulationBateauInfos(Bateau b, Coordonee position) {
-		Coordonee dest = bateauLePlusProcheDepuis(position);
-		Case cible = caseAPosition(dest);
-		int distance = position.distance(dest);
-		b.infoEntourage(cible, position.directionVers(dest), distance);
-	}
-	private void pasDeSimulationBateauDeplacement(Bateau b, Coordonee position) {
-		Coordonee dest = position.coordoneeDansDirection(b.determinerDirection());
-		caseAPosition(position).enleverBateau(b);
-		Case cible = caseAPosition(dest);
-		cible.ajouterBateau(b);
-		b.position(cible);
-		
-	}
-	private void pasDeSimulationBateauAction(Bateau b, Coordonee position) { b.agir(); }
-
-	private void retirerBateauDetruit(Bateau b, Coordonee position) {
-		if(b.vies() == 0) {
-			b.position().enleverBateau(b);
-			listeBateaux.remove(b);
+		for (Bateau b : bateaux.values()) {
+			
+			// Envoi informations "radar" bateau
+			LinkedList<Bateau> liste = listeBateauxDansPosition(b.position());
+			liste.remove(b);
+			b.infosRadar(liste, listeBateauxRadar(b));
+			
+			// Déplacement Bateau dans direction désirée
+			deplacerBateau(b);
+			
+			// Faire agir le bateau
+			b.agir();
+			
 		}
+		// Suppression des bateaux detruits.
+		LinkedList<Bateau> aDetruire = new LinkedList<Bateau>();
+		for (Bateau b : bateaux.values())
+			if(b.vies() == 0)
+				aDetruire.add(b);
+		System.out.println(aDetruire);
+		for(Bateau b : aDetruire)
+			supprimerBateau(b);
 	}
 	
-	private Coordonee bateauLePlusProcheDepuis(Coordonee position) {
-		int ip = position.y();
-		int jp = position.x();
-		int distanceMax = -1;
-		int tmp;
-		Coordonee plusProche = null;
-		for(int i = ip - RAYON_ENTOURAGE; i < (ip + RAYON_ENTOURAGE); ++i)
-			for(int j = jp - RAYON_ENTOURAGE; j < (jp + RAYON_ENTOURAGE); ++j)
-				if(!matrice[i][j].estVide() && i != ip && j != jp) {
-					Coordonee dest = new Coordonee(j, i);
-					tmp = position.distance(dest);
-					if(tmp > distanceMax) { 
-						distanceMax = tmp;
-						plusProche = dest;
-					}
+	private void deplacerBateau(Bateau b) {
+		cases.get(b.position()).remove(new Integer(b.id()));
+		DIRECTION dir = b.determinerDirection();
+		if(dir != null) 
+			b.position(b.position().coordoneeDansDirection(dir));
+		if(cases.get(b.position()) == null) {
+			 System.out.println("DEBUG : Bateau " + b + "#" + b.id());
+			 System.out.println("DEBUG : Position" + b.position());
+			 System.out.println("DEBUG : Case a position : " + cases.get(b.position()));
+			
 		}
-		return plusProche;
+
+		cases.get(b.position()).add(b.id());
+	}
+
+	// Concerne les bateaux dans une seule case
+	private LinkedList<Bateau> listeBateauxDansPosition(Coordonee position) { 
+		LinkedList<Bateau> liste = new LinkedList<Bateau>();
+		for(Integer id : cases.get(position)) 
+			liste.add(bateaux.get(id));
+		return liste;
+	}
+	
+	// Concerne les bateaux detectables par le radar 
+	private LinkedList<Bateau> listeBateauxRadar(Bateau a) {
+		return listeBateauxRadar(a, 1, a.rayonRadar());
+	}
+	private LinkedList<Bateau> listeBateauxRadar(Bateau a, int rayonMin, int rayonMax) {
+		int r, rayonRange = rayonMax - rayonMin + 1;
+		LinkedList<Bateau> aOrdonner[] = new LinkedList[rayonRange + 1];
+		for(int i = 0; i < rayonRange; ++i) aOrdonner[i] = new LinkedList<Bateau>(); 
+		for (Bateau b : bateaux.values()) if(b != a)
+			if((r = b.position().distance(a.position())) <= rayonMax && r >= rayonMin)
+				aOrdonner[r - rayonMin].add(b);
+		for(int i = 1; i < rayonRange; ++i) aOrdonner[0].addAll(aOrdonner[i]);
+		return aOrdonner[0];
 	}
 
 
