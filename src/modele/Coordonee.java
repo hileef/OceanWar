@@ -35,10 +35,10 @@ public class Coordonee {
 	public DIRECTION directionVers(Coordonee b) {
 		int dy = this.differenceY(b);
 		int dx = this.differenceX(b);
-		int d = (dy < dx) ? dy: dx;
-		if(d == 0) return null;
-		if(dy == 0) return (b.y() > this.y()) ? DIRECTION.S: DIRECTION.N; 
-		if(dx == 0) return (b.x() > this.x()) ? DIRECTION.E: DIRECTION.O;
+		boolean d = this.x() == b.x() && this.y() == b.y();
+		if(d) return null;
+		if(dx == 0) return (b.y() > this.y()) ? DIRECTION.S: DIRECTION.N; 
+		if(dy == 0) return (b.x() > this.x()) ? DIRECTION.E: DIRECTION.O;
 		if(dy > 0) { 
 			if(dx > 0) return DIRECTION.SE;
 			else return DIRECTION.SO;
