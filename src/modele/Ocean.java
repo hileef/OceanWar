@@ -1,8 +1,10 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import bateau.Bateau;
 import controle.Simulation;
 import affichage.Affichable;
 
@@ -12,19 +14,14 @@ public class Ocean implements Affichable {
 	public static final int TAILLE_MATRICE = 15;
 
 	// ATTRIBUTS
-	private HashMap<Integer, Bateau> bateaux;
-	private HashMap<Coordonee, LinkedList<Integer>> cases;
+	private ArrayList<Bateau> bateaux;
 	private int id;
 
 	// METHODES
 	// Construction
 	public Ocean() {
 		id = Simulation.idUnique();
-		bateaux = new HashMap<Integer, Bateau>();
-		cases = new HashMap<Coordonee, LinkedList<Integer>>();
-		for(int i = 0; i < TAILLE_MATRICE; ++i)
-			for(int j = 0; j < TAILLE_MATRICE; ++j)
-				cases.put(new Coordonee(j, i), new LinkedList<Integer>());
+		bateaux = new ArrayList<Bateau>();
 	}
 	// Concerne affichage console
 	public String toString() {
@@ -74,28 +71,23 @@ public class Ocean implements Affichable {
 	// Concerne gestion de bateaux
 	public void ajouterBateau(Bateau b, Coordonee position) {
 		b.position(position);
-		bateaux.put(b.id(), b);
-		cases.get(position).add(b.id());
+		bateaux.add(b);
 	}
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
 		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
 	}
 	private void supprimerBateau(Bateau b) {
-		Integer id = b.id();
-		cases.get(b.position()).remove(id);
-		bateaux.remove(id);
+		bateaux.remove(b);
 	}
 
 	// Gestion d'un pas de simulations
 	public void pasDeSimulation() {
-		for (Bateau b : bateaux.values()) {
+		for (Bateau b : bateaux) {
 			
 			// Envoi informations "radar" bateau
-			LinkedList<Bateau> liste = listeBateauxDansPosition(b.position());
-			liste.remove(b);
-			b.infosRadar(liste, listeBateauxRadar(b));
+			b.infosRadar(radar(b));
 			
-			// Déplacement Bateau dans direction désirée
+			// DÃ©placement Bateau dans direction dÃ©sirÃ©e
 			deplacerBateau(b);
 			
 			// Faire agir le bateau
@@ -104,50 +96,40 @@ public class Ocean implements Affichable {
 		}
 		// Suppression des bateaux detruits.
 		LinkedList<Bateau> aDetruire = new LinkedList<Bateau>();
-		for (Bateau b : bateaux.values())
+		for (Bateau b : bateaux)
 			if(b.vies() == 0)
 				aDetruire.add(b);
-		System.out.println(aDetruire);
 		for(Bateau b : aDetruire)
 			supprimerBateau(b);
 	}
 	
 	private void deplacerBateau(Bateau b) {
-		cases.get(b.position()).remove(new Integer(b.id()));
 		DIRECTION dir = b.determinerDirection();
 		if(dir != null) 
 			b.position(b.position().coordoneeDansDirection(dir));
-		if(cases.get(b.position()) == null) {
-			 System.out.println("DEBUG : Bateau " + b + "#" + b.id());
-			 System.out.println("DEBUG : Position" + b.position());
-			 System.out.println("DEBUG : Case a position : " + cases.get(b.position()));
-			
-		}
-
-		cases.get(b.position()).add(b.id());
 	}
 
 	// Concerne les bateaux dans une seule case
 	private LinkedList<Bateau> listeBateauxDansPosition(Coordonee position) { 
 		LinkedList<Bateau> liste = new LinkedList<Bateau>();
-		for(Integer id : cases.get(position)) 
-			liste.add(bateaux.get(id));
+		for(Bateau b : bateaux) if(b.position().equals(position))
+			liste.add(b);
 		return liste;
 	}
 	
 	// Concerne les bateaux detectables par le radar 
-	private LinkedList<Bateau> listeBateauxRadar(Bateau a) {
-		return listeBateauxRadar(a, 1, a.rayonRadar());
+	private ArrayList<LinkedList<Bateau>> radar(Bateau a) {
+		return radar(a, 0, a.rayonRadar());
 	}
-	private LinkedList<Bateau> listeBateauxRadar(Bateau a, int rayonMin, int rayonMax) {
+	private ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {
 		int r, rayonRange = rayonMax - rayonMin + 1;
-		LinkedList<Bateau> aOrdonner[] = new LinkedList[rayonRange + 1];
-		for(int i = 0; i < rayonRange; ++i) aOrdonner[i] = new LinkedList<Bateau>(); 
-		for (Bateau b : bateaux.values()) if(b != a)
+		ArrayList<LinkedList<Bateau>> cibles = new ArrayList<LinkedList<Bateau>>(rayonRange);
+		for(int i = 0; i < rayonRange; ++i) cibles.set(i, new LinkedList<Bateau>());
+		
+		for (Bateau b : bateaux) if(b.id() != a.id())
 			if((r = b.position().distance(a.position())) <= rayonMax && r >= rayonMin)
-				aOrdonner[r - rayonMin].add(b);
-		for(int i = 1; i < rayonRange; ++i) aOrdonner[0].addAll(aOrdonner[i]);
-		return aOrdonner[0];
+				cibles.get(r - rayonMin).add(b);
+		return cibles;
 	}
 
 
