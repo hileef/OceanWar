@@ -68,8 +68,7 @@ public class Cible extends Bateau {
 
 		}
 	}
-	
-	public void agir() { ; }
+
 
 	public void infosRadar(LinkedList<Bateau> listeMemeEndroit, LinkedList<Bateau> listeTrieeEntourage) { ; }
 
