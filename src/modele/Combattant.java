@@ -2,7 +2,7 @@ package modele;
 
 import java.util.LinkedList;
 
-public class Combattant extends Bateau {
+public class Combattant extends BateauxDAction {
 
 	private static final int porteeDeTir = 2;
 	
