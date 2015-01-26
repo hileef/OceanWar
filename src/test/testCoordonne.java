@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.*;
 import modele.Coordonee;
 import modele.DIRECTION;

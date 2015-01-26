@@ -1,5 +1,8 @@
 package controle;
 
+import bateau.Cible;
+import bateau.Combattant;
+import bateau.Hopital;
 import affichage.Console;
 import modele.*;
 
@@ -15,10 +18,10 @@ public class Simulation {
 	// variable pour generation semi-aléatoire des bateaux
 	private static final double facteurGerme = 0.50;
 	private static final double germeNombreCombattant = 2;
-	private static final double germeNombreHopital = 3;
+	private static final double germeNombreHopital = 4;
 	private static final double germeNombreCible = 7;
 	
-	private static final double vitesseDeSimulationEnHz = 5.0;
+	private static final double vitesseDeSimulationEnHz = 8.0;
 	
 	// attributs
 	private Ocean o;

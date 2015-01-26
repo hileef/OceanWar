@@ -1,6 +1,9 @@
-package modele;
+package bateau;
 
 import java.util.LinkedList;
+
+import modele.DIRECTION;
+import modele.Ocean;
 
 public abstract class BateauxDAction extends Bateau {
 
@@ -65,10 +68,13 @@ public abstract class BateauxDAction extends Bateau {
 		return options.get((int) (Math.random() * (options.size() - 1)));
 	}
 
-	/**
-	 * Définit l'action du bateau.
-	 */
+	public abstract DIRECTION determinerDirection() ;
 	public abstract void agir() ;
-
-
+	
+	@Override
+	public void jouerPas() {
+		position(determinerDirection());
+		agir();
+	}
+	
 }

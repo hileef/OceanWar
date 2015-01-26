@@ -1,6 +1,10 @@
-package modele;
+package bateau;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import modele.DIRECTION;
+import modele.Ocean;
 
 public class Cible extends Bateau {
 	
@@ -34,9 +38,17 @@ public class Cible extends Bateau {
 			if(position().estUneBordure(0, Ocean.TAILLE_MATRICE - 1)) {
 				switch(position().interpreterDirectionBordure(0, Ocean.TAILLE_MATRICE - 1)) {
 				case NO:
-					retour = false;
-					return DIRECTION.E;
+					if(retour){ 
+						retour = false;
+						return DIRECTION.E;
+					}
+					suivante = DIRECTION.E;
+					return DIRECTION.S;
 				case NE:
+					if(retour) {
+						retour = false;
+						return DIRECTION.O;
+					}
 					suivante = DIRECTION.O;
 					return DIRECTION.S;
 				case SE:
@@ -69,11 +81,20 @@ public class Cible extends Bateau {
 		}
 	}
 
-
-	public void infosRadar(LinkedList<Bateau> listeMemeEndroit, LinkedList<Bateau> listeTrieeEntourage) { ; }
-
 	public String toString() {
 		return "P";
+	}
+
+	@Override
+	public void infosRadar(ArrayList<LinkedList<Bateau>> radar) {
+		;
+	}
+
+	@Override
+	public void jouerPas() {
+		DIRECTION dir = this.determinerDirection();
+		if(dir != null)
+			this.position(this.position().coordoneeDansDirection(dir));
 	}
 	
 

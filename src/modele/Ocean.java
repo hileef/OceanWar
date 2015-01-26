@@ -1,7 +1,6 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import bateau.Bateau;
@@ -11,7 +10,7 @@ import affichage.Affichable;
 public class Ocean implements Affichable {
 
 	// CONSTANTES
-	public static final int TAILLE_MATRICE = 15;
+	public static final int TAILLE_MATRICE = 10;
 
 	// ATTRIBUTS
 	private ArrayList<Bateau> bateaux;
@@ -23,6 +22,11 @@ public class Ocean implements Affichable {
 		id = Simulation.idUnique();
 		bateaux = new ArrayList<Bateau>();
 	}
+	
+	public int id() {
+		return id;
+	}
+	
 	// Concerne affichage console
 	public String toString() {
 		String out = "      ";
@@ -63,9 +67,7 @@ public class Ocean implements Affichable {
 		else return liste.size() + "x";
 	}
 	
-	public int id() {
-		return id;
-	}
+
 
 	
 	// Concerne gestion de bateaux
@@ -76,37 +78,22 @@ public class Ocean implements Affichable {
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
 		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
 	}
-	private void supprimerBateau(Bateau b) {
-		bateaux.remove(b);
-	}
 
 	// Gestion d'un pas de simulations
 	public void pasDeSimulation() {
 		for (Bateau b : bateaux) {
-			
-			// Envoi informations "radar" bateau
 			b.infosRadar(radar(b));
-			
-			// DÃ©placement Bateau dans direction dÃ©sirÃ©e
-			deplacerBateau(b);
-			
-			// Faire agir le bateau
-			b.agir();
-			
+			b.jouerPas();
 		}
-		// Suppression des bateaux detruits.
+		supprimerBateauxDetruits();
+	}
+	private void supprimerBateauxDetruits() {
 		LinkedList<Bateau> aDetruire = new LinkedList<Bateau>();
 		for (Bateau b : bateaux)
 			if(b.vies() == 0)
 				aDetruire.add(b);
 		for(Bateau b : aDetruire)
-			supprimerBateau(b);
-	}
-	
-	private void deplacerBateau(Bateau b) {
-		DIRECTION dir = b.determinerDirection();
-		if(dir != null) 
-			b.position(b.position().coordoneeDansDirection(dir));
+			bateaux.remove(b);
 	}
 
 	// Concerne les bateaux dans une seule case
@@ -124,7 +111,7 @@ public class Ocean implements Affichable {
 	private ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {
 		int r, rayonRange = rayonMax - rayonMin + 1;
 		ArrayList<LinkedList<Bateau>> cibles = new ArrayList<LinkedList<Bateau>>(rayonRange);
-		for(int i = 0; i < rayonRange; ++i) cibles.set(i, new LinkedList<Bateau>());
+		for(int i = 0; i < rayonRange; ++i) cibles.add(i, new LinkedList<Bateau>());
 		
 		for (Bateau b : bateaux) if(b.id() != a.id())
 			if((r = b.position().distance(a.position())) <= rayonMax && r >= rayonMin)

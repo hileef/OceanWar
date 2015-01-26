@@ -1,41 +1,38 @@
+package test;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-import modele.Bateau;
 import modele.Coordonee;
 import modele.DIRECTION;
 
 import org.junit.Test;
 
+import bateau.Bateau;
+
 
 public class testBateau {
 	Bateau b = new Bateau() {
-		
+
 		@Override
 		public String toString() {
-			// TODO Stub de la méthode généré automatiquement
+			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 		@Override
-		public void infosRadar(LinkedList<Bateau> listeMemeEndroit,
-				LinkedList<Bateau> listeTrieeEntourage) {
-			// TODO Stub de la méthode généré automatiquement
+		public void infosRadar(ArrayList<LinkedList<Bateau>> radar) {
+			// TODO Auto-generated method stub
 			
 		}
-		
+
 		@Override
-		public DIRECTION determinerDirection() {
-			// TODO Stub de la méthode généré automatiquement
-			return null;
-		}
-		
-		@Override
-		public void agir() {
-			// TODO Stub de la méthode généré automatiquement
+		public void jouerPas() {
+			// TODO Auto-generated method stub
 			
 		}
+
 	};
 
 	@Test
