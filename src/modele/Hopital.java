@@ -2,7 +2,7 @@ package modele;
 
 import java.util.LinkedList;
 
-public class Hopital extends Bateau {
+public class Hopital extends BateauxDAction {
 
 	private LinkedList<Bateau> bateauxAuMemeEndroit;
 	
