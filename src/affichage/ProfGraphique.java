@@ -19,32 +19,32 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Classe proposant un ensemble de méthodes statiques permettant l'affichage
- * d'images et de textes au sein d'une fenêtre ainsi que la lecture des
- * caractères saisis au clavier lorsque la fenêtre a le focus.
+ * Classe proposant un ensemble de mï¿½thodes statiques permettant l'affichage
+ * d'images et de textes au sein d'une fenï¿½tre ainsi que la lecture des
+ * Caracteres saisis au clavier lorsque la fenï¿½tre a le focus.
  * <p>
- * L'ouverture de la fenêtre ({@link Graphique#ouvrir}) provoque son affichage.
- * Images et Textes sont ajoutés à la fenêtre par {@link Graphique#ajouterImage}
- * et ({@link Graphique#ajouterLibellé}). Des méthodes au nom suffisament
- * parlant permettent de placer, déplacer, supprimer une ou tous les images et
- * textes. La mise à jour de l'affichage peut être forcé par l'emploi de la
- * méthode {@link Graphique#actualiser}.
+ * L'ouverture de la fenï¿½tre ({@link Graphique#ouvrir}) provoque son affichage.
+ * Images et Textes sont ajoutï¿½s ï¿½ la fenï¿½tre par {@link Graphique#ajouterImage}
+ * et ({@link Graphique#ajouterLibelle}). Des mï¿½thodes au nom suffisament
+ * parlant permettent de placer, deplacer, supprimer une ou tous les images et
+ * textes. La mise ï¿½ jour de l'affichage peut ï¿½tre forcï¿½ par l'emploi de la
+ * mï¿½thode {@link Graphique#actualiser}.
  * <p>
- * Les images doivent être fournies sous la forme de fichier gif, jpeg ou png.
- * Les fichiers gif animés ou transparents sont supportés.
+ * Les images doivent ï¿½tre fournies sous la forme de fichier gif, jpeg ou png.
+ * Les fichiers gif animï¿½s ou transparents sont supportï¿½s.
  * <p>
- * La fenêtre peut être iconifiée, maximisée ou fermée par les icones se
- * trouvant en haut à droite. Toutefois, la fermeture de la fenêtre par l'icone
+ * La fenï¿½tre peut ï¿½tre iconifiï¿½e, maximisï¿½e ou fermï¿½e par les icones se
+ * trouvant en haut ï¿½ droite. Toutefois, la fermeture de la fenï¿½tre par l'icone
  * correspondant provoque automatiquement la fin de l'application
  * (System.exit(0)).
  * <p>
- * La lecture d'un caractère par la méthode {@link Graphique#lireCaractère} est
- * bloquante alors que la méthode {@link Graphique#lireCaractèreNonBloquant} ne
+ * La lecture d'un Caractere par la mï¿½thode {@link Graphique#lireCaractere} est
+ * bloquante alors que la mï¿½thode {@link Graphique#lireCaractereNonBloquant} ne
  * l'est pas.
  * <p>
- * Tout appel de méthode avant l'ouverture de la fenêtre provoque une erreur.
- * Enfin, si la méthode {@link Graphique#fermer} a été appelée, tout appel autre
- * qu'à la méthode {@link Graphique#ouvrir} provoque une erreur.
+ * Tout appel de mï¿½thode avant l'ouverture de la fenï¿½tre provoque une erreur.
+ * Enfin, si la mï¿½thode {@link Graphique#fermer} a ï¿½tï¿½ appelï¿½e, tout appel autre
+ * qu'ï¿½ la mï¿½thode {@link Graphique#ouvrir} provoque une erreur.
  */
 public class ProfGraphique {
 	private static JFrame frame = null;
@@ -55,15 +55,15 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Ouvre la fenêtre dans laquelle seront affichées les éléments (textes ou
+	 * Ouvre la fenï¿½tre dans laquelle seront affichï¿½es les elements (textes ou
 	 * images).
 	 * 
 	 * @param titre
-	 *            Intitulé de la fenêtre.
+	 *            Intitulï¿½ de la fenï¿½tre.
 	 * @param largeur
-	 *            Largeur initiale de la fenêtre (nombre de pixels).
+	 *            Largeur initiale de la fenï¿½tre (nombre de pixels).
 	 * @param hauteur
-	 *            Hauteur initiale de la fenêtre (nombre de pixels).
+	 *            Hauteur initiale de la fenï¿½tre (nombre de pixels).
 	 */
 	public static void ouvrir(String titre, int largeur, int hauteur) {
 		frame = new JFrame(titre);
@@ -85,47 +85,47 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Ajoute une image qui sera affichée dans la fenêtre.
+	 * Ajoute une image qui sera affichï¿½e dans la fenï¿½tre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'élément.
+	 *            Identifiant de l'ï¿½lï¿½ment.
 	 * @param nomFichier
 	 *            Nom (relatif ou absolu) du fichier (gif, jpeg ou png)
 	 *            contenant l'image.
 	 * @param x
-	 *            Position horizontale (0 à gauche de la fenêtre).
+	 *            Position horizontale (0 ï¿½ gauche de la fenï¿½tre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fenêtre).
-	 * @return true si l'image a pu être ajoutée (le fichier existe et est dans
-	 *         un format acceptable) et que la fenêtre ne contient auncun
-	 *         élément portant un idenfiant égal à id.
+	 *            Position verticale (0 en haut de la fenï¿½tre).
+	 * @return true si l'image a pu ï¿½tre ajoutï¿½e (le fichier existe et est dans
+	 *         un format acceptable) et que la fenï¿½tre ne contient auncun
+	 *         ï¿½lï¿½ment portant un idenfiant ï¿½gal ï¿½ id.
 	 */
 	public static boolean ajouterImage(int id, String nomFichier, int x, int y) {
-		return panel.ajouterElément(id, new Image(nomFichier, x, y));
+		return panel.ajouterElement(id, new Image(nomFichier, x, y));
 	}
 
 	/**
-	 * Ajoute un élément textuel qui sera affiché dans la fenêtre.
+	 * Ajoute un ï¿½lï¿½ment textuel qui sera affichï¿½ dans la fenï¿½tre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'élément.
-	 * @param libellé
-	 *            Texte devant être affiché.
+	 *            Identifiant de l'ï¿½lï¿½ment.
+	 * @param Libelle
+	 *            Texte devant ï¿½tre affichï¿½.
 	 * @param x
-	 *            Position horizontale (0 à gauche de la fenêtre).
+	 *            Position horizontale (0 ï¿½ gauche de la fenï¿½tre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fenêtre).
-	 * @return true si la fenêtre ne contient auncun élément portant un
-	 *         idenfiant égal à id.
+	 *            Position verticale (0 en haut de la fenï¿½tre).
+	 * @return true si la fenï¿½tre ne contient auncun ï¿½lï¿½ment portant un
+	 *         idenfiant ï¿½gal ï¿½ id.
 	 */
-	public static boolean ajouterLibellé(int id, String libellé, int x, int y) {
-		return panel.ajouterElément(id, new Libellé(libellé, x, y));
+	public static boolean ajouterLibelle(int id, String Libelle, int x, int y) {
+		return panel.ajouterElement(id, new Libelle(Libelle, x, y));
 	}
 
 	/**
-	 * Retourne la postion graphique en X d'un élément.
+	 * Retourne la postion graphique en X d'un ï¿½lï¿½ment.
 	 * @param id
-	 *            Identifiant de l'élément.
+	 *            Identifiant de l'ï¿½lï¿½ment.
 	 * @return
 	 *            Sa position en X.
 	 */
@@ -134,9 +134,9 @@ public class ProfGraphique {
 	}
 	
 	/**
-	 * Retourne la postion graphique en Y d'un élément. 
+	 * Retourne la postion graphique en Y d'un ï¿½lï¿½ment. 
 	 * @param id
-	 *            Identifiant de l'élément.
+	 *            Identifiant de l'ï¿½lï¿½ment.
 	 * @return
 	 *            Sa position en Y.
 	 */
@@ -145,60 +145,60 @@ public class ProfGraphique {
 	}
 	
 	/**
-	 * Place élément (texte ou image) de la fenêtre.
+	 * Place ï¿½lï¿½ment (texte ou image) de la fenï¿½tre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'élément devant être placé.
+	 *            Identifiant de l'ï¿½lï¿½ment devant ï¿½tre placï¿½.
 	 * @param x
-	 *            Position horizontale (0 à gauche de la fenêtre).
+	 *            Position horizontale (0 ï¿½ gauche de la fenï¿½tre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fenêtre).
-	 * @return false si aucun élément de la fenêtre ne porte un idenfiant égal à
+	 *            Position verticale (0 en haut de la fenï¿½tre).
+	 * @return false si aucun ï¿½lï¿½ment de la fenï¿½tre ne porte un idenfiant ï¿½gal ï¿½
 	 *         id.
 	 */
-	public static boolean placerElément(int id, int x, int y) {
-		return panel.placerElément(id, x, y);
+	public static boolean placerElement(int id, int x, int y) {
+		return panel.placerElement(id, x, y);
 	}
 
 	/**
-	 * Déplace un élément (texte ou image) de la fenêtre.
+	 * Dï¿½place un ï¿½lï¿½ment (texte ou image) de la fenï¿½tre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'élément devant être déplacé.
+	 *            Identifiant de l'ï¿½lï¿½ment devant ï¿½tre dï¿½placï¿½.
 	 * @param dx
-	 *            Déplacement horizontal (négatif pour la gauche).
+	 *            Dï¿½placement horizontal (nï¿½gatif pour la gauche).
 	 * @param dy
-	 *            Déplacement vertical (négatif pour le haut).
-	 * @return false si aucun élément de la fenêtre ne porte un idenfiant égal à
+	 *            Dï¿½placement vertical (nï¿½gatif pour le haut).
+	 * @return false si aucun ï¿½lï¿½ment de la fenï¿½tre ne porte un idenfiant ï¿½gal ï¿½
 	 *         id.
 	 */
-	public static boolean déplacerElément(int id, int dx, int dy) {
-		return panel.déplacerElément(id, dx, dy);
+	public static boolean deplacerElement(int id, int dx, int dy) {
+		return panel.deplacerElement(id, dx, dy);
 	}
 
 	/**
-	 * Retire un élément (texte ou image) de la fenêtre.
+	 * Retire un ï¿½lï¿½ment (texte ou image) de la fenï¿½tre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'élément devant être retiré.
-	 * @return false si aucun élément de la fenêtre ne porte un idenfiant égal à
+	 *            Identifiant de l'ï¿½lï¿½ment devant ï¿½tre retirï¿½.
+	 * @return false si aucun ï¿½lï¿½ment de la fenï¿½tre ne porte un idenfiant ï¿½gal ï¿½
 	 *         id.
 	 */
-	public static boolean retirerElément(int id) {
-		return panel.retirerElément(id);
+	public static boolean retirerElement(int id) {
+		return panel.retirerElement(id);
 	}
 
-	/** Retire toutes les images de la fenêtre. */
+	/** Retire toutes les images de la fenï¿½tre. */
 	public static void retirerTout() {
 		panel.effacer();
 	}
 
-	/** Actualise l'affichage de la fenêtre. */
+	/** Actualise l'affichage de la fenï¿½tre. */
 	public static void actualiser() {
 		panel.repaint();
 	}
 
-	/** Ferme la fenêtre. */
+	/** Ferme la fenï¿½tre. */
 	public static void fermer() {
 		retirerTout();
 		frame.dispose();
@@ -208,15 +208,15 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Lire le prochain caratère. Les caractères saisis alors que la fenêtre a
-	 * le focus sont bufferisés. La méthode retourne les caractères dans l'ordre
-	 * où ils ont été saisis. La lecture est bloquante (i.e. si le buffer est
-	 * vide, le programme attend qu'un caractère soit saisi).
+	 * Lire le prochain caratï¿½re. Les Caracteres saisis alors que la fenï¿½tre a
+	 * le focus sont bufferisï¿½s. La mï¿½thode retourne les Caracteres dans l'ordre
+	 * oï¿½ ils ont ï¿½tï¿½ saisis. La lecture est bloquante (i.e. si le buffer est
+	 * vide, le programme attend qu'un Caractere soit saisi).
 	 * 
-	 * @return Le prochain caractère saisi.
-	 * @see GUITools#lireCaractèreNonBloquant
+	 * @return Le prochain Caractere saisi.
+	 * @see GUITools#lireCaractereNonBloquant
 	 */
-	public static char lireCaractère() {
+	public static char lireCaractere() {
 		char c;
 		synchronized (keyboard) {
 			while (keyboard.isEmpty())
@@ -229,19 +229,19 @@ public class ProfGraphique {
 		return c;
 	}
 
-	/** Voir la méthode {@link GUITools#lireCaractèreNonBloquant}. */
+	/** Voir la mï¿½thode {@link GUITools#lireCaractereNonBloquant}. */
 	public static final char CHAR_UNDEFINED = KeyEvent.CHAR_UNDEFINED;
 
 	/**
-	 * Lire le prochain caratère. Les caractères saisis alors que la fenêtre a
-	 * le focus sont bufferisés. La méthode retourne les caractères dans l'ordre
-	 * où ils ont été saisis. La lecture n'est pas bloquante. Si le buffer est
-	 * vide, la valeur {@link GUITools#CHAR_UNDEFINED} est retournée.
+	 * Lire le prochain caratï¿½re. Les Caracteres saisis alors que la fenï¿½tre a
+	 * le focus sont bufferisï¿½s. La mï¿½thode retourne les Caracteres dans l'ordre
+	 * oï¿½ ils ont ï¿½tï¿½ saisis. La lecture n'est pas bloquante. Si le buffer est
+	 * vide, la valeur {@link GUITools#CHAR_UNDEFINED} est retournï¿½e.
 	 * 
-	 * @return Le prochain caractère saisi ou {@link GUITools#CHAR_UNDEFINED}.
-	 * @see GUITools#lireCaractère
+	 * @return Le prochain Caractere saisi ou {@link GUITools#CHAR_UNDEFINED}.
+	 * @see GUITools#lireCaractere
 	 */
-	public static char lireCaractèreNonBloquant() {
+	public static char lireCaractereNonBloquant() {
 		char c = CHAR_UNDEFINED;
 		synchronized (keyboard) {
 			if (!keyboard.isEmpty())
@@ -250,12 +250,12 @@ public class ProfGraphique {
 		return c;
 	}
 
-	// Partie technique ne devant pas être employée en dehors de la classe
+	// Partie technique ne devant pas ï¿½tre employï¿½e en dehors de la classe
 	// ci-dessus.
-	private static abstract class Elément {
+	private static abstract class Element {
 		private int x, y;
 
-		public Elément(int x, int y) {
+		public Element(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -283,7 +283,7 @@ public class ProfGraphique {
 		}
 	}
 
-	private static class Image extends Elément {
+	private static class Image extends Element {
 		private ImageIcon image;
 
 		public Image(String nomFichier, int x, int y) {
@@ -300,43 +300,43 @@ public class ProfGraphique {
 		}
 	}
 
-	private static class Libellé extends Elément {
-		private String libellé;
+	private static class Libelle extends Element {
+		private String libelle;
 
-		public Libellé(String libellé, int x, int y) {
+		public Libelle(String Libelle, int x, int y) {
 			super(x, y);
-			this.libellé = libellé;
+			this.libelle = Libelle;
 		}
 
 		public void affiche(Graphics2D g2d) {
-			g2d.drawString(libellé, getX(), getY());
+			g2d.drawString(libelle, getX(), getY());
 		}
 	}
 
 	private static class JCanvas extends JPanel {
 		private static final long serialVersionUID = 1L;
-		private Map<Integer, Elément> éléments = new HashMap<Integer, Elément>();
+		private Map<Integer, Element> elements = new HashMap<Integer, Element>();
 
-		public boolean ajouterElément(int id, Elément i) {
+		public boolean ajouterElement(int id, Element i) {
 			if (!i.isOK())
 				return false;
-			synchronized (éléments) {
-				if (éléments.containsKey(id))
+			synchronized (elements) {
+				if (elements.containsKey(id))
 					return false;
-				éléments.put(id, i);
+				elements.put(id, i);
 			}
 			return true;
 		}
 
-		public boolean retirerElément(int id) {
-			synchronized (éléments) {
-				return éléments.remove(id) != null;
+		public boolean retirerElement(int id) {
+			synchronized (elements) {
+				return elements.remove(id) != null;
 			}
 		}
 
-		public boolean placerElément(int id, int x, int y) {
-			synchronized (éléments) {
-				Elément i = éléments.get(id);
+		public boolean placerElement(int id, int x, int y) {
+			synchronized (elements) {
+				Element i = elements.get(id);
 				if (i == null)
 					return false;
 				i.setX(x);
@@ -345,9 +345,9 @@ public class ProfGraphique {
 			}
 		}
 
-		public boolean déplacerElément(int id, int x, int y) {
-			synchronized (éléments) {
-				Elément i = éléments.get(id);
+		public boolean deplacerElement(int id, int x, int y) {
+			synchronized (elements) {
+				Element i = elements.get(id);
 				if (i == null)
 					return false;
 				i.setX(i.getX() + x);
@@ -357,8 +357,8 @@ public class ProfGraphique {
 		}
 
 		public int getX(int id) {
-			synchronized (éléments) {
-				Elément i = éléments.get(id);
+			synchronized (elements) {
+				Element i = elements.get(id);
 				if (i == null)
 					return Integer.MAX_VALUE;
 				return i.getX();
@@ -366,8 +366,8 @@ public class ProfGraphique {
 		}
 
 		public int getY(int id) {
-			synchronized (éléments) {
-				Elément i = éléments.get(id);
+			synchronized (elements) {
+				Element i = elements.get(id);
 				if (i == null)
 					return Integer.MAX_VALUE;
 				return i.getY();
@@ -375,8 +375,8 @@ public class ProfGraphique {
 		}
 
 		public void effacer() {
-			synchronized (éléments) {
-				éléments.clear();
+			synchronized (elements) {
+				elements.clear();
 			}
 		}
 
@@ -384,8 +384,8 @@ public class ProfGraphique {
 		public void paint(Graphics g) {
 			super.paint(g);
 			Graphics2D g2d = (Graphics2D) g;
-			synchronized (éléments) {
-				for (Elément i : éléments.values())
+			synchronized (elements) {
+				for (Element i : elements.values())
 					i.affiche(g2d);
 			}
 			// une grille (pratique pour debug)
