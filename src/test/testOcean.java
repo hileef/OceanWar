@@ -1,9 +1,7 @@
 package test;
 import static org.junit.Assert.*;
-import modele.Bateau;
-import modele.Cible;
-import modele.Coordonee;
-import modele.Ocean;
+import bateau.*;
+import modele.*;
 
 import org.junit.Test;
 
