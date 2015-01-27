@@ -1,7 +1,6 @@
-/modele/
-/controle/
-/testBateau$1.class
-/testBateau.class
-/testCoordonne.class
-/test/
+/affichage/
 /bateau/
+/controle/
+/modele/
+/test/
+/testOcean.class
