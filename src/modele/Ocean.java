@@ -81,10 +81,8 @@ public class Ocean implements Affichable {
 
 	// Gestion d'un pas de simulations
 	public void pasDeSimulation() {
-		for (Bateau b : bateaux) {
-			b.infosRadar(radar(b));
+		for (Bateau b : bateaux) 
 			b.jouerPas();
-		}
 		supprimerBateauxDetruits();
 	}
 	private void supprimerBateauxDetruits() {
@@ -105,7 +103,7 @@ public class Ocean implements Affichable {
 	}
 	
 	// Concerne les bateaux detectables par le radar 
-	private ArrayList<LinkedList<Bateau>> radar(Bateau a) {
+	public ArrayList<LinkedList<Bateau>> radar(Bateau a) {
 		return radar(a, 0, a.rayonRadar());
 	}
 	private ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {

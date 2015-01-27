@@ -1,16 +1,12 @@
 package bateau;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import modele.DIRECTION;
 import modele.Ocean;
 
 public class Hopital extends BateauxDAction {
-
-	private LinkedList<Bateau> bateauxAuMemeEndroit;
 	
-	@Override
 	public DIRECTION determinerDirection() {
 		direction(calculerDirection());
 		return direction();
@@ -23,22 +19,29 @@ public class Hopital extends BateauxDAction {
 			return directionAleatoire();
 		else return direction();
 	}
-	
-	@Override
-	public void agir() {
-		if(!bateauxAuMemeEndroit.isEmpty())
-			for(Bateau b : bateauxAuMemeEndroit)
+
+	public void agir(LinkedList<Bateau> liste) {
+		if(!liste.isEmpty())
+			for(Bateau b : liste)
 				b.reparer();
 	}
 
+	private LinkedList<Bateau> listeBateauxDepuisRadar() {
+		return ocean().radar(this).get(0);
+	}
+	
 	@Override
 	public String toString() {
 		return "H";
 	}
 
 	@Override
-	public void infosRadar(ArrayList<LinkedList<Bateau>> radar) {
-		bateauxAuMemeEndroit = radar.get(0);
+	public void jouerPas() {
+		LinkedList<Bateau> liste = listeBateauxDepuisRadar();
+		DIRECTION dir = determinerDirection();
+		if(dir != null)
+			this.position(this.position().coordoneeDansDirection(dir));
+		agir(liste);
 	}
 
 

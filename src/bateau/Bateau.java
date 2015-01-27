@@ -1,10 +1,8 @@
 package bateau;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import modele.Coordonee;
 import modele.DIRECTION;
+import modele.Ocean;
 import affichage.Affichable;
 import controle.Simulation;
 /**
@@ -19,10 +17,20 @@ public abstract class Bateau implements Affichable {
 	private int rayonRadar = 3;
 	private Coordonee position;
 	private DIRECTION direction;
+	private Ocean o;
 	
 	public Bateau() {
 		this.id = Simulation.idUnique();
 		vies = resistanceMax;
+	}
+	
+	public void ocean(Ocean o) {
+		if(o != null)
+			this.o = o;
+	}
+	
+	public Ocean ocean() {
+		return o;
 	}
 	
 	public int id() {
@@ -64,7 +72,6 @@ public abstract class Bateau implements Affichable {
 	
 	public abstract String toString();
 	
-	public abstract void infosRadar(ArrayList<LinkedList<Bateau>> radar) ;
 	public abstract void jouerPas() ;
 		
 }

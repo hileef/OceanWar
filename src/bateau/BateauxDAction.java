@@ -6,7 +6,6 @@ import modele.DIRECTION;
 import modele.Ocean;
 
 public abstract class BateauxDAction extends Bateau {
-
 	
 	protected DIRECTION directionAleatoire() {
 		LinkedList<DIRECTION> options = new LinkedList<DIRECTION>();
@@ -66,15 +65,6 @@ public abstract class BateauxDAction extends Bateau {
 	}
 	protected DIRECTION directionAleatoireDepuis(LinkedList<DIRECTION> options) {
 		return options.get((int) (Math.random() * (options.size() - 1)));
-	}
-
-	public abstract DIRECTION determinerDirection() ;
-	public abstract void agir() ;
-	
-	@Override
-	public void jouerPas() {
-		position(determinerDirection());
-		agir();
 	}
 	
 }

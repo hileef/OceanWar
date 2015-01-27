@@ -1,8 +1,5 @@
 package bateau;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import modele.DIRECTION;
 import modele.Ocean;
 
@@ -84,12 +81,7 @@ public class Cible extends Bateau {
 	public String toString() {
 		return "P";
 	}
-
-	@Override
-	public void infosRadar(ArrayList<LinkedList<Bateau>> radar) {
-		;
-	}
-
+	
 	@Override
 	public void jouerPas() {
 		DIRECTION dir = this.determinerDirection();
