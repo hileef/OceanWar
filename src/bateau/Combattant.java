@@ -10,10 +10,12 @@ public class Combattant extends BateauxDAction {
 	private static final int porteeDeTir = 2;
 	
 	public DIRECTION determinerDirection(LinkedList<Bateau> liste) {
+		if(liste.isEmpty()) return directionAleatoire();
+		
 		int distanceCibles = this.position().distance(liste.peekFirst().position());
 		DIRECTION directionCibles = this.position().directionVers(liste.peekFirst().position());
-		if(liste.isEmpty()) return directionAleatoire();
-		else if(distanceCibles > porteeDeTir)
+		
+		if(distanceCibles > porteeDeTir)
 			return directionCibles;
 		else if(distanceCibles == 1)
 			return null;
@@ -34,7 +36,7 @@ public class Combattant extends BateauxDAction {
 
 	private LinkedList<Bateau> listeBateauxDepuisRadar() {
 		
-		ArrayList<LinkedList<Bateau>> radar = ocean().radar(this);
+		ArrayList<LinkedList<Bateau>> radar = ocean().radar(this, 1, rayonRadar());
 		
 		LinkedList<Bateau> cibles = new LinkedList<Bateau>();
 		Bateau lePlusProche = null;

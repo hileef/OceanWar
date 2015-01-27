@@ -27,7 +27,7 @@ public class Hopital extends BateauxDAction {
 	}
 
 	private LinkedList<Bateau> listeBateauxDepuisRadar() {
-		return ocean().radar(this).get(0);
+		return ocean().radar(this, 0, 0).get(0);
 	}
 	
 	@Override

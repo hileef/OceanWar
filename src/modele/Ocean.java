@@ -74,6 +74,7 @@ public class Ocean implements Affichable {
 	public void ajouterBateau(Bateau b, Coordonee position) {
 		b.position(position);
 		bateaux.add(b);
+		b.ocean(this);
 	}
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
 		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
@@ -106,7 +107,7 @@ public class Ocean implements Affichable {
 	public ArrayList<LinkedList<Bateau>> radar(Bateau a) {
 		return radar(a, 0, a.rayonRadar());
 	}
-	private ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {
+	public ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {
 		int r, rayonRange = rayonMax - rayonMin + 1;
 		ArrayList<LinkedList<Bateau>> cibles = new ArrayList<LinkedList<Bateau>>(rayonRange);
 		for(int i = 0; i < rayonRange; ++i) cibles.add(i, new LinkedList<Bateau>());

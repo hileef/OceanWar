@@ -30,6 +30,8 @@ public abstract class Bateau implements Affichable {
 	}
 	
 	public Ocean ocean() {
+		if(o == null)
+			throw new IllegalStateException("Ocean n'a pas été donné.");
 		return o;
 	}
 	

@@ -1,11 +1,7 @@
 package test;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import modele.Coordonee;
-import modele.DIRECTION;
 
 import org.junit.Test;
 
@@ -19,12 +15,6 @@ public class testBateau {
 		public String toString() {
 			// TODO Auto-generated method stub
 			return null;
-		}
-
-		@Override
-		public void infosRadar(ArrayList<LinkedList<Bateau>> radar) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
