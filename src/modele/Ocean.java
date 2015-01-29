@@ -1,30 +1,23 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 
 import bateau.Bateau;
-import controle.Simulation;
-import affichage.Affichable;
 
-public class Ocean implements Affichable {
+public class Ocean {
 
 	// CONSTANTES
-	public static final int TAILLE_MATRICE = 10;
+	public static final int TAILLE_MATRICE = 15;
 
 	// ATTRIBUTS
-	private ArrayList<Bateau> bateaux;
-	private int id;
+	private LinkedList<Bateau> bateaux;
 
 	// METHODES
 	// Construction
 	public Ocean() {
-		id = Simulation.idUnique();
-		bateaux = new ArrayList<Bateau>();
-	}
-	
-	public int id() {
-		return id;
+		bateaux = new LinkedList<Bateau>();
 	}
 	
 	// Concerne affichage console
@@ -89,10 +82,12 @@ public class Ocean implements Affichable {
 	private void supprimerBateauxDetruits() {
 		LinkedList<Bateau> aDetruire = new LinkedList<Bateau>();
 		for (Bateau b : bateaux)
-			if(b.vies() == 0)
+			if(b.estDetruit())
 				aDetruire.add(b);
-		for(Bateau b : aDetruire)
+		for(Bateau b : aDetruire) {
 			bateaux.remove(b);
+		}
+			
 	}
 
 	// Concerne les bateaux dans une seule case
@@ -118,6 +113,9 @@ public class Ocean implements Affichable {
 		return cibles;
 	}
 
-
+	public LinkedList<Bateau> copieBateaux() {
+		return (LinkedList<Bateau>) bateaux.clone();
+	}
+	
 
 }

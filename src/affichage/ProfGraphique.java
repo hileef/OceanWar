@@ -19,32 +19,32 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Classe proposant un ensemble de m�thodes statiques permettant l'affichage
- * d'images et de textes au sein d'une fen�tre ainsi que la lecture des
- * Caracteres saisis au clavier lorsque la fen�tre a le focus.
+ * Classe proposant un ensemble de methodes statiques permettant l'affichage
+ * d'images et de textes au sein d'une fenetre ainsi que la lecture des
+ * Caracteres saisis au clavier lorsque la fenetre a le focus.
  * <p>
- * L'ouverture de la fen�tre ({@link Graphique#ouvrir}) provoque son affichage.
- * Images et Textes sont ajout�s � la fen�tre par {@link Graphique#ajouterImage}
- * et ({@link Graphique#ajouterLibelle}). Des m�thodes au nom suffisament
+ * L'ouverture de la fenetre ({@link Graphique#ouvrir}) provoque son affichage.
+ * Images et Textes sont ajoutes e la fenetre par {@link Graphique#ajouterImage}
+ * et ({@link Graphique#ajouterLibelle}). Des methodes au nom suffisament
  * parlant permettent de placer, deplacer, supprimer une ou tous les images et
- * textes. La mise � jour de l'affichage peut �tre forc� par l'emploi de la
- * m�thode {@link Graphique#actualiser}.
+ * textes. La mise e jour de l'affichage peut etre force par l'emploi de la
+ * methode {@link Graphique#actualiser}.
  * <p>
- * Les images doivent �tre fournies sous la forme de fichier gif, jpeg ou png.
- * Les fichiers gif anim�s ou transparents sont support�s.
+ * Les images doivent etre fournies sous la forme de fichier gif, jpeg ou png.
+ * Les fichiers gif animes ou transparents sont supportes.
  * <p>
- * La fen�tre peut �tre iconifi�e, maximis�e ou ferm�e par les icones se
- * trouvant en haut � droite. Toutefois, la fermeture de la fen�tre par l'icone
+ * La fenetre peut etre iconifiee, maximisee ou fermee par les icones se
+ * trouvant en haut e droite. Toutefois, la fermeture de la fenetre par l'icone
  * correspondant provoque automatiquement la fin de l'application
  * (System.exit(0)).
  * <p>
- * La lecture d'un Caractere par la m�thode {@link Graphique#lireCaractere} est
- * bloquante alors que la m�thode {@link Graphique#lireCaractereNonBloquant} ne
+ * La lecture d'un Caractere par la methode {@link Graphique#lireCaractere} est
+ * bloquante alors que la methode {@link Graphique#lireCaractereNonBloquant} ne
  * l'est pas.
  * <p>
- * Tout appel de m�thode avant l'ouverture de la fen�tre provoque une erreur.
- * Enfin, si la m�thode {@link Graphique#fermer} a �t� appel�e, tout appel autre
- * qu'� la m�thode {@link Graphique#ouvrir} provoque une erreur.
+ * Tout appel de methode avant l'ouverture de la fenetre provoque une erreur.
+ * Enfin, si la methode {@link Graphique#fermer} a ete appelee, tout appel autre
+ * qu'e la methode {@link Graphique#ouvrir} provoque une erreur.
  */
 public class ProfGraphique {
 	private static JFrame frame = null;
@@ -55,15 +55,15 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Ouvre la fen�tre dans laquelle seront affich�es les elements (textes ou
+	 * Ouvre la fenetre dans laquelle seront affichees les elements (textes ou
 	 * images).
 	 * 
 	 * @param titre
-	 *            Intitul� de la fen�tre.
+	 *            Intitule de la fenetre.
 	 * @param largeur
-	 *            Largeur initiale de la fen�tre (nombre de pixels).
+	 *            Largeur initiale de la fenetre (nombre de pixels).
 	 * @param hauteur
-	 *            Hauteur initiale de la fen�tre (nombre de pixels).
+	 *            Hauteur initiale de la fenetre (nombre de pixels).
 	 */
 	public static void ouvrir(String titre, int largeur, int hauteur) {
 		frame = new JFrame(titre);
@@ -85,47 +85,47 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Ajoute une image qui sera affich�e dans la fen�tre.
+	 * Ajoute une image qui sera affichee dans la fenetre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'�l�ment.
+	 *            Identifiant de l'element.
 	 * @param nomFichier
 	 *            Nom (relatif ou absolu) du fichier (gif, jpeg ou png)
 	 *            contenant l'image.
 	 * @param x
-	 *            Position horizontale (0 � gauche de la fen�tre).
+	 *            Position horizontale (0 e gauche de la fenetre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fen�tre).
-	 * @return true si l'image a pu �tre ajout�e (le fichier existe et est dans
-	 *         un format acceptable) et que la fen�tre ne contient auncun
-	 *         �l�ment portant un idenfiant �gal � id.
+	 *            Position verticale (0 en haut de la fenetre).
+	 * @return true si l'image a pu etre ajoutee (le fichier existe et est dans
+	 *         un format acceptable) et que la fenetre ne contient auncun
+	 *         element portant un idenfiant egal e id.
 	 */
 	public static boolean ajouterImage(int id, String nomFichier, int x, int y) {
 		return panel.ajouterElement(id, new Image(nomFichier, x, y));
 	}
 
 	/**
-	 * Ajoute un �l�ment textuel qui sera affich� dans la fen�tre.
+	 * Ajoute un element textuel qui sera affiche dans la fenetre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'�l�ment.
+	 *            Identifiant de l'element.
 	 * @param Libelle
-	 *            Texte devant �tre affich�.
+	 *            Texte devant etre affiche.
 	 * @param x
-	 *            Position horizontale (0 � gauche de la fen�tre).
+	 *            Position horizontale (0 e gauche de la fenetre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fen�tre).
-	 * @return true si la fen�tre ne contient auncun �l�ment portant un
-	 *         idenfiant �gal � id.
+	 *            Position verticale (0 en haut de la fenetre).
+	 * @return true si la fenetre ne contient auncun element portant un
+	 *         idenfiant egal e id.
 	 */
 	public static boolean ajouterLibelle(int id, String Libelle, int x, int y) {
 		return panel.ajouterElement(id, new Libelle(Libelle, x, y));
 	}
 
 	/**
-	 * Retourne la postion graphique en X d'un �l�ment.
+	 * Retourne la postion graphique en X d'un element.
 	 * @param id
-	 *            Identifiant de l'�l�ment.
+	 *            Identifiant de l'element.
 	 * @return
 	 *            Sa position en X.
 	 */
@@ -134,9 +134,9 @@ public class ProfGraphique {
 	}
 	
 	/**
-	 * Retourne la postion graphique en Y d'un �l�ment. 
+	 * Retourne la postion graphique en Y d'un element. 
 	 * @param id
-	 *            Identifiant de l'�l�ment.
+	 *            Identifiant de l'element.
 	 * @return
 	 *            Sa position en Y.
 	 */
@@ -145,15 +145,15 @@ public class ProfGraphique {
 	}
 	
 	/**
-	 * Place �l�ment (texte ou image) de la fen�tre.
+	 * Place element (texte ou image) de la fenetre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'�l�ment devant �tre plac�.
+	 *            Identifiant de l'element devant etre place.
 	 * @param x
-	 *            Position horizontale (0 � gauche de la fen�tre).
+	 *            Position horizontale (0 e gauche de la fenetre).
 	 * @param y
-	 *            Position verticale (0 en haut de la fen�tre).
-	 * @return false si aucun �l�ment de la fen�tre ne porte un idenfiant �gal �
+	 *            Position verticale (0 en haut de la fenetre).
+	 * @return false si aucun element de la fenetre ne porte un idenfiant egal e
 	 *         id.
 	 */
 	public static boolean placerElement(int id, int x, int y) {
@@ -161,15 +161,15 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * D�place un �l�ment (texte ou image) de la fen�tre.
+	 * Deplace un element (texte ou image) de la fenetre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'�l�ment devant �tre d�plac�.
+	 *            Identifiant de l'element devant etre deplace.
 	 * @param dx
-	 *            D�placement horizontal (n�gatif pour la gauche).
+	 *            Deplacement horizontal (negatif pour la gauche).
 	 * @param dy
-	 *            D�placement vertical (n�gatif pour le haut).
-	 * @return false si aucun �l�ment de la fen�tre ne porte un idenfiant �gal �
+	 *            Deplacement vertical (negatif pour le haut).
+	 * @return false si aucun element de la fenetre ne porte un idenfiant egal e
 	 *         id.
 	 */
 	public static boolean deplacerElement(int id, int dx, int dy) {
@@ -177,28 +177,28 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Retire un �l�ment (texte ou image) de la fen�tre.
+	 * Retire un element (texte ou image) de la fenetre.
 	 * 
 	 * @param id
-	 *            Identifiant de l'�l�ment devant �tre retir�.
-	 * @return false si aucun �l�ment de la fen�tre ne porte un idenfiant �gal �
+	 *            Identifiant de l'element devant etre retire.
+	 * @return false si aucun element de la fenetre ne porte un idenfiant egal e
 	 *         id.
 	 */
 	public static boolean retirerElement(int id) {
 		return panel.retirerElement(id);
 	}
 
-	/** Retire toutes les images de la fen�tre. */
+	/** Retire toutes les images de la fenetre. */
 	public static void retirerTout() {
 		panel.effacer();
 	}
 
-	/** Actualise l'affichage de la fen�tre. */
+	/** Actualise l'affichage de la fenetre. */
 	public static void actualiser() {
 		panel.repaint();
 	}
 
-	/** Ferme la fen�tre. */
+	/** Ferme la fenetre. */
 	public static void fermer() {
 		retirerTout();
 		frame.dispose();
@@ -208,9 +208,9 @@ public class ProfGraphique {
 	}
 
 	/**
-	 * Lire le prochain carat�re. Les Caracteres saisis alors que la fen�tre a
-	 * le focus sont bufferis�s. La m�thode retourne les Caracteres dans l'ordre
-	 * o� ils ont �t� saisis. La lecture est bloquante (i.e. si le buffer est
+	 * Lire le prochain caratere. Les Caracteres saisis alors que la fenetre a
+	 * le focus sont bufferises. La methode retourne les Caracteres dans l'ordre
+	 * oe ils ont ete saisis. La lecture est bloquante (i.e. si le buffer est
 	 * vide, le programme attend qu'un Caractere soit saisi).
 	 * 
 	 * @return Le prochain Caractere saisi.
@@ -229,14 +229,14 @@ public class ProfGraphique {
 		return c;
 	}
 
-	/** Voir la m�thode {@link GUITools#lireCaractereNonBloquant}. */
+	/** Voir la methode {@link GUITools#lireCaractereNonBloquant}. */
 	public static final char CHAR_UNDEFINED = KeyEvent.CHAR_UNDEFINED;
 
 	/**
-	 * Lire le prochain carat�re. Les Caracteres saisis alors que la fen�tre a
-	 * le focus sont bufferis�s. La m�thode retourne les Caracteres dans l'ordre
-	 * o� ils ont �t� saisis. La lecture n'est pas bloquante. Si le buffer est
-	 * vide, la valeur {@link GUITools#CHAR_UNDEFINED} est retourn�e.
+	 * Lire le prochain caratere. Les Caracteres saisis alors que la fenetre a
+	 * le focus sont bufferises. La methode retourne les Caracteres dans l'ordre
+	 * oe ils ont ete saisis. La lecture n'est pas bloquante. Si le buffer est
+	 * vide, la valeur {@link GUITools#CHAR_UNDEFINED} est retournee.
 	 * 
 	 * @return Le prochain Caractere saisi ou {@link GUITools#CHAR_UNDEFINED}.
 	 * @see GUITools#lireCaractere
@@ -250,7 +250,7 @@ public class ProfGraphique {
 		return c;
 	}
 
-	// Partie technique ne devant pas �tre employ�e en dehors de la classe
+	// Partie technique ne devant pas etre employee en dehors de la classe
 	// ci-dessus.
 	private static abstract class Element {
 		private int x, y;

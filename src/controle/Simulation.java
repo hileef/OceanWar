@@ -1,9 +1,7 @@
 package controle;
 
-import bateau.Cible;
-import bateau.Combattant;
-import bateau.Hopital;
-import affichage.Console;
+import bateau.*;
+import affichage.*;
 import modele.*;
 
 public class Simulation {
@@ -16,35 +14,43 @@ public class Simulation {
 	}
 	
 	// variable pour generation semi-aléatoire des bateaux
-	private static final double facteurGerme = 0.50;
-	private static final double germeNombreCombattant = 2;
-	private static final double germeNombreHopital = 4;
-	private static final double germeNombreCible = 7;
+	private static final double facteurGerme = 0.75;
+	private static final double germeNombreCombattant = 5;
+	private static final double germeNombreHopital = 5;
+	private static final double germeNombreCible = 5;
 	
-	private static final double vitesseDeSimulationEnHz = 8.0;
+	private static final double vitesseDeSimulationEnHz = 2.0;
 	
 	// attributs
 	private Ocean o;
 	private int nbPas;
-	private Console affConsole;
+	private Affichage affichage, affichage2;
 	
 	public Simulation(int nbPas) {
 		if(nbPas < 1) throw new IllegalArgumentException("Nombre de pas non valide.");
-		this.affConsole = new Console();
+//		this.affichage = new Console(Ocean.TAILLE_MATRICE);
+		this.affichage = new Graphique(Ocean.TAILLE_MATRICE);
 		this.nbPas = nbPas;
 		this.o = new Ocean();
 		usinerBateaux();
+		
 	}
 	
 	public void lancer() {
-		affConsole.ajouterElement(o);
-		affConsole.actualiser();
 		for(int i = 0; i < nbPas; ++i) {
 			o.pasDeSimulation();
-			affConsole.actualiser();
+			afficher(affichage);
 			pause(1.0 / vitesseDeSimulationEnHz);
 		}
 			
+	}
+	
+	private void afficher(Affichage a) {
+//		for(Bateau b : o.copieBateauxDetruits())
+//			a.actualiserPosition(b);
+		for(Bateau b : o.copieBateaux())
+			a.actualiserPosition(b);
+		a.actualiserAffichage();
 	}
 	
 	private int calculerNombreDepuisGerme(double germe) {

@@ -1,6 +1,5 @@
 package test;
 import static org.junit.Assert.*;
-
 import modele.Coordonee;
 
 import org.junit.Test;
@@ -21,6 +20,12 @@ public class testBateau {
 		public void jouerPas() {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public String imageURL() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	};

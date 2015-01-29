@@ -44,5 +44,10 @@ public class Hopital extends BateauxDAction {
 		agir(liste);
 	}
 
+	@Override
+	public String imageURL() {
+		return "Hopital.gif";
+	}
+
 
 }

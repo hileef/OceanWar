@@ -63,6 +63,11 @@ public class Combattant extends BateauxDAction {
 		agir(liste);
 	}
 
+	@Override
+	public String imageURL() {
+		return "Militaire.gif";
+	}
+
 
 
 }

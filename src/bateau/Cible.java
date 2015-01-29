@@ -88,6 +88,11 @@ public class Cible extends Bateau {
 		if(dir != null)
 			this.position(this.position().coordoneeDansDirection(dir));
 	}
+
+	@Override
+	public String imageURL() {
+		return "Civil.gif";
+	}
 	
 
 

@@ -29,7 +29,7 @@ public abstract class Bateau implements Affichable {
 			this.o = o;
 	}
 	
-	public Ocean ocean() {
+	protected Ocean ocean() {
 		if(o == null)
 			throw new IllegalStateException("Ocean n'a pas été donné.");
 		return o;
@@ -70,6 +70,10 @@ public abstract class Bateau implements Affichable {
 	}
 	public void reparer() { 
 		vies = resistanceMax;
+	}
+	
+	public boolean estDetruit() {
+		return (vies == 0);
 	}
 	
 	public abstract String toString();
