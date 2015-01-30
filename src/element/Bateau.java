@@ -1,13 +1,13 @@
 package element;
 
-import modele.DIRECTION;
+import modele.Direction;
 import modele.Ocean;
 /**
  * Contient les attributs et les mï¿½thodes permettant de gï¿½rer l'objet BATEAU.
  */
 public abstract class Bateau extends Element {
 
-	private static final int resistanceMax = 5;
+	private static final int resistanceMax = 8;
 	
 	private int vies;
 	private int rayonRadar = 3;
@@ -32,18 +32,16 @@ public abstract class Bateau extends Element {
 		return rayonRadar;
 	}
 	
-	public void position(DIRECTION dir) {
+	public void position(Direction dir) {
 		if(dir != null)
 			this.position(this.position().coordoneeDansDirection(dir));
 	}
 	
 	public int vies() {
-		if(vies < 0)
-			System.out.println("VIES NEGATIVES DETECTEES.");
 		return vies;
 	}
 	public void toucher() { 
-		--vies;
+		this.vies = (vies() > 0) ? vies() - 1 : 0;
 	}
 	public void reparer() { 
 		vies = resistanceMax;

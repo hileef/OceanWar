@@ -2,17 +2,17 @@ package element;
 
 import java.util.LinkedList;
 
-import modele.DIRECTION;
+import modele.Direction;
 import modele.Ocean;
 
 public class Hopital extends Bateau {
 	
-	public DIRECTION determinerDirection() {
+	public Direction determinerDirection() {
 		direction(calculerDirection());
 		return direction();
 	}
 	
-	private DIRECTION calculerDirection() {
+	private Direction calculerDirection() {
 		if(direction() == null) {
 			return directionAleatoire();
 		} else if(position().estUneBordure(0, Ocean.TAILLE_MATRICE - 1))
@@ -38,7 +38,7 @@ public class Hopital extends Bateau {
 	@Override
 	public void jouerPas() {
 		LinkedList<Bateau> liste = listeBateauxDepuisRadar();
-		DIRECTION dir = determinerDirection();
+		Direction dir = determinerDirection();
 		if(dir != null)
 			this.position(this.position().coordoneeDansDirection(dir));
 		agir(liste);

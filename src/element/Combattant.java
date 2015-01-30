@@ -3,22 +3,22 @@ package element;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import modele.DIRECTION;
+import modele.Direction;
 
 public class Combattant extends Bateau {
 	
 	private static final int porteeDeTir = 2;
 	
-	public DIRECTION determinerDirection(LinkedList<Bateau> liste) {
+	public Direction determinerDirection(LinkedList<Bateau> liste) {
 		direction(this.calculerDirection(liste));
 		return direction();
 	}
 	
-	public DIRECTION calculerDirection(LinkedList<Bateau> liste) {
+	public Direction calculerDirection(LinkedList<Bateau> liste) {
 		if(liste.isEmpty()) return directionAleatoire();
 		
 		int distanceCibles = this.position().distance(liste.peekFirst().position());
-		DIRECTION directionCibles = this.position().directionVers(liste.peekFirst().position());
+		Direction directionCibles = this.position().directionVers(liste.peekFirst().position());
 		
 		if(distanceCibles > porteeDeTir)
 			return directionCibles;
@@ -62,7 +62,7 @@ public class Combattant extends Bateau {
 	@Override
 	public void jouerPas() {
 		LinkedList<Bateau> liste = listeBateauxDepuisRadar();
-		DIRECTION dir = determinerDirection(liste);
+		Direction dir = determinerDirection(liste);
 		if(dir != null)
 			this.position(this.position().coordoneeDansDirection(dir));
 		agir(liste);

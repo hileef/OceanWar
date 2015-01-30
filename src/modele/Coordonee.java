@@ -32,23 +32,23 @@ public class Coordonee {
 		return y;
 	}
 	
-	public DIRECTION directionVers(Coordonee b) {
+	public Direction directionVers(Coordonee b) {
 		int dy = this.differenceY(b);
 		int dx = this.differenceX(b);
 		boolean d = this.x() == b.x() && this.y() == b.y();
 		if(d) return null;
-		if(dx == 0) return (b.y() > this.y()) ? DIRECTION.S: DIRECTION.N; 
-		if(dy == 0) return (b.x() > this.x()) ? DIRECTION.E: DIRECTION.O;
+		if(dx == 0) return (b.y() > this.y()) ? Direction.S: Direction.N; 
+		if(dy == 0) return (b.x() > this.x()) ? Direction.E: Direction.O;
 		if(dy > 0) { 
-			if(dx > 0) return DIRECTION.SE;
-			else return DIRECTION.SO;
+			if(dx > 0) return Direction.SE;
+			else return Direction.SO;
 		} else {
-			if(dx > 0) return DIRECTION.NE;
-			else return DIRECTION.NO;
+			if(dx > 0) return Direction.NE;
+			else return Direction.NO;
 		}
 	}
 	
-	public Coordonee coordoneeDansDirection(DIRECTION dir) {
+	public Coordonee coordoneeDansDirection(Direction dir) {
 		if(dir == null)
 			return this;
 		switch(dir) {
@@ -70,20 +70,20 @@ public class Coordonee {
 	public boolean estUneBordure(int xmin, int xmax, int ymin, int ymax) {
 		return (x == xmin || x == xmax || y == ymin || y == ymax);
 	}
-	public DIRECTION interpreterDirectionBordure(int min, int max) {
+	public Direction interpreterDirectionBordure(int min, int max) {
 		return interpreterDirectionBordure(min, max, min, max);
 	}
-	public DIRECTION interpreterDirectionBordure(int xmin, int xmax, int ymin, int ymax) {
+	public Direction interpreterDirectionBordure(int xmin, int xmax, int ymin, int ymax) {
 		if(x == xmin) {
-			if(y == ymin) return DIRECTION.NO;
-			else if(y == ymax) return DIRECTION.SO;
-			else return DIRECTION.O;
+			if(y == ymin) return Direction.NO;
+			else if(y == ymax) return Direction.SO;
+			else return Direction.O;
 		} else if(x == xmax) {
-			if(y == ymin) return DIRECTION.NE;
-			else if(y == ymax) return DIRECTION.SE;
-			else return DIRECTION.E;
-		} else if(y == ymin) return DIRECTION.N;
-		else if(y == ymax) return DIRECTION.S;
+			if(y == ymin) return Direction.NE;
+			else if(y == ymax) return Direction.SE;
+			else return Direction.E;
+		} else if(y == ymin) return Direction.N;
+		else if(y == ymax) return Direction.S;
 		else return null;
 	}
 	

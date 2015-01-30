@@ -127,6 +127,7 @@ public class Ocean {
 		LinkedList<Affichable> ret = new LinkedList<Affichable>();
 		ret.addAll(bateaux);
 		ret.addAll(bateauxDetruits);
+		bateauxDetruits.clear();
 		return ret;
 	}
 	

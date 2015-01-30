@@ -1,5 +1,5 @@
 package modele;
 
-public enum DIRECTION {
+public enum Direction {
 	 N, S, E, O, NE, NO, SE, SO 
 }
