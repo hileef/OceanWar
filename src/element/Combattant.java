@@ -1,15 +1,20 @@
-package bateau;
+package element;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import modele.DIRECTION;
 
-public class Combattant extends BateauxDAction {
+public class Combattant extends Bateau {
 	
 	private static final int porteeDeTir = 2;
 	
 	public DIRECTION determinerDirection(LinkedList<Bateau> liste) {
+		direction(this.calculerDirection(liste));
+		return direction();
+	}
+	
+	public DIRECTION calculerDirection(LinkedList<Bateau> liste) {
 		if(liste.isEmpty()) return directionAleatoire();
 		
 		int distanceCibles = this.position().distance(liste.peekFirst().position());
@@ -65,7 +70,7 @@ public class Combattant extends BateauxDAction {
 
 	@Override
 	public String imageURL() {
-		return "Militaire.gif";
+		return "Militaire" + imageURLComposante();
 	}
 
 

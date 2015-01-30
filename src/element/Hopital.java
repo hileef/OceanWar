@@ -1,11 +1,11 @@
-package bateau;
+package element;
 
 import java.util.LinkedList;
 
 import modele.DIRECTION;
 import modele.Ocean;
 
-public class Hopital extends BateauxDAction {
+public class Hopital extends Bateau {
 	
 	public DIRECTION determinerDirection() {
 		direction(calculerDirection());
@@ -46,7 +46,7 @@ public class Hopital extends BateauxDAction {
 
 	@Override
 	public String imageURL() {
-		return "Hopital.gif";
+		return "Hopital" + imageURLComposante();
 	}
 
 

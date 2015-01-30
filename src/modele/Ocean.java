@@ -1,10 +1,10 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 
-import bateau.Bateau;
+import affichage.Affichable;
+import element.*;
 
 public class Ocean {
 
@@ -13,52 +13,54 @@ public class Ocean {
 
 	// ATTRIBUTS
 	private LinkedList<Bateau> bateaux;
+	private LinkedList<Bateau> bateauxDetruits;
 
 	// METHODES
 	// Construction
 	public Ocean() {
 		bateaux = new LinkedList<Bateau>();
+		bateauxDetruits = new LinkedList<Bateau>();
 	}
 	
-	// Concerne affichage console
-	public String toString() {
-		String out = "      ";
-		for(int i = 0; i < TAILLE_MATRICE; ++i) {
-			out = out.concat(" ");
-			out = out.concat((i > 9) ? "" : "0");
-			out = out.concat(i + " ");
-		}
-		out = out.concat("\n");
-		for(int i = 0; i < TAILLE_MATRICE; ++i) {		
-			out = out.concat(ligneToString());
-			out = out.concat((i > 9) ? "" : "0");
-			out = out.concat(i + " >  ");
-			for(int j = 0; j < TAILLE_MATRICE; ++j) {
-				out = out.concat(" " + positionToString(new Coordonee(j, i)) + " ");
-				if(j == TAILLE_MATRICE - 1) out = out.concat(" ");
-			}
-				
-			out = out.concat("\n");
-			if(i == TAILLE_MATRICE - 1)
-				out = out.concat(ligneToString());
-		}
-		return out;
-				
-	}
-	private String ligneToString() {
-		String out = "";
-		out = out.concat("      ");
-		for(int j = 0; j < TAILLE_MATRICE; ++j) out = out.concat("    ");
-		out = out.concat(" \n");
-		return out;
-	}
-	private String positionToString(Coordonee position) {
-		if(listeBateauxDansPosition(position) == null) System.out.println("pos to string : " + position);
-		LinkedList<Bateau> liste = listeBateauxDansPosition(position);
-		if(liste.isEmpty()) return "~~";
-		else if(liste.size() == 1) return liste.peek().toString() + "" + (liste.peek().id());
-		else return liste.size() + "x";
-	}
+//	// Concerne affichage console
+//	public String toString() {
+//		String out = "      ";
+//		for(int i = 0; i < TAILLE_MATRICE; ++i) {
+//			out = out.concat(" ");
+//			out = out.concat((i > 9) ? "" : "0");
+//			out = out.concat(i + " ");
+//		}
+//		out = out.concat("\n");
+//		for(int i = 0; i < TAILLE_MATRICE; ++i) {		
+//			out = out.concat(ligneToString());
+//			out = out.concat((i > 9) ? "" : "0");
+//			out = out.concat(i + " >  ");
+//			for(int j = 0; j < TAILLE_MATRICE; ++j) {
+//				out = out.concat(" " + positionToString(new Coordonee(j, i)) + " ");
+//				if(j == TAILLE_MATRICE - 1) out = out.concat(" ");
+//			}
+//				
+//			out = out.concat("\n");
+//			if(i == TAILLE_MATRICE - 1)
+//				out = out.concat(ligneToString());
+//		}
+//		return out;
+//				
+//	}
+//	private String ligneToString() {
+//		String out = "";
+//		out = out.concat("      ");
+//		for(int j = 0; j < TAILLE_MATRICE; ++j) out = out.concat("    ");
+//		out = out.concat(" \n");
+//		return out;
+//	}
+//	private String positionToString(Coordonee position) {
+//		if(listeBateauxDansPosition(position) == null) System.out.println("pos to string : " + position);
+//		LinkedList<Bateau> liste = listeBateauxDansPosition(position);
+//		if(liste.isEmpty()) return "~~";
+//		else if(liste.size() == 1) return liste.peek().toString() + "" + (liste.peek().id());
+//		else return liste.size() + "x";
+//	}
 	
 
 
@@ -82,21 +84,23 @@ public class Ocean {
 	private void supprimerBateauxDetruits() {
 		LinkedList<Bateau> aDetruire = new LinkedList<Bateau>();
 		for (Bateau b : bateaux)
-			if(b.estDetruit())
+			if(b.estDetruit()) {
 				aDetruire.add(b);
+				bateauxDetruits.add(b);
+			}	
 		for(Bateau b : aDetruire) {
 			bateaux.remove(b);
 		}
 			
 	}
 
-	// Concerne les bateaux dans une seule case
-	private LinkedList<Bateau> listeBateauxDansPosition(Coordonee position) { 
-		LinkedList<Bateau> liste = new LinkedList<Bateau>();
-		for(Bateau b : bateaux) if(b.position().equals(position))
-			liste.add(b);
-		return liste;
-	}
+//	// Concerne les bateaux dans une seule case
+//	private LinkedList<Bateau> listeBateauxDansPosition(Coordonee position) { 
+//		LinkedList<Bateau> liste = new LinkedList<Bateau>();
+//		for(Bateau b : bateaux) if(b.position().equals(position))
+//			liste.add(b);
+//		return liste;
+//	}
 	
 	// Concerne les bateaux detectables par le radar 
 	public ArrayList<LinkedList<Bateau>> radar(Bateau a) {
@@ -113,8 +117,17 @@ public class Ocean {
 		return cibles;
 	}
 
-	public LinkedList<Bateau> copieBateaux() {
-		return (LinkedList<Bateau>) bateaux.clone();
+//	private LinkedList<Element> elements() {
+//		LinkedList<Element> ret = new LinkedList<Element>();
+//		ret.addAll(bateaux);
+//		ret.addAll(vagues);
+//		return ret;
+//	}
+	public LinkedList<Affichable> elementsAffichables() {
+		LinkedList<Affichable> ret = new LinkedList<Affichable>();
+		ret.addAll(bateaux);
+		ret.addAll(bateauxDetruits);
+		return ret;
 	}
 	
 

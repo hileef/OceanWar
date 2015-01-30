@@ -1,6 +1,6 @@
 package controle;
 
-import bateau.*;
+import element.*;
 import affichage.*;
 import modele.*;
 
@@ -14,17 +14,17 @@ public class Simulation {
 	}
 	
 	// variable pour generation semi-aléatoire des bateaux
-	private static final double facteurGerme = 0.75;
-	private static final double germeNombreCombattant = 5;
-	private static final double germeNombreHopital = 5;
-	private static final double germeNombreCible = 5;
+	private static final double facteurGerme = 0.5;
+	private static final double germeNombreCombattant = 3;
+	private static final double germeNombreHopital = 3;
+	private static final double germeNombreCible = 10;
 	
-	private static final double vitesseDeSimulationEnHz = 2.0;
+	private static final double vitesseDeSimulationEnHz = 3.0;
 	
 	// attributs
 	private Ocean o;
 	private int nbPas;
-	private Affichage affichage, affichage2;
+	private Affichage affichage;
 	
 	public Simulation(int nbPas) {
 		if(nbPas < 1) throw new IllegalArgumentException("Nombre de pas non valide.");
@@ -46,10 +46,8 @@ public class Simulation {
 	}
 	
 	private void afficher(Affichage a) {
-//		for(Bateau b : o.copieBateauxDetruits())
-//			a.actualiserPosition(b);
-		for(Bateau b : o.copieBateaux())
-			a.actualiserPosition(b);
+		for(Affichable e : o.elementsAffichables())
+			a.actualiserPosition(e);
 		a.actualiserAffichage();
 	}
 	

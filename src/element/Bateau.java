@@ -1,26 +1,19 @@
-package bateau;
+package element;
 
-import modele.Coordonee;
 import modele.DIRECTION;
 import modele.Ocean;
-import affichage.Affichable;
-import controle.Simulation;
 /**
  * Contient les attributs et les mï¿½thodes permettant de gï¿½rer l'objet BATEAU.
  */
-public abstract class Bateau implements Affichable {
+public abstract class Bateau extends Element {
 
 	private static final int resistanceMax = 5;
 	
-	private int id;
 	private int vies;
 	private int rayonRadar = 3;
-	private Coordonee position;
-	private DIRECTION direction;
 	private Ocean o;
 	
 	public Bateau() {
-		this.id = Simulation.idUnique();
 		vies = resistanceMax;
 	}
 	
@@ -31,42 +24,26 @@ public abstract class Bateau implements Affichable {
 	
 	protected Ocean ocean() {
 		if(o == null)
-			throw new IllegalStateException("Ocean n'a pas été donné.");
+			throw new IllegalStateException("Ocean n'a pas ete donne.");
 		return o;
-	}
-	
-	public int id() {
-		return id;
 	}
 	
 	public int rayonRadar() {
 		return rayonRadar;
 	}
 	
-	public Coordonee position() {
-		return position;
-	}
-	public void position(Coordonee destination) {
-		this.position = destination;
-	}
 	public void position(DIRECTION dir) {
 		if(dir != null)
 			this.position(this.position().coordoneeDansDirection(dir));
 	}
 	
-	
-	protected DIRECTION direction() {
-		return direction;
-	}
-	protected void direction(DIRECTION d) {
-		direction = d;
-	}
-	
 	public int vies() {
+		if(vies < 0)
+			System.out.println("VIES NEGATIVES DETECTEES.");
 		return vies;
 	}
 	public void toucher() { 
-		vies--;
+		--vies;
 	}
 	public void reparer() { 
 		vies = resistanceMax;
@@ -79,5 +56,24 @@ public abstract class Bateau implements Affichable {
 	public abstract String toString();
 	
 	public abstract void jouerPas() ;
+	
+	@Override
+	public boolean estAffichable() {
+		return !estDetruit();
+	}
+	
+	protected String imageURLComposante() {
+		if(direction() == null)
+			return ".gif";
+		switch(direction()) {
+		case NE:
+		case E:
+		case SE:
+		case S:
+			return "d.gif";
+		default:
+			return ".gif";
+		}
+	}
 		
 }

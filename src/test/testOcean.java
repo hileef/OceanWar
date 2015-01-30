@@ -1,9 +1,10 @@
 package test;
 import static org.junit.Assert.*;
-import bateau.*;
 import modele.*;
 
 import org.junit.Test;
+
+import element.*;
 
 
 public class testOcean {

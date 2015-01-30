@@ -1,5 +1,7 @@
 package affichage;
 
+import controle.Simulation;
+
 public class Graphique implements Affichage {
 
 //	private int tailleMatrice;
@@ -8,12 +10,17 @@ public class Graphique implements Affichage {
 	public Graphique(int tailleMatrice) {
 //		this.tailleMatrice = tailleMatrice;
 		ProfGraphique.ouvrir("test", tailleMatrice * 50, tailleMatrice * 50);
+		int idOcean = Simulation.idUnique();
+		ProfGraphique.ajouterImage(idOcean,"./src/images/ocean1.jpg", 0, 0);
 //		vagues();
 	}
 
 	@Override
 	public void actualiserPosition(Affichable a) {
-		if(!ProfGraphique.placerElement(a.id(), a.position().x() * 50, a.position().y() * 50)) {
+		if(!a.estAffichable()) {
+			ProfGraphique.retirerElement(a.id());
+		} else {
+			ProfGraphique.retirerElement(a.id());
 			ProfGraphique.ajouterImage(a.id(), "./src/images/" + a.imageURL(), a.position().x() * 50, a.position().y() * 50);
 		} 
 			

@@ -8,6 +8,6 @@ public interface Affichable {
 	public String toString() ;
 	public Coordonee position();
 	public String imageURL() ;
-//	public boolean estAffichable();
+	public boolean estAffichable();
 	
 }

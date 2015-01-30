@@ -15,8 +15,8 @@ public class Console implements Affichage {
 		int y = a.position().y();
 		String cmp = matrice[x][y];
 		int c;
-		if(cmp.equals("~~")) {
-			matrice[x][y] = a.toString() + a.id();
+		if(cmp.equals("  ")) {
+			matrice[x][y] = a.toString() + " ";
 		} else if((c = (cmp.charAt(0) - '0')) > 0 && c <= 9) {
 			matrice[x][y] = ((++c) + "x");
 		} else {
@@ -57,7 +57,7 @@ public class Console implements Affichage {
 	private void viderMatrice() {
 		for(int i = 0; i < matrice.length; ++i)
 			for(int j = 0; j < matrice.length; ++j)
-				matrice[i][j] = "~~";
+				matrice[i][j] = "  ";
 	}
 
 	private String ligneToString() {

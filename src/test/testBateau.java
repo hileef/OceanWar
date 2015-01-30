@@ -4,7 +4,7 @@ import modele.Coordonee;
 
 import org.junit.Test;
 
-import bateau.Bateau;
+import element.Bateau;
 
 
 public class testBateau {

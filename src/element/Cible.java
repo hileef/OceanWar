@@ -1,4 +1,4 @@
-package bateau;
+package element;
 
 import modele.DIRECTION;
 import modele.Ocean;
@@ -89,9 +89,10 @@ public class Cible extends Bateau {
 			this.position(this.position().coordoneeDansDirection(dir));
 	}
 
+
 	@Override
 	public String imageURL() {
-		return "Civil.gif";
+		return "Civil" + imageURLComposante();
 	}
 	
 
