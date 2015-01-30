@@ -46,7 +46,7 @@ public class Combattant extends Bateau {
 		LinkedList<Bateau> cibles = new LinkedList<Bateau>();
 		Bateau lePlusProche = null;
 
-		for(int i = 1; i < radar.size() && lePlusProche == null; ++i) {
+		for(int i = 0; i < radar.size() && lePlusProche == null; ++i) {
 			LinkedList<Bateau> liste = radar.get(i);
 			if(!liste.isEmpty()) {
 				lePlusProche = liste.peekFirst();

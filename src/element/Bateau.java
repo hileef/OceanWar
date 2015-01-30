@@ -64,15 +64,15 @@ public abstract class Bateau extends Element {
 	
 	protected String imageURLComposante() {
 		if(direction() == null)
-			return ".gif";
+			return ".png";
 		switch(direction()) {
 		case NE:
 		case E:
 		case SE:
 		case S:
-			return "d.gif";
+			return "d.png";
 		default:
-			return ".gif";
+			return ".png";
 		}
 	}
 		
