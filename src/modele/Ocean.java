@@ -71,6 +71,10 @@ public class Ocean {
 		bateaux.add(b);
 		b.ocean(this);
 	}
+	
+	public boolean estprésent(Bateau b){
+		return this.bateaux.contains(b);
+	}
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
 		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
 	}
@@ -92,6 +96,11 @@ public class Ocean {
 			bateaux.remove(b);
 		}
 			
+	}
+	
+	public boolean aétésupprimé(Bateau b){
+		supprimerBateauxDetruits();
+		return this.bateauxDetruits.contains(b);
 	}
 
 //	// Concerne les bateaux dans une seule case

@@ -1,35 +1,69 @@
 package test;
+
 import static org.junit.Assert.*;
-import modele.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import modele.Coordonee;
+import modele.Ocean;
 
 import org.junit.Test;
 
-import element.*;
-
+import element.Bateau;
+import element.Cible;
 
 public class testOcean {
 	
 	Ocean o = new Ocean();
-	Bateau b = new Cible();
-	Bateau d = new Cible();
+	Cible b = new Cible();
+	Coordonee c = new Coordonee(5,5);
+	Cible b2 = new Cible();
+	Coordonee c2 = new Coordonee(6,6);
+	
 
 	@Test
 	public void testAjouterBateau() {
-		Coordonee c = new Coordonee(5,5);
 		o.ajouterBateau(b, c);
-		System.out.println(b.hashCode());
-		System.out.println(d.hashCode());
-
+		assertTrue(o.estprésent(b));
+		assertTrue(b.ocean() ==o);
+		
 	}
 
 	@Test
 	public void testAjouterBateauSurPositionAleatoire() {
-		fail("Pas encore implémenté");
+		o.ajouterBateauSurPositionAleatoire(b);
+		assertTrue(o.estprésent(b));
+		assertTrue(b.ocean() ==o);
 	}
 
 	@Test
-	public void testPasDeSimulation() {
-		fail("Pas encore implémenté");
+	public void testsupprimerBateauxDetruits() {
+		o.ajouterBateau(b, c);
+		for (int i =0; i < b.resistance(); ++i){
+			b.toucher();
+		}
+		assertTrue(b.estDetruit());
+		assertTrue(o.aétésupprimé(b));
+		assertFalse(o.estprésent(b));
 	}
+	
+	
+	@Test
+	public void testRadarBateau() {
+		boolean bool = false;
+		o.ajouterBateau(b, c);
+		o.ajouterBateau(b2, c2);
+		
+		ArrayList<LinkedList<Bateau>> cibles = o.radar(b);
+		for (LinkedList<Bateau> l : cibles){
+			if(l.contains(b2)){
+				bool = true;
+			};
+		}
+		assertTrue(bool);		
+		
+	}
+		
 
 }

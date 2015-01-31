@@ -16,13 +16,15 @@ public abstract class Bateau extends Element {
 	public Bateau() {
 		vies = resistanceMax;
 	}
-	
+	public int resistance(){
+		return resistanceMax;
+	}
 	public void ocean(Ocean o) {
 		if(o != null)
 			this.o = o;
 	}
 	
-	protected Ocean ocean() {
+	public Ocean ocean() {
 		if(o == null)
 			throw new IllegalStateException("Ocean n'a pas ete donne.");
 		return o;
