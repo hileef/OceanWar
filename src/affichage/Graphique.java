@@ -22,7 +22,9 @@ public class Graphique implements Affichage {
 			ProfGraphique.retirerElement(a.id());
 			origines.remove(Integer.parseInt("" + a.id()));
 		} else {
-			origines.put(key, value)
+			if(origines.containsKey(Integer.parseInt("" + a.id())))
+				origines.put(a.id(), new Coordonee(ProfGraphique.getX(a.id()), ProfGraphique.getY(a.id())));
+			
 			ProfGraphique.retirerElement(a.id());
 			ProfGraphique.ajouterImage(a.id(), "./src/images/" + a.imageURL(), a.position().x() * 50, a.position().y() * 50);
 		} 
