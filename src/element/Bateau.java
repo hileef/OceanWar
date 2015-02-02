@@ -10,7 +10,7 @@ public abstract class Bateau extends Element {
 	private static final int resistanceMax = 8;
 	
 	private int vies;
-	private int rayonRadar = 3;
+	private int rayonRadar = 2;
 	private Ocean o;
 	
 	public Bateau() {

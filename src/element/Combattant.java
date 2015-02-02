@@ -1,13 +1,12 @@
 package element;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import modele.Direction;
 
 public class Combattant extends Bateau {
 	
-	private static final int porteeDeTir = 2;
+	private static final int porteeDeTir = 3;
 	
 	public Direction determinerDirection(LinkedList<Bateau> liste) {
 		direction(this.calculerDirection(liste));
@@ -40,24 +39,27 @@ public class Combattant extends Bateau {
 	}
 
 	private LinkedList<Bateau> listeBateauxDepuisRadar() {
-		
-		ArrayList<LinkedList<Bateau>> radar = ocean().radar(this, 1, rayonRadar());
-		
-		LinkedList<Bateau> cibles = new LinkedList<Bateau>();
-		Bateau lePlusProche = null;
-
-		for(int i = 0; i < radar.size() && lePlusProche == null; ++i) {
-			LinkedList<Bateau> liste = radar.get(i);
-			if(!liste.isEmpty()) {
-				lePlusProche = liste.peekFirst();
-				for(Bateau b : liste)
-					if(b.position().equals(lePlusProche.position()))
-						cibles.add(b);
-			}
-		}
-		
-		return cibles;
+		return ocean().radarPlusProches(this, 1, rayonRadar());
 	}
+//	private LinkedList<Bateau> listeBateauxDepuisRadar() {
+//		
+//		ArrayList<LinkedList<Bateau>> radar = ocean().radar(this, 1, rayonRadar());
+//		
+//		LinkedList<Bateau> cibles = new LinkedList<Bateau>();
+//		Bateau lePlusProche = null;
+//
+//		for(int i = 0; i < radar.size() && lePlusProche == null; ++i) {
+//			LinkedList<Bateau> liste = radar.get(i);
+//			if(!liste.isEmpty()) {
+//				lePlusProche = liste.peekFirst();
+//				for(Bateau b : liste)
+//					if(b.position().equals(lePlusProche.position()))
+//						cibles.add(b);
+//			}
+//		}
+//		
+//		return cibles;
+//	}
 	
 	@Override
 	public void jouerPas() {

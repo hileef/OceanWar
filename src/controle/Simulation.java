@@ -15,11 +15,11 @@ public class Simulation {
 	
 	// variable pour generation semi-aléatoire des bateaux
 	private static final double facteurGerme = 0.75;
-	private static final double germeNombreCombattant = 5;
+	private static final double germeNombreCombattant = 10;
 	private static final double germeNombreHopital = 3;
-	private static final double germeNombreCible = 10;
+	private static final double germeNombreCible = 20;
 	
-	private static final double vitesseDeSimulationEnHz = 8.0;
+	private static final double vitesseDeSimulationEnHz = 5.0;
 	
 	// attributs
 	private Ocean o;
@@ -38,8 +38,12 @@ public class Simulation {
 	
 	public void lancer() {
 		for(int i = 0; i < nbPas; ++i) {
+			Statistics.checkPoint("DEBUT BOUCLE");
 			o.pasDeSimulation();
+			Statistics.checkPoint("PAS DE SIMULATION EFFECTUES");
+			Statistics.checkPoint("DEBUT AFFICHAGE");
 			afficher(affichage);
+			Statistics.checkPoint("FIN AFFICHAGE");
 		}
 			
 	}

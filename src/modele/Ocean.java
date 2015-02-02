@@ -3,6 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import controle.Statistics;
 import affichage.Affichable;
 import element.*;
 
@@ -36,9 +37,15 @@ public class Ocean {
 
 	// Gestion d'un pas de simulations
 	public void pasDeSimulation() {
-		for (Bateau b : bateaux) 
+		Statistics.checkPoint("Pas De Simulation (init)");
+		for (Bateau b : bateaux) {
 			b.jouerPas();
+			Statistics.checkPoint("Pas De Simulation : " + b.toString());
+		}
+			
+		Statistics.checkPoint("Supprimer les bateaux detruits");
 		supprimerBateauxDetruits();
+		Statistics.checkPoint("- bateaux supprimes");
 	}
 	private void supprimerBateauxDetruits() {
 		// TODO OPTIMISER
@@ -60,7 +67,6 @@ public class Ocean {
 		return radar(a, 0, a.rayonRadar());
 	}
 	public ArrayList<LinkedList<Bateau>> radar(Bateau a, int rayonMin, int rayonMax) {
-		// TODO OPTIMISER
 		int r, rayonRange = rayonMax - rayonMin + 1;
 		ArrayList<LinkedList<Bateau>> cibles = new ArrayList<LinkedList<Bateau>>(rayonRange);
 		for(int i = 0; i < rayonRange; ++i) cibles.add(i, new LinkedList<Bateau>());
@@ -70,12 +76,35 @@ public class Ocean {
 				cibles.get(r - rayonMin).add(b);
 		return cibles;
 	}
+	public LinkedList<Bateau> radarPlusProches(Bateau a, int rayonMin, int rayonMax) {
+		Statistics.checkPoint("Radar [2] [" + rayonMin + "," + rayonMax + "]");
+		LinkedList<Bateau> liste = new LinkedList<Bateau>();
+		
+		int d, rmin = rayonMax + 1;
+
+		for (Bateau b : bateaux) if(b.id() != a.id()) {
+			d = a.position().distance(b.position());
+			if(d > rayonMax || d < rayonMin) {
+				;
+			} else if(d < rmin) {
+				liste.clear();
+				liste.add(b);
+				rmin = d;
+			} else if(d == rmin) {
+				liste.add(b);
+			}
+		}
+		Statistics.checkPoint("- radar termine");
+		return liste;
+	}
 
 	public LinkedList<Affichable> elementsAffichables() {
+		Statistics.checkPoint(" Elements Affichables");
 		LinkedList<Affichable> ret = new LinkedList<Affichable>();
 		ret.addAll(bateaux);
 		ret.addAll(bateauxDetruits);
 		bateauxDetruits.clear();
+		Statistics.checkPoint("- elements affichables donnes");
 		return ret;
 	}
 	
