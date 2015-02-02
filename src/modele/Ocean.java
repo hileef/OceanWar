@@ -72,7 +72,7 @@ public class Ocean {
 		b.ocean(this);
 	}
 	
-	public boolean estprésent(Bateau b){
+	public boolean estPresent(Bateau b){
 		return this.bateaux.contains(b);
 	}
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
@@ -98,7 +98,7 @@ public class Ocean {
 			
 	}
 	
-	public boolean aétésupprimé(Bateau b){
+	public boolean aEteSupprime(Bateau b){
 		supprimerBateauxDetruits();
 		return this.bateauxDetruits.contains(b);
 	}

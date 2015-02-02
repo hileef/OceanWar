@@ -129,7 +129,7 @@ public class ProfGraphique {
 	 * @return
 	 *            Sa position en X.
 	 */
-	public int getX(int id) {
+	public static int getX(int id) {
 		return panel.getX(id);
 	}
 	
@@ -140,7 +140,7 @@ public class ProfGraphique {
 	 * @return
 	 *            Sa position en Y.
 	 */
-	public int getY(int id) {
+	public static int getY(int id) {
 		return panel.getY(id);
 	}
 	

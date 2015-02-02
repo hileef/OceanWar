@@ -15,9 +15,9 @@ public class Simulation {
 	
 	// variable pour generation semi-aléatoire des bateaux
 	private static final double facteurGerme = 0.75;
-	private static final double germeNombreCombattant = 10;
+	private static final double germeNombreCombattant = 5;
 	private static final double germeNombreHopital = 3;
-	private static final double germeNombreCible = 30;
+	private static final double germeNombreCible = 10;
 	
 	private static final double vitesseDeSimulationEnHz = 8.0;
 	
@@ -64,7 +64,7 @@ public class Simulation {
 		for(int i = 0; i < nbHopital; ++i) o.ajouterBateauSurPositionAleatoire(new Hopital());
 	}
 	
-	private static void pause(double secondes) {
+	public static void pause(double secondes) {
 		try {
 			Thread.sleep((int) (1000 * secondes));
 		} catch (InterruptedException e) {

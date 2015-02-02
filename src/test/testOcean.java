@@ -25,7 +25,7 @@ public class testOcean {
 	@Test
 	public void testAjouterBateau() {
 		o.ajouterBateau(b, c);
-		assertTrue(o.estprésent(b));
+		assertTrue(o.estPresent(b));
 		assertTrue(b.ocean() ==o);
 		
 	}
@@ -33,7 +33,7 @@ public class testOcean {
 	@Test
 	public void testAjouterBateauSurPositionAleatoire() {
 		o.ajouterBateauSurPositionAleatoire(b);
-		assertTrue(o.estprésent(b));
+		assertTrue(o.estPresent(b));
 		assertTrue(b.ocean() ==o);
 	}
 
@@ -44,8 +44,8 @@ public class testOcean {
 			b.toucher();
 		}
 		assertTrue(b.estDetruit());
-		assertTrue(o.aétésupprimé(b));
-		assertFalse(o.estprésent(b));
+		assertTrue(o.aEteSupprime(b));
+		assertFalse(o.estPresent(b));
 	}
 	
 	
