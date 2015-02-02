@@ -40,7 +40,6 @@ public class Simulation {
 		for(int i = 0; i < nbPas; ++i) {
 			o.pasDeSimulation();
 			afficher(affichage);
-			pause(1.0 / vitesseDeSimulationEnHz);
 		}
 			
 	}
@@ -48,7 +47,7 @@ public class Simulation {
 	private void afficher(Affichage a) {
 		for(Affichable e : o.elementsAffichables())
 			a.actualiserPosition(e);
-		a.actualiserAffichage();
+		a.actualiserAffichage(1.0 / vitesseDeSimulationEnHz);
 	}
 	
 	private int calculerNombreDepuisGerme(double germe) {
@@ -64,12 +63,6 @@ public class Simulation {
 		for(int i = 0; i < nbHopital; ++i) o.ajouterBateauSurPositionAleatoire(new Hopital());
 	}
 	
-	public static void pause(double secondes) {
-		try {
-			Thread.sleep((int) (1000 * secondes));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 }

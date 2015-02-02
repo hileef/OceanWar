@@ -62,10 +62,11 @@ public abstract class Bateau extends Element {
 		return !estDetruit();
 	}
 	
+	
 	protected String imageURLComposante() {
 		if(direction() == null)
 			return ".png";
-		switch(direction()) {
+		else switch(direction()) {
 		case NE:
 		case E:
 		case SE:
@@ -74,6 +75,9 @@ public abstract class Bateau extends Element {
 		default:
 			return ".png";
 		}
+
 	}
+	
+
 		
 }

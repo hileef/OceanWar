@@ -106,5 +106,12 @@ public class Coordonee {
 		return (b.y() - this.y());
 	}
 	
+	public Coordonee facteur(int f) {
+		return new Coordonee(this.x() * f, this.y() * f);
+	}
+	
+	public static Coordonee differentielVers(Direction d) {
+		return (new Coordonee(0, 0)).coordoneeDansDirection(d);
+	}
 	
 }

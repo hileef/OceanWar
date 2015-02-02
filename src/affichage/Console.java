@@ -1,6 +1,6 @@
 package affichage;
 
-public class Console implements Affichage {
+public class Console extends Affichage {
 	
 	private String[][] matrice;
 
@@ -25,7 +25,8 @@ public class Console implements Affichage {
 	}
 
 	@Override
-	public void actualiserAffichage() {
+	public void actualiserAffichage(double secondes) {
+		this.pause(secondes);
 		System.out.println(matriceToString());
 		viderMatrice();
 	}

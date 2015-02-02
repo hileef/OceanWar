@@ -1,11 +1,17 @@
 package affichage;
 
-public interface Affichage {
+public abstract class Affichage {
 	
-	public void actualiserPosition(Affichable a) ;
+	public abstract void actualiserPosition(Affichable a) ;
 	
-	public void actualiserAffichage() ;
+	public abstract void actualiserAffichage(double secondes) ;
 	
-	
+	protected void pause(double secondes) {
+		try {
+			Thread.sleep((int) (1000 * secondes));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
