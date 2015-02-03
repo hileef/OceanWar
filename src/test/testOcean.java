@@ -55,12 +55,10 @@ public class testOcean {
 		o.ajouterBateau(b, c);
 		o.ajouterBateau(b2, c2);
 		
-		ArrayList<LinkedList<Bateau>> cibles = o.radar(b);
-		for (LinkedList<Bateau> l : cibles){
-			if(l.contains(b2)){
+		LinkedList<Bateau> cibles = o.radar(b);
+			if(cibles.contains(b2)){
 				bool = true;
-			};
-		}
+			}
 		assertTrue(bool);		
 		
 	}

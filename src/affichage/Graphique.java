@@ -38,14 +38,14 @@ public class Graphique extends Affichage {
 
 	@Override
 	public void actualiserAffichage(double secondes) {
-		for(int i = 0; i < 25; ++i) {
+		for(int i = 0; i < 50; ++i) {
 			for(Integer id : destinations.keySet()) {
 				Coordonee origine = new Coordonee(ProfGraphique.getX(id), ProfGraphique.getY(id));
-				Coordonee differentiel = Coordonee.differentielVers(origine.directionVers(destinations.get(id))).facteur(2);
+				Coordonee differentiel = Coordonee.differentielVers(origine.directionVers(destinations.get(id))).facteur(1);
 				ProfGraphique.deplacerElement(id, differentiel.x(), differentiel.y());
 			}
 			ProfGraphique.actualiser();
-			pause(secondes / 25);
+			pause(secondes / 50);
 		}
 		
 	}
