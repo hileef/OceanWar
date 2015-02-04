@@ -18,7 +18,7 @@ public class Graphique extends Affichage {
 
 	@Override
 	public void actualiserPosition(Affichable a) {
-		if(!a.estAffichable()) {
+		if(a.estDetruit()) {
 			ProfGraphique.retirerElement(a.id());
 			destinations.remove(Integer.parseInt("" + a.id()));
 		} else {

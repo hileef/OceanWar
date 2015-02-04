@@ -15,9 +15,9 @@ public class Simulation {
 	
 	// variable pour generation semi-aléatoire des bateaux
 	private static final double facteurGerme = 0.75;
-	private static final double germeNombreCombattant = 7;
+	private static final double germeNombreCombattant = 10;
 	private static final double germeNombreHopital = 5;
-	private static final double germeNombreCible = 30;
+	private static final double germeNombreCible = 20;
 	
 	private static final double vitesseDeSimulationEnHz = 6.0;
 	
