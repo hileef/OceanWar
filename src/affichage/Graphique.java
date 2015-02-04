@@ -2,15 +2,15 @@ package affichage;
 
 import java.util.HashMap;
 
-import modele.Coordonee;
+import modele.Coordonnee;
 import controle.Simulation;
 
 public class Graphique extends Affichage {
 	
-	private HashMap<Integer, Coordonee> destinations;
+	private HashMap<Integer, Coordonnee> destinations;
 
 	public Graphique(int tailleMatrice) {
-		destinations = new HashMap<Integer, Coordonee>();
+		destinations = new HashMap<Integer, Coordonnee>();
 		ProfGraphique.ouvrir("test", tailleMatrice * 50, tailleMatrice * 50);
 		int idOcean = Simulation.idUnique();
 		ProfGraphique.ajouterImage(idOcean,"./src/images/ocean1.jpg", 0, 0);
@@ -40,8 +40,8 @@ public class Graphique extends Affichage {
 	public void actualiserAffichage(double secondes) {
 		for(int i = 0; i < 50; ++i) {
 			for(Integer id : destinations.keySet()) {
-				Coordonee origine = new Coordonee(ProfGraphique.getX(id), ProfGraphique.getY(id));
-				Coordonee differentiel = Coordonee.differentielVers(origine.directionVers(destinations.get(id))).facteur(1);
+				Coordonnee origine = new Coordonnee(ProfGraphique.getX(id), ProfGraphique.getY(id));
+				Coordonnee differentiel = Coordonnee.differentielVers(origine.directionVers(destinations.get(id))).facteur(1);
 				ProfGraphique.deplacerElement(id, differentiel.x(), differentiel.y());
 			}
 			ProfGraphique.actualiser();

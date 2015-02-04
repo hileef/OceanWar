@@ -1,12 +1,12 @@
 package affichage;
 
-import modele.Coordonee;
+import modele.Coordonnee;
 
 public interface Affichable {
 
 	public int id() ;
 	public String toString() ;
-	public Coordonee position();
+	public Coordonnee position();
 	public String imageURL() ;
 	public boolean estDetruit();
 	

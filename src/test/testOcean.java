@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import modele.Coordonee;
+import modele.Coordonnee;
 import modele.Ocean;
 
 import org.junit.Test;
@@ -17,9 +17,9 @@ public class testOcean {
 	
 	Ocean o = new Ocean();
 	Cible b = new Cible();
-	Coordonee c = new Coordonee(5,5);
+	Coordonnee c = new Coordonnee(5,5);
 	Cible b2 = new Cible();
-	Coordonee c2 = new Coordonee(6,6);
+	Coordonnee c2 = new Coordonnee(6,6);
 	
 
 	@Test

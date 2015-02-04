@@ -86,7 +86,7 @@ public class Cible extends Bateau {
 	public void jouerPas() {
 		Direction dir = this.determinerDirection();
 		if(dir != null)
-			this.position(this.position().coordoneeDansDirection(dir));
+			this.position(this.position().coordonneeDansDirection(dir));
 	}
 
 

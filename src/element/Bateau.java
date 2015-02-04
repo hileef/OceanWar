@@ -38,7 +38,7 @@ public abstract class Bateau extends Element {
 	
 	public void position(Direction dir) {
 		if(dir != null)
-			this.position(this.position().coordoneeDansDirection(dir));
+			this.position(this.position().coordonneeDansDirection(dir));
 	}
 	
 	public int vies() {

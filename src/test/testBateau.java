@@ -1,6 +1,6 @@
 package test;
 import static org.junit.Assert.*;
-import modele.Coordonee;
+import modele.Coordonnee;
 
 import org.junit.Test;
 
@@ -32,12 +32,12 @@ public class testBateau {
 
 	@Test
 	public void testconstructeurBateau() {
-		assertEquals(b.vies(), 5);
+		assertEquals(b.vies(), 8);
 	}
 
 	@Test
 	public void testPositionCoordonee() {
-		Coordonee c = new Coordonee(5,6);
+		Coordonnee c = new Coordonnee(5,6);
 		b.position(c);
 		assertEquals(b.position(),c);
 	}
@@ -46,13 +46,13 @@ public class testBateau {
 	@Test
 	public void testToucher() {
 		b.toucher();
-		assertEquals(b.vies(),4);
+		assertEquals(b.vies(),7);
 	}
 
 	@Test
 	public void testReparer() {
 		b.reparer();
-		assertEquals(b.vies(),5);
+		assertEquals(b.vies(),8);
 	}
 
 }

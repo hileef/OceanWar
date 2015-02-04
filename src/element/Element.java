@@ -2,7 +2,7 @@ package element;
 
 import java.util.Observable;
 
-import modele.Coordonee;
+import modele.Coordonnee;
 import modele.Direction;
 import affichage.Affichable;
 import controle.Simulation;
@@ -10,7 +10,7 @@ import controle.Simulation;
 public abstract class Element extends Observable implements Affichable {
 
 	private Direction direction;
-	private Coordonee position;
+	private Coordonnee position;
 	private int id;
 
 	public Element() {
@@ -23,11 +23,11 @@ public abstract class Element extends Observable implements Affichable {
 	}
 
 	@Override
-	public Coordonee position() {
+	public Coordonnee position() {
 		return position;
 	}
 	
-	public void position(Coordonee destination) {
+	public void position(Coordonnee destination) {
 		this.position = destination;
 		this.setChanged();
 		this.notifyObservers(EtatElement.POSITION_CHANGEE);

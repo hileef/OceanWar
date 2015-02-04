@@ -1,15 +1,15 @@
 package modele;
 
-public class Coordonee {
+public class Coordonnee {
 
 	private int x;
 	private int y;
 	
-	public static Coordonee aleatoire(int maximum) {
-		return new Coordonee((int) (Math.random() * maximum), (int) (Math.random() * maximum));
+	public static Coordonnee aleatoire(int maximum) {
+		return new Coordonnee((int) (Math.random() * maximum), (int) (Math.random() * maximum));
 	}
 	
-	public Coordonee(int x, int y) {
+	public Coordonnee(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -18,7 +18,7 @@ public class Coordonee {
 		return "(" + x + ";" + y + ")";
 	}
 	public boolean equals(Object o) {
-		Coordonee a = (Coordonee) o;
+		Coordonnee a = (Coordonnee) o;
 		return (this.x() == a.x() && this.y() == a.y());
 	}
 	public int hashCode() {
@@ -32,7 +32,7 @@ public class Coordonee {
 		return y;
 	}
 	
-	public Direction directionVers(Coordonee b) {
+	public Direction directionVers(Coordonnee b) {
 		int dy = this.differenceY(b);
 		int dx = this.differenceX(b);
 		boolean d = this.x() == b.x() && this.y() == b.y();
@@ -48,18 +48,18 @@ public class Coordonee {
 		}
 	}
 	
-	public Coordonee coordoneeDansDirection(Direction dir) {
+	public Coordonnee coordonneeDansDirection(Direction dir) {
 		if(dir == null)
 			return this;
 		switch(dir) {
-		case NO : return new Coordonee(this.x() - 1, this.y() - 1);
-		case NE : return new Coordonee(this.x() + 1, this.y() - 1);
-		case SO : return new Coordonee(this.x() - 1, this.y() + 1);
-		case SE : return new Coordonee(this.x() + 1, this.y() + 1);
-		case N : return new Coordonee(this.x(), this.y() - 1);
-		case S : return new Coordonee(this.x(), this.y() + 1);
-		case E : return new Coordonee(this.x() + 1, this.y());
-		case O : return new Coordonee(this.x() - 1, this.y());
+		case NO : return new Coordonnee(this.x() - 1, this.y() - 1);
+		case NE : return new Coordonnee(this.x() + 1, this.y() - 1);
+		case SO : return new Coordonnee(this.x() - 1, this.y() + 1);
+		case SE : return new Coordonnee(this.x() + 1, this.y() + 1);
+		case N : return new Coordonnee(this.x(), this.y() - 1);
+		case S : return new Coordonnee(this.x(), this.y() + 1);
+		case E : return new Coordonnee(this.x() + 1, this.y());
+		case O : return new Coordonnee(this.x() - 1, this.y());
 		default : return null;
 		}
 	}
@@ -87,31 +87,31 @@ public class Coordonee {
 		else return null;
 	}
 	
-	public int distance(Coordonee b) {
+	public int distance(Coordonnee b) {
 		int i = this.distanceY(b);
 		int j = this.distanceX(b);
 		int k = Math.abs(i - j);
 		return (i < j) ? i + k: j + k;
 	}
-	public int distanceX(Coordonee b) {
+	public int distanceX(Coordonnee b) {
 		return Math.abs(differenceX(b));
 	}
-	public int distanceY(Coordonee b) {
+	public int distanceY(Coordonnee b) {
 		return Math.abs(this.differenceY(b));
 	}
-	public int differenceX(Coordonee b) {
+	public int differenceX(Coordonnee b) {
 		return (b.x() - this.x());
 	}
-	public int differenceY(Coordonee b) {
+	public int differenceY(Coordonnee b) {
 		return (b.y() - this.y());
 	}
 	
-	public Coordonee facteur(int f) {
-		return new Coordonee(this.x() * f, this.y() * f);
+	public Coordonnee facteur(int f) {
+		return new Coordonnee(this.x() * f, this.y() * f);
 	}
 	
-	public static Coordonee differentielVers(Direction d) {
-		return (new Coordonee(0, 0)).coordoneeDansDirection(d);
+	public static Coordonnee differentielVers(Direction d) {
+		return (new Coordonnee(0, 0)).coordonneeDansDirection(d);
 	}
 	
 }

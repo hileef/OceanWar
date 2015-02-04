@@ -66,7 +66,7 @@ public class Combattant extends Bateau {
 		LinkedList<Bateau> liste = listeBateauxDepuisRadar();
 		Direction dir = determinerDirection(liste);
 		if(dir != null)
-			this.position(this.position().coordoneeDansDirection(dir));
+			this.position(this.position().coordonneeDansDirection(dir));
 		agir(liste);
 	}
 

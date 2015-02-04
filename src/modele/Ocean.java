@@ -23,7 +23,7 @@ public class Ocean {
 	}
 	
 	// Concerne gestion de bateaux
-	public void ajouterBateau(Bateau b, Coordonee position) {
+	public void ajouterBateau(Bateau b, Coordonnee position) {
 		b.position(position);
 		bateaux.add(b);
 		b.ocean(this);
@@ -31,7 +31,7 @@ public class Ocean {
 	
 
 	public void ajouterBateauSurPositionAleatoire(Bateau b) {
-		ajouterBateau(b, Coordonee.aleatoire(TAILLE_MATRICE));
+		ajouterBateau(b, Coordonnee.aleatoire(TAILLE_MATRICE));
 	}
 
 	// Gestion d'un pas de simulations
