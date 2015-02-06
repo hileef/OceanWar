@@ -1,10 +1,14 @@
-package element;
+package bateau;
 
 import modele.Direction;
-import modele.Ocean;
+import controle.Ocean;
 
 public class Cible extends Bateau {
-	
+
+	public Cible(Integer id, Ocean acces) {
+		super(id, acces);
+	}
+
 	private Direction suivante = null;
 	private boolean retour = false;
 	
@@ -78,23 +82,24 @@ public class Cible extends Bateau {
 		}
 	}
 
+	@Override
 	public String toString() {
-		return "P";
+		return "~C";
 	}
 	
-	@Override
-	public void jouerPas() {
-		Direction dir = this.determinerDirection();
-		if(dir != null)
-			this.position(this.position().coordonneeDansDirection(dir));
-	}
-
-
 	@Override
 	public String imageURL() {
-		return "Civil" + imageURLComposante();
+		return "civil" + this.imageURLComposante();
+	}
+
+	@Override
+	public void tour() {
+		Direction dir = this.determinerDirection();
+		if(dir != null) this.position(position().coordonneeDansDirection(dir));;
 	}
 	
+
+
 
 
 }

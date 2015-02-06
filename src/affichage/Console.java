@@ -1,16 +1,18 @@
 package affichage;
 
-public class Console extends Affichage {
-	
+import controle.Ocean;
+
+public class Console extends AffichageGen {
+
 	private String[][] matrice;
 
-	public Console(int tailleMatrice) {
-		matrice = new String[tailleMatrice][tailleMatrice];
+	public Console() {
+		matrice = new String[Ocean.TAILLE_MATRICE][Ocean.TAILLE_MATRICE];
 		viderMatrice();
 	}
-
+	
 	@Override
-	public void actualiserPosition(Affichable a) {
+	public void actualiser(Affichable a) {
 		int x = a.position().x();
 		int y = a.position().y();
 		String cmp = matrice[x][y];
@@ -25,10 +27,10 @@ public class Console extends Affichage {
 	}
 
 	@Override
-	public void actualiserAffichage(double secondes) {
-		this.pause(secondes);
+	public void actualiser(double secondes, boolean clignotant) {
 		System.out.println(matriceToString());
 		viderMatrice();
+		pause(secondes);
 	}
 
 	private String matriceToString() {
@@ -68,6 +70,10 @@ public class Console extends Affichage {
 		out = out.concat(" \n");
 		return out;
 	}
-	
-	
+
+	@Override
+	protected void detruire(Affichable a) {
+		;
+	}
+
 }

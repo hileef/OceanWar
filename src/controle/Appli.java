@@ -1,12 +1,12 @@
 package controle;
 
+import affichage.Graphique;
+
 public class Appli {
 
 	public static void main(String[] args) {
-		
-		Simulation s = new Simulation(500);
-		s.lancer();
-		
+		(new Ocean(new Graphique())).lancerTours();
+//		(new Ocean()).lancerTours();
 	}
 
 }

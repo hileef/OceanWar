@@ -3,53 +3,53 @@ package affichage;
 import java.util.HashMap;
 
 import modele.Coordonnee;
-import controle.Simulation;
+import controle.Ocean;
 
-public class Graphique extends Affichage {
+public class Graphique extends AffichageGen {
 	
 	private HashMap<Integer, Coordonnee> destinations;
 
-	public Graphique(int tailleMatrice) {
+	public Graphique() {
 		destinations = new HashMap<Integer, Coordonnee>();
-		ProfGraphique.ouvrir("test", tailleMatrice * 50, tailleMatrice * 50);
-		int idOcean = Simulation.idUnique();
-		ProfGraphique.ajouterImage(idOcean,"./src/images/ocean1.jpg", 0, 0);
+		ProfGraphique.ouvrir("Ocean War", Ocean.TAILLE_MATRICE * 50, Ocean.TAILLE_MATRICE * 50);
+		ProfGraphique.ajouterImage(0, "/images/ocean1.jpg", 0, 0);
 	}
-
+	
 	@Override
-	public void actualiserPosition(Affichable a) {
-		if(a.estDetruit()) {
-			ProfGraphique.retirerElement(a.id());
-			destinations.remove(Integer.parseInt("" + a.id()));
-		} else {
-			int x, y;
-			if(destinations.containsKey(Integer.parseInt("" + a.id()))) {
-				x = ProfGraphique.getX(a.id());
-				y = ProfGraphique.getY(a.id());
-			} else {
-				x = a.position().facteur(50).x();
-				y = a.position().facteur(50).y();
-			}
-			ProfGraphique.retirerElement(a.id());
-			ProfGraphique.ajouterImage(a.id(), "./src/images/" + a.imageURL(), x, y);
-			destinations.put(Integer.parseInt("" + a.id()), a.position().facteur(50));
-		} 
-	}
-
-	@Override
-	public void actualiserAffichage(double secondes) {
-		for(int i = 0; i < 50; ++i) {
+	public void actualiser(double secondes, boolean clignotant) {
+		int steps = (clignotant) ? 1 : (secondes == 0.0) ? 5: 10;
+		int facteur = 50 / steps;
+		for(int i = 0; i < steps; ++i) {
 			for(Integer id : destinations.keySet()) {
 				Coordonnee origine = new Coordonnee(ProfGraphique.getX(id), ProfGraphique.getY(id));
-				Coordonnee differentiel = Coordonnee.differentielVers(origine.directionVers(destinations.get(id))).facteur(1);
+				Coordonnee differentiel = Coordonnee.differentielVers(origine.directionVers(destinations.get(id))).facteur(facteur);
 				ProfGraphique.deplacerElement(id, differentiel.x(), differentiel.y());
 			}
 			ProfGraphique.actualiser();
-			pause(secondes / 50);
+			pause(secondes / steps);
 		}
+	}
+
+	@Override
+	protected void actualiser(Affichable a) {
+		int x, y;
+		if(destinations.containsKey(Integer.parseInt("" + a.id()))) {
+			x = ProfGraphique.getX(a.id());
+			y = ProfGraphique.getY(a.id());
+		} else {
+			x = a.position().facteur(50).x();
+			y = a.position().facteur(50).y();
+		}
+		ProfGraphique.retirerElement(a.id());
+		ProfGraphique.ajouterImage(a.id(), "/images/" + a.imageURL(), x, y);
+		destinations.put(Integer.parseInt("" + a.id()), a.position().facteur(50));
+	}
+
+	@Override
+	protected void detruire(Affichable a) {
+		ProfGraphique.retirerElement(a.id());
+		destinations.remove(a.id());
 		
 	}
-	
 
-	
 }

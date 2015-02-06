@@ -288,7 +288,7 @@ public class ProfGraphique {
 
 		public Image(String nomFichier, int x, int y) {
 			super(x, y);
-			image = new ImageIcon(nomFichier);
+			image = new ImageIcon(getClass().getResource(nomFichier));
 		}
 
 		public void affiche(Graphics2D g2d) {

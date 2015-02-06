@@ -1,77 +1,38 @@
-package element;
+package bateau;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
+import controle.Ocean;
 import modele.Direction;
-import modele.Ocean;
-/**
- * Contient les attributs et les mï¿½thodes permettant de gï¿½rer l'objet BATEAU.
- */
-public abstract class Bateau extends Element {
+import modele.Element;
 
-	private static final int resistanceMax = 8;
+public abstract class BateauDAction extends Bateau {
+
+	private static final int rayonRadar = 4;
 	
-	private int vies;
-	private int rayonRadar = 2;
-	private Ocean o;
+	protected int rayonRadar() { return rayonRadar; }
 	
-	public Bateau() {
-		vies = resistanceMax;
-	}
-	public int resistance(){
-		return resistanceMax;
-	}
-	public void ocean(Ocean o) {
-		if(o != null)
-			this.o = o;
+	public BateauDAction(Integer id, Ocean acces) {
+		super(id, acces);
 	}
 	
-	public Ocean ocean() {
-		if(o == null)
-			throw new IllegalStateException("Ocean n'a pas ete donne.");
-		return o;
-	}
+	protected abstract void agir(Collection<Element> liste);
+	protected abstract Collection<Element> listeBateauxDepuisRadar() ;
+	protected abstract Direction calculerDirection(Collection<Element> liste) ;
 	
-	public int rayonRadar() {
-		return rayonRadar;
-	}
-	
-	public void position(Direction dir) {
+	@Override
+	public void tour() {
+		Collection<Element> liste = listeBateauxDepuisRadar();
+		Direction dir = determinerDirection(liste);
 		if(dir != null)
 			this.position(this.position().coordonneeDansDirection(dir));
+		agir(liste);
 	}
 	
-	public int vies() {
-		return vies;
-	}
-	public void toucher() { 
-		this.vies = (vies() > 0) ? vies() - 1 : 0;
-	}
-	public void reparer() { 
-		vies = resistanceMax;
-	}
-	
-	public boolean estDetruit() {
-		return (vies == 0);
-	}
-	
-	public abstract String toString();
-	
-	public abstract void jouerPas() ;	
-	
-	protected String imageURLComposante() {
-		if(direction() == null)
-			return ".png";
-		else switch(direction()) {
-		case NE:
-		case E:
-		case SE:
-		case S:
-			return "d.png";
-		default:
-			return ".png";
-		}
-
+	protected Direction determinerDirection(Collection<Element> liste) {
+		direction(this.calculerDirection(liste));
+		return direction();
 	}
 	
 	protected Direction directionAleatoire() {
@@ -134,6 +95,4 @@ public abstract class Bateau extends Element {
 		return options.get((int) (Math.random() * (options.size())));
 	}
 	
-
-		
 }

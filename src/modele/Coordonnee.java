@@ -1,5 +1,7 @@
 package modele;
 
+import controle.Ocean;
+
 public class Coordonnee {
 
 	private int x;

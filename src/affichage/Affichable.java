@@ -1,13 +1,19 @@
 package affichage;
 
+import java.util.Observer;
+
 import modele.Coordonnee;
+import modele.Direction;
 
 public interface Affichable {
 
-	public int id() ;
-	public String toString() ;
+	public void addObserver(Observer o);
+	
+	public String toString();
+	public String imageURL();
+	
+	public Integer id();
 	public Coordonnee position();
-	public String imageURL() ;
-	public boolean estDetruit();
+	public Direction direction();
 	
 }
