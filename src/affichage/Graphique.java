@@ -9,10 +9,9 @@ public class Graphique extends AffichageGen {
 	
 	private HashMap<Integer, Coordonnee> destinations;
 
-	public Graphique() {
-		destinations = new HashMap<Integer, Coordonnee>();
+	public Graphique() { 
 		ProfGraphique.ouvrir("Ocean War", Ocean.TAILLE_MATRICE * 50, Ocean.TAILLE_MATRICE * 50);
-		ProfGraphique.ajouterImage(0, "/images/ocean1.jpg", 0, 0);
+		reinitaliser();
 	}
 	
 	@Override
@@ -50,6 +49,24 @@ public class Graphique extends AffichageGen {
 		ProfGraphique.retirerElement(a.id());
 		destinations.remove(a.id());
 		
+	}
+
+	@Override
+	public boolean demanderSiRejouer() {
+		char c;
+		ProfGraphique.retirerTout();
+		ProfGraphique.ajouterLibelle(0, "Desirez-vous relancer (oui / non) ? _ _ _", 50, 50);
+		ProfGraphique.actualiser();
+		while((c = ProfGraphique.lireCaractereNonBloquant()) != 'o' && c !='n');
+		return (c == 'o');
+	}
+
+	@Override
+	public void reinitaliser() {
+		destinations = new HashMap<Integer, Coordonnee>();
+		ProfGraphique.retirerTout();
+		ProfGraphique.ajouterImage(0, "/images/ocean1.jpg", 0, 0);
+		ProfGraphique.actualiser();
 	}
 
 }

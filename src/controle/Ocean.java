@@ -14,35 +14,82 @@ import modele.EtatElement;
 import modele.Usine;
 import modele.UsineStandard;
 
+/**
+ * Classe de controle principale, se charge d'orchestrer le jeu.
+ *
+ */
 public class Ocean implements Observer {
 	
-	private static final int NOMBRE_TOURS = 200;
+	/**
+	 * Le nombre de pas de simulation a effectuer.
+	 */
+	private static final int NOMBRE_TOURS = 150;
+	
+	/**
+	 * Le nombre de cases de chaque colonne et rangee de la matrice representee.
+	 */
 	public static final int TAILLE_MATRICE = 15;
 	
+	/**
+	 * La frequence a laquelle chaque pas de simulation est effectuee (representee en Hz).
+	 */
 	private static final double frequenceTours = 6.0;
 	
-	private static boolean clignotant = false;
+	/**
+	 * Permet de choisir entre la representation graphique fluide ou par étapes.
+	 * Sur des machines peu performantes, choisir true, sinon false pour une experience plus agreable.
+	 */
+	private static final boolean clignotant = false;
 	
+	/**
+	 * La reference vers l'affichage qui sera utilise, est initalisee a la contruction de la classe.
+	 */
 	private Affichage affichage;
+	
+	// TODO ADD DOCUMENTATION
+	private Usine usine;
+	
+	/**
+	 * La collection qui contiendra les elements de l'ocean. (Voir doc de l'interface Element)
+	 * LinkedHasMap a ete choisie pour ses hautes performances pour les algorithmes utilises dans cette classe.
+	 */
 	private LinkedHashMap<Integer, Element> elements;
+	
+	/**
+	 * Collection qui contiendra, a chaque tour, les id des elements a retirer de la collection qui contient tout les elements de l'ocean.
+	 */
 	private Queue<Integer> aRetirer;
 	
+	/**
+	 * Constructeur secondaire
+	 * Ce constructeur lancera le contructeur principal avec un affichage Console en parametre.
+	 */
 	public Ocean(){
 		this(new Console());
 	}
+	/**
+	 * Constructeur secondaire
+	 * Ce constructeur lancera le contructeur principal avec l'affichage donne et une UsineStandard en parametre.
+	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
+	 */
 	public Ocean(Affichage a) {
 		this(new UsineStandard(), a);
 	}
+	/**
+	 * Constructeur principal
+	 * Se charge d'initialiser les attributs necessaires
+	 * Lancera la production de l'usine en parametre, et stockera ses produits. (Voir doc Usine)
+	 * @param u L'usine qui sera utilisee pour populer l'ocean des elements produits.
+	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
+	 */
 	public Ocean(Usine u, Affichage a) {
+		usine = u;
 		affichage = a;
-		elements = new LinkedHashMap<Integer, Element>();
-		aRetirer = new LinkedList<Integer>();
 		
-		u.ajouterOcean(this);
-		u.ajouterObserver(affichage);
-		Collection<Element> produits = u.produire();
-		for(Element e : produits)
-			elements.put(e.id(), e);
+		usine.ajouterOcean(this);
+		usine.ajouterObserver(affichage);
+		
+		reinitialiser();
 	}
 	
 	public void lancerTours() {
@@ -56,8 +103,20 @@ public class Ocean implements Observer {
 			tempsRestant = (tempsRestant > 0.0) ? tempsRestant : 0.0;
 			affichage.actualiser((1 / frequenceTours), clignotant);
 		}
+		if(affichage.demanderSiRejouer()) {
+			reinitialiser();
+			lancerTours();
+		}
 	}
 
+	private void reinitialiser() {
+		affichage.reinitaliser();
+		elements = new LinkedHashMap<Integer, Element>();
+		aRetirer = new LinkedList<Integer>();
+		Collection<Element> produits = usine.produire();
+		for(Element e : produits)
+			elements.put(e.id(), e);
+	}
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		assert(arg0 != null && arg1 != null);
@@ -86,6 +145,9 @@ public class Ocean implements Observer {
 			} else
 				intrusion = false;
 		}
+		
+		if(!liste.isEmpty() && Math.random() <= 0.2) 
+			liste.removeFirst();
 
 		if(intrusion)
 			throw new IllegalAccessError("Acces non autorise."
@@ -93,6 +155,8 @@ public class Ocean implements Observer {
 		
 		return liste;
 	}
+	
+	
 	
 
 }

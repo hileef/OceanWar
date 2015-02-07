@@ -1,12 +1,16 @@
 package affichage;
 
+import java.util.Scanner;
+
 import controle.Ocean;
 
 public class Console extends AffichageGen {
 
 	private String[][] matrice;
+	private Scanner sc;
 
 	public Console() {
+		sc = new Scanner(System.in);
 		matrice = new String[Ocean.TAILLE_MATRICE][Ocean.TAILLE_MATRICE];
 		viderMatrice();
 	}
@@ -74,6 +78,19 @@ public class Console extends AffichageGen {
 	@Override
 	protected void detruire(Affichable a) {
 		;
+	}
+
+	@Override
+	public boolean demanderSiRejouer() {
+		char c;
+		do { System.out.print("Desirez-vous rejouer (oui / non) ? "); }
+		while((c = sc.nextLine().charAt(0)) != 'o' && c != 'n') ;
+		return (c == 'o');
+	}
+
+	@Override
+	public void reinitaliser() {
+		viderMatrice();
 	}
 
 }
