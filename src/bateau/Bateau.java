@@ -42,7 +42,7 @@ public abstract class Bateau extends Observable implements Element {
 		if(vies > 0) {
 			this.position = pos;
 			this.setChanged();
-			this.notifyObservers(EtatElement.POSITION_CHANGEE);
+			this.notifyObservers(EtatElement.POSITION);
 		} 
 	}
 

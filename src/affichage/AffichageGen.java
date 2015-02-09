@@ -21,11 +21,11 @@ public abstract class AffichageGen implements Affichage {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		assert(arg0 != null && arg1 != null);
-		assert(arg0.getClass().isAssignableFrom(Element.class));
-		assert(arg1.getClass().isAssignableFrom(EtatElement.class));
+		assert(Element.class.isAssignableFrom(arg0.getClass()));
+		assert(EtatElement.class.isAssignableFrom(arg1.getClass()));
 		
 		switch(((EtatElement)arg1)) {
-		case POSITION_CHANGEE :
+		case POSITION :
 			actualiser(((Element)arg0));
 			break;
 		case DETRUIT:

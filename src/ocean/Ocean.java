@@ -46,7 +46,9 @@ public class Ocean implements Observer {
 	 */
 	private Affichage affichage;
 	
-	// TODO ADD DOCUMENTATION
+	/**
+	 * La reference vers usine qui sera utilise a la construction de l'ocean et a la reinitaliser() pour poupler l'ocean.
+	 */
 	private Usine usine;
 	
 	/**
@@ -83,6 +85,8 @@ public class Ocean implements Observer {
 	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
 	 */
 	public Ocean(Usine u, Affichage a) {
+		assert(u != null && a != null);
+		
 		usine = u;
 		affichage = a;
 		
@@ -92,6 +96,23 @@ public class Ocean implements Observer {
 		reinitialiser();
 	}
 	
+	private void reinitialiser() {
+		affichage.reinitaliser();
+		elements = new LinkedHashMap<Integer, Element>();
+		aRetirer = new LinkedList<Integer>();
+		Collection<Element> produits = usine.produire();
+		for(Element e : produits)
+			elements.put(e.id(), e);
+	}
+	
+	/**
+	 * Cette fonction contient la boucle de jeu, dans laquelle, dans l'ordre :
+	 * = On appelle la fonction jouerTour() de tous les elements contenus dans l'ocean
+	 * = On retire les elements detruits de l'Ocean
+	 * = On actualise l'affichage
+	 * = On recommence, NOMBRE_TOURS fois.
+	 * Finalement, on demande grace a l'affichage si l'utilisateur veut rejouer.
+	 */
 	public void lancerTours() {
 		for(int i = 0; i < NOMBRE_TOURS; ++i) {
 			long lag = System.currentTimeMillis();
@@ -109,25 +130,39 @@ public class Ocean implements Observer {
 		}
 	}
 
-	private void reinitialiser() {
-		affichage.reinitaliser();
-		elements = new LinkedHashMap<Integer, Element>();
-		aRetirer = new LinkedList<Integer>();
-		Collection<Element> produits = usine.produire();
-		for(Element e : produits)
-			elements.put(e.id(), e);
-	}
+	/**
+	 * Cette fonction permet a l'Ocean d'ajouter a la queue des elements a detruires
+	 * les element qui envoient un message avec comme etat DETRUIT
+	 * @param arg0 Un Observable qui DOIT etre assignable en objet implementant l'interface Element
+	 * @Param arg1 Un Objet qui DOIT etre assignable en enum EtatElement
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		assert(arg0 != null && arg1 != null);
-		assert(arg0.getClass().isAssignableFrom(Element.class));
-		assert(arg1.getClass().isAssignableFrom(EtatElement.class));
+		assert(Element.class.isAssignableFrom(arg0.getClass()));
+		assert(EtatElement.class.isAssignableFrom(arg1.getClass()));
 		
 		if(((EtatElement)arg1) == EtatElement.DETRUIT)
 			aRetirer.add(((Element)arg0).id());		
 	}
 	
+	/**
+	 * Le radar renvoie une collection d'Elements repondant au CiblageRadar specifie par l'Element.
+	 * La collection contient seulement les elements qui possede la meme position que l'element
+	 *      correspondant au ciblage.
+	 * = Pour le ciblage BLESSES, le radar renverra les elements dans la case de l'element
+	 *      le plus blesse dans le rayon demande.
+	 * = Pour le ciblage PROCHE, le radar renverra les elements dans la case de l'element
+	 *      le plus proche dans le rayon demande.
+	 * = Pour le ciblage AUCUN, le radar renverra une liste vide.
+	 * @param a l'Element qui soumet la requete, il DOIT faire partie de cet Ocean et le radar fonctionnera a partir du ciblage et de la position de cet Element
+	 * @param rayonMin le rayon minimum a partir duquel les elements doivent etre pris en compte
+	 * @param rayonMax le rayon maximum a pertir duquel les elements doivent etre pris en compte
+	 * @return Collection d'Elements situes a la meme position repondant au CiblageRadar specifie.
+	 */
 	public Collection<Element> radar(Element a, int rayonMin, int rayonMax) {
+		assert(a != null && rayonMin >= 0);
+		
 		LinkedList<Element> liste = new LinkedList<Element>();
 		
 		if(a.ciblage() == CiblageRadar.AUCUN)
