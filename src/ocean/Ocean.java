@@ -1,4 +1,4 @@
-package controle;
+package ocean;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -7,12 +7,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 
+import element.CiblageRadar;
+import element.Element;
+import element.EtatElement;
+import bateau.UsineStandard;
 import affichage.Affichage;
 import affichage.Console;
-import modele.Element;
-import modele.EtatElement;
-import modele.Usine;
-import modele.UsineStandard;
 
 /**
  * Classe de controle principale, se charge d'orchestrer le jeu.
@@ -23,7 +23,7 @@ public class Ocean implements Observer {
 	/**
 	 * Le nombre de pas de simulation a effectuer.
 	 */
-	private static final int NOMBRE_TOURS = 150;
+	private static final int NOMBRE_TOURS = 250;
 	
 	/**
 	 * Le nombre de cases de chaque colonne et rangee de la matrice representee.
@@ -33,7 +33,7 @@ public class Ocean implements Observer {
 	/**
 	 * La frequence a laquelle chaque pas de simulation est effectuee (representee en Hz).
 	 */
-	private static final double frequenceTours = 6.0;
+	private static final double frequenceTours = 4.5;
 	
 	/**
 	 * Permet de choisir entre la representation graphique fluide ou par étapes.
@@ -129,18 +129,26 @@ public class Ocean implements Observer {
 	
 	public Collection<Element> radar(Element a, int rayonMin, int rayonMax) {
 		LinkedList<Element> liste = new LinkedList<Element>();
+		
+		if(a.ciblage() == CiblageRadar.AUCUN)
+			return liste;
+		
 		boolean intrusion = true;
-		int d, rmin = rayonMax + 1;
-
+		int d, min = Integer.MAX_VALUE;
+		Element minElement = elements.get(0);
+			
 		for (Element e : elements.values()) {
 			if(e.id() != a.id()) {
 				d = a.position().distance(e.position());
 				if(d > rayonMax || d < rayonMin) { ; }
-				else if(d < rmin) {
+				else if(((a.ciblage() == CiblageRadar.BLESSE) ? 
+						((e.viesMax() - e.vies() == 0) ? 
+								Integer.MAX_VALUE: e.vies()): d) < min) {
 					liste.clear();
 					liste.add(e);
-					rmin = d;
-				} else if(d == rmin) 
+					min = d;
+					minElement = e;
+				} else if(d == min && e.position().equals(minElement.position())) 
 					liste.add(e);
 			} else
 				intrusion = false;
@@ -155,8 +163,6 @@ public class Ocean implements Observer {
 		
 		return liste;
 	}
-	
-	
 	
 
 }

@@ -1,6 +1,6 @@
-package modele;
+package element;
 
-import controle.Ocean;
+import ocean.Ocean;
 
 public class Coordonnee {
 

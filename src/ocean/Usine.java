@@ -1,9 +1,9 @@
-package modele;
+package ocean;
 
 import java.util.Collection;
 import java.util.Observer;
 
-import controle.Ocean;
+import element.Element;
 
 public interface Usine {
 

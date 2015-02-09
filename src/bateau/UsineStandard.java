@@ -1,11 +1,14 @@
-package modele;
+package bateau;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observer;
 
-import bateau.*;
-import controle.Ocean;
+import ocean.Ocean;
+import ocean.Usine;
+import deplacement.*;
+import element.CiblageRadar;
+import element.Element;
 
 public class UsineStandard implements Usine {
 	
@@ -16,8 +19,8 @@ public class UsineStandard implements Usine {
 	}
 	
 	private static final int nbCibles = 30;
-	private static final int nbCombattants = 10;
-	private static final int nbHopitaux = 5;
+	private static final int nbCombattants = 12;
+	private static final int nbHopitaux = 6;
 	
 	private Collection<Observer> obs;
 	private Ocean ocean;
@@ -32,10 +35,19 @@ public class UsineStandard implements Usine {
 		
 		Collection<Element> produits = new LinkedList<Element>();
 		
-
-		for(int i = 0; i < nbCombattants; ++i) produits.add(new Combattant(idUnique(), ocean));
-		for(int i = 0; i < nbHopitaux; ++i) produits.add(new Hopital(idUnique(), ocean));
-		for(int i = 0; i < nbCibles; ++i) produits.add(new Cible(idUnique(), ocean));
+		
+		for(int i = 0; i < nbCombattants / 2; ++i) 
+			produits.add(new Combattant(idUnique(), ocean, new Pong(), CiblageRadar.BLESSE));
+		for(int i = 0; i < nbCombattants / 2; ++i) 
+			produits.add(new Combattant(idUnique(), ocean, new Aleatoire(), CiblageRadar.PROCHE));
+		for(int i = 0; i < nbHopitaux / 2; ++i) 
+			produits.add(new Hopital(idUnique(), ocean, new Boustrophedon()));
+		for(int i = 0; i < nbHopitaux / 2; ++i) 
+			produits.add(new Hopital(idUnique(), ocean, new Pong(), CiblageRadar.BLESSE));
+		for(int i = 0; i < nbCibles / 2; ++i) 
+			produits.add(new Cible(idUnique(), ocean, new Boustrophedon()));
+		for(int i = 0; i < nbCibles / 2; ++i) 
+			produits.add(new Cible(idUnique(), ocean, new Pong()));
 		
 		for(Element e : produits) {
 			e.addObserver(ocean);

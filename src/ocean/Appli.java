@@ -1,4 +1,4 @@
-package controle;
+package ocean;
 
 import affichage.Graphique;
 

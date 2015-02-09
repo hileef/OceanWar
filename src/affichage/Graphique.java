@@ -2,8 +2,8 @@ package affichage;
 
 import java.util.HashMap;
 
-import modele.Coordonnee;
-import controle.Ocean;
+import element.Coordonnee;
+import ocean.Ocean;
 
 public class Graphique extends AffichageGen {
 	

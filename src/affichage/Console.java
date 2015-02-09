@@ -2,7 +2,7 @@ package affichage;
 
 import java.util.Scanner;
 
-import controle.Ocean;
+import ocean.Ocean;
 
 public class Console extends AffichageGen {
 

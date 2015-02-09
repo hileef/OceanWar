@@ -2,16 +2,25 @@ package bateau;
 
 import java.util.Collection;
 
-import modele.Direction;
-import modele.Element;
-import controle.Ocean;
+import ocean.Ocean;
+import deplacement.Deplaceur;
+import deplacement.Pong;
+import element.CiblageRadar;
+import element.Element;
 
 public class Hopital extends BateauDAction {
+	
 
-	public Hopital(Integer id, Ocean acces) {
-		super(id, acces);
+	public Hopital(Integer id, Ocean acces, Deplaceur deplacement, CiblageRadar ciblage) {
+		super(id, acces, deplacement, ciblage);
 	}
-
+	public Hopital(Integer id, Ocean acces, Deplaceur deplacement) {
+		super(id, acces, deplacement);
+	}
+	public Hopital(Integer id, Ocean acces) {
+		this(id, acces, new Pong());
+	}
+	
 	@Override
 	public String toString() {
 		return "~H";
@@ -26,21 +35,7 @@ public class Hopital extends BateauDAction {
 	protected void agir(Collection<Element> liste) {
 		if(!liste.isEmpty())
 			for(Element b : liste) 
-				b.reparer();
-	}
-
-	@Override
-	protected Collection<Element> listeBateauxDepuisRadar() {
-		return acces().radar(this, 0, 0);
-	}
-
-	@Override
-	protected Direction calculerDirection(Collection<Element> liste) {
-		if(direction() == null) {
-			return directionAleatoire();
-		} else if(position().estUneBordure(0, Ocean.TAILLE_MATRICE - 1))
-			return directionAleatoire();
-		else return direction();
+				if(b.position().equals(this.position())) b.reparer();
 	}
 
 }

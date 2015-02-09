@@ -2,44 +2,42 @@ package bateau;
 
 import java.util.Collection;
 
-import controle.Ocean;
-import modele.Direction;
-import modele.Element;
+import ocean.Ocean;
+import deplacement.Aleatoire;
+import deplacement.Deplaceur;
+import element.CiblageRadar;
+import element.Direction;
+import element.Element;
 
 public class Combattant extends BateauDAction {
 
+	public Combattant(Integer id, Ocean acces, Deplaceur deplacement, CiblageRadar ciblage) {
+		super(id, acces, deplacement, ciblage);
+	}
+	public Combattant(Integer id, Ocean acces, Deplaceur deplacement) {
+		this(id, acces, deplacement, CiblageRadar.PROCHE);
+	}
 	public Combattant(Integer id, Ocean acces) {
-		super(id, acces);
+		this(id, acces, new Aleatoire());
 	}
 
 	private static final int porteeDeTir = 2;
 	
 	@Override
-	protected Direction calculerDirection(Collection<Element> liste) {
-		if(liste.isEmpty()) return directionAleatoire();
-		
-		Element e = liste.iterator().next();
-		int distanceCibles = this.position().distance(e.position());
-		Direction directionCibles = this.position().directionVers(e.position());
-		
-		if(distanceCibles > porteeDeTir)
-			return directionCibles;
-		else if(distanceCibles == 1)
+	protected Direction determinerDirection(Collection<Element> liste) {
+		if(!liste.isEmpty() && this.position().distance(liste.iterator().next().position()) == 1)
 			return null;
-		else
-			return directionCibles;
+		else return super.determinerDirection(liste);
 	}
 	
 	@Override
 	protected void agir(Collection<Element> liste) {
-		
-		for(Element b : liste)
-			if(this.position().distance(b.position()) <= porteeDeTir) b.toucher();
-	}
-
-	@Override
-	protected Collection<Element> listeBateauxDepuisRadar() {
-		return acces().radar(this, 1, rayonRadar());
+		for(Element b : liste) {
+			int d = this.position().distance(b.position());
+			if(d <= porteeDeTir && d > 0)
+				b.toucher();
+		}
+			
 	}
 
 	@Override

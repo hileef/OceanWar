@@ -2,8 +2,8 @@ package affichage;
 
 import java.util.Observable;
 
-import modele.Element;
-import modele.EtatElement;
+import element.Element;
+import element.EtatElement;
 
 public abstract class AffichageGen implements Affichage {
 

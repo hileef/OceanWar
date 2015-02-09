@@ -2,8 +2,8 @@ package affichage;
 
 import java.util.Observer;
 
-import modele.Coordonnee;
-import modele.Direction;
+import element.Coordonnee;
+import element.Direction;
 
 public interface Affichable {
 
