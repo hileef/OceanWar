@@ -1,6 +1,8 @@
-package element;
+package ocean;
 
-import affichage.Affichable;
+import java.util.Observer;
+
+// TODO DOC
 
 /**
  * Cette interface represente toute chose que l'ocean peut contenir.
@@ -9,7 +11,7 @@ import affichage.Affichable;
  * afin que l'Ocean puisse fonctionner correctement.
  * 
  */
-public interface Element extends Affichable {
+public interface Element {
 	
 	/**
 	 * Cette fonction sera appelle regulierement par l'Ocean.
@@ -22,7 +24,7 @@ public interface Element extends Affichable {
 	 * (Voir doc CiblageRadar)
 	 * @return Enum CiblageRadar representant la cible principale de l'element. 
 	 */
-	public CiblageRadar ciblage();
+	public Ciblage ciblage();
 
 	/**
 	 * Cette fonction, quad elle sera appelle,
@@ -49,5 +51,16 @@ public interface Element extends Affichable {
 	 * @return un entier representant le nombres de vies maximum de l'Element.
 	 */
 	public int viesMax();
+	
+	
+	public void addObserver(Observer o);
+	
+	public String toString();
+	public String imageURL();
+	
+	public Integer id();
+	public Coordonnee position();
+	public Direction direction();
+	
 	
 }

@@ -1,15 +1,10 @@
 package bateau;
 
 import ocean.Ocean;
-import deplacement.Boustrophedon;
-import deplacement.Deplaceur;
 
 public class Cible extends Bateau {
 
-	public Cible(Integer id, Ocean acces) {
-		super(id, acces, new Boustrophedon());
-	}
-	public Cible(Integer id, Ocean acces, Deplaceur deplacement) {
+	public Cible(Integer id, Ocean acces, StrategieDeplacement deplacement) {
 		super(id, acces, deplacement);
 	}
 

@@ -1,5 +1,6 @@
-package ocean;
+package appli;
 
+import ocean.Ocean;
 import affichage.Graphique;
 
 public class Appli {

@@ -1,7 +1,7 @@
 package deplacement;
 
-import element.Coordonnee;
-import element.Direction;
+import ocean.Coordonnee;
+import ocean.Direction;
 import ocean.Ocean;
 
 public class Pong extends PeutEtreAleatoire {

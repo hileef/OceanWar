@@ -1,4 +1,4 @@
-package element;
+package ocean;
 
 /**
  * Enum representant les 8 differentes direction possibles sur le plan matriciel.

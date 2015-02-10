@@ -2,11 +2,12 @@ package deplacement;
 
 import java.util.LinkedList;
 
-import element.Coordonnee;
-import element.Direction;
+import bateau.StrategieDeplacement;
+import ocean.Coordonnee;
+import ocean.Direction;
 import ocean.Ocean;
 
-public abstract class PeutEtreAleatoire implements Deplaceur {
+public abstract class PeutEtreAleatoire implements StrategieDeplacement {
 
 	protected Direction directionAleatoire(Coordonnee position) {
 		LinkedList<Direction> options = new LinkedList<Direction>();

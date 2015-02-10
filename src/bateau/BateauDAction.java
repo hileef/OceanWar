@@ -2,17 +2,16 @@ package bateau;
 
 import java.util.Collection;
 
+import ocean.Ciblage;
+import ocean.Element;
 import ocean.Ocean;
-import deplacement.Deplaceur;
-import element.CiblageRadar;
-import element.Element;
 
 public abstract class BateauDAction extends Bateau {
 
-	public BateauDAction(Integer id, Ocean acces, Deplaceur deplacement, CiblageRadar ciblage) {
+	public BateauDAction(Integer id, Ocean acces, StrategieDeplacement deplacement, Ciblage ciblage) {
 		super(id, acces, deplacement, ciblage);
 	}
-	public BateauDAction(Integer id, Ocean acces, Deplaceur deplacement) {
+	public BateauDAction(Integer id, Ocean acces, StrategieDeplacement deplacement) {
 		super(id, acces, deplacement);
 	}
 	

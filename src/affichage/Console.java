@@ -2,6 +2,7 @@ package affichage;
 
 import java.util.Scanner;
 
+import ocean.Element;
 import ocean.Ocean;
 
 public class Console extends AffichageGen {
@@ -16,7 +17,7 @@ public class Console extends AffichageGen {
 	}
 	
 	@Override
-	public void actualiser(Affichable a) {
+	public void actualiser(Element a) {
 		int x = a.position().x();
 		int y = a.position().y();
 		String cmp = matrice[x][y];
@@ -76,7 +77,7 @@ public class Console extends AffichageGen {
 	}
 
 	@Override
-	protected void detruire(Affichable a) {
+	protected void detruire(Element a) {
 		;
 	}
 

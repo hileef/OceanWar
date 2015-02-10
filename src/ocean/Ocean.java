@@ -7,11 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 
-import element.CiblageRadar;
-import element.Element;
-import element.EtatElement;
-import bateau.UsineStandard;
-import affichage.Affichage;
+import bateau.FabriqueBateau;
 import affichage.Console;
 
 /**
@@ -49,7 +45,7 @@ public class Ocean implements Observer {
 	/**
 	 * La reference vers usine qui sera utilise a la construction de l'ocean et a la reinitaliser() pour poupler l'ocean.
 	 */
-	private Usine usine;
+	private Fabrique usine;
 	
 	/**
 	 * La collection qui contiendra les elements de l'ocean. (Voir doc de l'interface Element)
@@ -75,7 +71,7 @@ public class Ocean implements Observer {
 	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
 	 */
 	public Ocean(Affichage a) {
-		this(new UsineStandard(), a);
+		this(new FabriqueBateau(), a);
 	}
 	/**
 	 * Constructeur principal
@@ -84,7 +80,7 @@ public class Ocean implements Observer {
 	 * @param u L'usine qui sera utilisee pour populer l'ocean des elements produits.
 	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
 	 */
-	public Ocean(Usine u, Affichage a) {
+	public Ocean(Fabrique u, Affichage a) {
 		assert(u != null && a != null);
 		
 		usine = u;
@@ -140,32 +136,32 @@ public class Ocean implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		assert(arg0 != null && arg1 != null);
 		assert(Element.class.isAssignableFrom(arg0.getClass()));
-		assert(EtatElement.class.isAssignableFrom(arg1.getClass()));
+		assert(Etat.class.isAssignableFrom(arg1.getClass()));
 		
-		if(((EtatElement)arg1) == EtatElement.DETRUIT)
+		if(((Etat)arg1) == Etat.DETRUIT)
 			aRetirer.add(((Element)arg0).id());		
 	}
 	
 	/**
-	 * Le radar renvoie une collection d'Elements repondant au CiblageRadar specifie par l'Element.
+	 * L'inspection renvoie une collection d'Elements repondant au CiblageInspectionElement specifie par l'Element.
 	 * La collection contient seulement les elements qui possede la meme position que l'element
 	 *      correspondant au ciblage.
-	 * = Pour le ciblage BLESSES, le radar renverra les elements dans la case de l'element
+	 * = Pour le ciblage BLESSES, l'inspecteur renverra les elements dans la case de l'element
 	 *      le plus blesse dans le rayon demande.
-	 * = Pour le ciblage PROCHE, le radar renverra les elements dans la case de l'element
+	 * = Pour le ciblage PROCHE, l'inspecteur renverra les elements dans la case de l'element
 	 *      le plus proche dans le rayon demande.
-	 * = Pour le ciblage AUCUN, le radar renverra une liste vide.
+	 * = Pour le ciblage AUCUN, l'inspecteur renverra une liste vide.
 	 * @param a l'Element qui soumet la requete, il DOIT faire partie de cet Ocean et le radar fonctionnera a partir du ciblage et de la position de cet Element
 	 * @param rayonMin le rayon minimum a partir duquel les elements doivent etre pris en compte
 	 * @param rayonMax le rayon maximum a pertir duquel les elements doivent etre pris en compte
-	 * @return Collection d'Elements situes a la meme position repondant au CiblageRadar specifie.
+	 * @return Collection d'Elements situes a la meme position repondant au CiblageInspectionElement specifie.
 	 */
-	public Collection<Element> radar(Element a, int rayonMin, int rayonMax) {
+	public Collection<Element> inspection(Element a, int rayonMin, int rayonMax) {
 		assert(a != null && rayonMin >= 0);
 		
 		LinkedList<Element> liste = new LinkedList<Element>();
 		
-		if(a.ciblage() == CiblageRadar.AUCUN)
+		if(a.ciblage() == Ciblage.AUCUN)
 			return liste;
 		
 		boolean intrusion = true;
@@ -176,7 +172,7 @@ public class Ocean implements Observer {
 			if(e.id() != a.id()) {
 				d = a.position().distance(e.position());
 				if(d > rayonMax || d < rayonMin) { ; }
-				else if(((a.ciblage() == CiblageRadar.BLESSE) ? 
+				else if(((a.ciblage() == Ciblage.BLESSE) ? 
 						((e.viesMax() - e.vies() == 0) ? 
 								Integer.MAX_VALUE: e.vies()): d) < min) {
 					liste.clear();
@@ -189,7 +185,7 @@ public class Ocean implements Observer {
 				intrusion = false;
 		}
 		
-		if(!liste.isEmpty() && Math.random() <= 0.2) 
+		if(!liste.isEmpty() && Math.random() <= 0.3) 
 			liste.removeFirst();
 
 		if(intrusion)

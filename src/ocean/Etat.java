@@ -1,4 +1,4 @@
-package element;
+package ocean;
 
 /**
  * Enum representant un etat d'element a notifier,
@@ -9,6 +9,6 @@ package element;
  *        utilisee notamment par l'affichage
  *
  */
-public enum EtatElement {
+public enum Etat {
 	DETRUIT, POSITION;
 }

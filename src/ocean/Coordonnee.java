@@ -1,6 +1,5 @@
-package element;
+package ocean;
 
-import ocean.Ocean;
 
 /**
  * Cette classe permet d'encapluser des coordonees x et y dans un objet Immuable avec pleins de fonctions pratiques.

@@ -1,4 +1,4 @@
-package affichage;
+package ocean;
 
 import java.util.Observer;
 

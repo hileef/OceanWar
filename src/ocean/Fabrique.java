@@ -3,9 +3,7 @@ package ocean;
 import java.util.Collection;
 import java.util.Observer;
 
-import element.Element;
-
-public interface Usine {
+public interface Fabrique {
 
 	/**
 	 * Cette fonction produit des elements comme elle l'entend, tant qu'ils sont conforme

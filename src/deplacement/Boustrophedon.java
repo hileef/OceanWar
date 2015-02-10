@@ -1,10 +1,11 @@
 package deplacement;
 
-import element.Coordonnee;
-import element.Direction;
+import bateau.StrategieDeplacement;
+import ocean.Coordonnee;
+import ocean.Direction;
 import ocean.Ocean;
 
-public class Boustrophedon implements Deplaceur {
+public class Boustrophedon implements StrategieDeplacement {
 	
 	private Direction suivante = null;
 	private boolean retour = false;

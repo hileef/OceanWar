@@ -2,23 +2,18 @@ package bateau;
 
 import java.util.Collection;
 
+import ocean.Ciblage;
+import ocean.Element;
 import ocean.Ocean;
-import deplacement.Deplaceur;
-import deplacement.Pong;
-import element.CiblageRadar;
-import element.Element;
 
 public class Hopital extends BateauDAction {
 	
 
-	public Hopital(Integer id, Ocean acces, Deplaceur deplacement, CiblageRadar ciblage) {
+	public Hopital(Integer id, Ocean acces, StrategieDeplacement deplacement, Ciblage ciblage) {
 		super(id, acces, deplacement, ciblage);
 	}
-	public Hopital(Integer id, Ocean acces, Deplaceur deplacement) {
+	public Hopital(Integer id, Ocean acces, StrategieDeplacement deplacement) {
 		super(id, acces, deplacement);
-	}
-	public Hopital(Integer id, Ocean acces) {
-		this(id, acces, new Pong());
 	}
 	
 	@Override

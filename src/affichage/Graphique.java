@@ -2,8 +2,9 @@ package affichage;
 
 import java.util.HashMap;
 
-import element.Coordonnee;
+import ocean.Coordonnee;
 import ocean.Ocean;
+import ocean.Element;
 
 public class Graphique extends AffichageGen {
 	
@@ -30,7 +31,7 @@ public class Graphique extends AffichageGen {
 	}
 
 	@Override
-	protected void actualiser(Affichable a) {
+	protected void actualiser(Element a) {
 		int x, y;
 		if(destinations.containsKey(Integer.parseInt("" + a.id()))) {
 			x = ProfGraphique.getX(a.id());
@@ -45,7 +46,7 @@ public class Graphique extends AffichageGen {
 	}
 
 	@Override
-	protected void detruire(Affichable a) {
+	protected void detruire(Element a) {
 		ProfGraphique.retirerElement(a.id());
 		destinations.remove(a.id());
 		

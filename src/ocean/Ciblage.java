@@ -1,4 +1,4 @@
-package element;
+package ocean;
 
 /**
  * Enum representant le ciblage que le radar doit utiliser.
@@ -6,6 +6,6 @@ package element;
  * = Pour le ciblage PROCHE, le radar renverra en priorite des elements Proches
  * = Pour le ciblage AUCUN, le radar ne renverra rien.
  */
-public enum CiblageRadar {
+public enum Ciblage {
 	AUCUN, BLESSE, PROCHE;
 }

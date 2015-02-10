@@ -2,23 +2,18 @@ package bateau;
 
 import java.util.Collection;
 
+import ocean.Ciblage;
+import ocean.Direction;
+import ocean.Element;
 import ocean.Ocean;
-import deplacement.Aleatoire;
-import deplacement.Deplaceur;
-import element.CiblageRadar;
-import element.Direction;
-import element.Element;
 
 public class Combattant extends BateauDAction {
 
-	public Combattant(Integer id, Ocean acces, Deplaceur deplacement, CiblageRadar ciblage) {
+	public Combattant(Integer id, Ocean acces, StrategieDeplacement deplacement, Ciblage ciblage) {
 		super(id, acces, deplacement, ciblage);
 	}
-	public Combattant(Integer id, Ocean acces, Deplaceur deplacement) {
-		this(id, acces, deplacement, CiblageRadar.PROCHE);
-	}
-	public Combattant(Integer id, Ocean acces) {
-		this(id, acces, new Aleatoire());
+	public Combattant(Integer id, Ocean acces, StrategieDeplacement deplacement) {
+		this(id, acces, deplacement, Ciblage.PROCHE);
 	}
 
 	private static final int porteeDeTir = 2;
