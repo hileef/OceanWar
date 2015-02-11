@@ -4,11 +4,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observer;
 
+import bateau.deplacement.Aleatoire;
+import bateau.deplacement.Boustrophedon;
+import bateau.deplacement.Pong;
 import ocean.Ciblage;
 import ocean.Element;
 import ocean.Ocean;
 import ocean.Fabrique;
-import deplacement.*;
 
 public class FabriqueBateau implements Fabrique {
 	

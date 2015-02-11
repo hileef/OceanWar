@@ -1,4 +1,4 @@
-package deplacement;
+package bateau.deplacement;
 
 import ocean.Coordonnee;
 import ocean.Direction;

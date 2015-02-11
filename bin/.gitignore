@@ -1,10 +1,6 @@
-/affichage/
-/bateau/
-/controle/
-/images/
-/modele/
-/deplacement/
-/radar/
-/ocean/
-/element/
-/appli/
+/affichage
+/appli
+/bateau
+/deplacement
+/images
+/ocean

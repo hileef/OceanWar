@@ -3,7 +3,6 @@ package affichage;
 import java.util.HashMap;
 
 import ocean.Coordonnee;
-import ocean.Ocean;
 import ocean.Element;
 
 public class Graphique extends AffichageGen {
@@ -11,7 +10,7 @@ public class Graphique extends AffichageGen {
 	private HashMap<Integer, Coordonnee> destinations;
 
 	public Graphique() { 
-		ProfGraphique.ouvrir("Ocean War", Ocean.TAILLE_MATRICE * 50, Ocean.TAILLE_MATRICE * 50);
+		ProfGraphique.ouvrir("Ocean War", super.tailleOcean() * 50, super.tailleOcean() * 50);
 		reinitaliser();
 	}
 	

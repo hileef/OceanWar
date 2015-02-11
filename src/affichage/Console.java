@@ -3,7 +3,6 @@ package affichage;
 import java.util.Scanner;
 
 import ocean.Element;
-import ocean.Ocean;
 
 public class Console extends AffichageGen {
 
@@ -12,7 +11,7 @@ public class Console extends AffichageGen {
 
 	public Console() {
 		sc = new Scanner(System.in);
-		matrice = new String[Ocean.TAILLE_MATRICE][Ocean.TAILLE_MATRICE];
+		matrice = new String[super.tailleOcean()][super.tailleOcean()];
 		viderMatrice();
 	}
 	

@@ -6,7 +6,7 @@ import java.util.Observer;
 
 /**
  * Cette interface represente toute chose que l'ocean peut contenir.
- * ATTENTION, il est necessaires que les classes concretes qui implementeront
+ * ATTENTION, il est necessaire que les classes concretes qui implementeront
  * cette interface heritent de l'Objet Standard Observable,
  * afin que l'Ocean puisse fonctionner correctement.
  * 

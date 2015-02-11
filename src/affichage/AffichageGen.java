@@ -5,9 +5,12 @@ import java.util.Observable;
 import ocean.Affichage;
 import ocean.Element;
 import ocean.Etat;
+import ocean.Ocean;
 
 public abstract class AffichageGen implements Affichage {
-
+	
+	public static int tailleOcean() { return Ocean.TAILLE_MATRICE; }
+	
 	protected abstract void detruire(Element a) ;
 	protected abstract void actualiser(Element a) ;
 	

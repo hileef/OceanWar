@@ -1,4 +1,4 @@
-package deplacement;
+package bateau.deplacement;
 
 import java.util.LinkedList;
 
