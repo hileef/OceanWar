@@ -31,7 +31,7 @@ public class Console extends AffichageGen {
 	}
 
 	@Override
-	public void actualiser(double secondes, boolean clignotant) {
+	public void actualiser(double secondes) {
 		System.out.println(matriceToString());
 		viderMatrice();
 		pause(secondes);

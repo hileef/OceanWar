@@ -20,8 +20,8 @@ public class FabriqueBateau implements Fabrique {
 		return compteurIdUniques;
 	}
 	
-	private static final int nbCibles = 30;
-	private static final int nbCombattants = 12;
+	private static final int nbCibles = 20;
+	private static final int nbCombattants = 10;
 	private static final int nbHopitaux = 6;
 	
 	private Collection<Observer> obs;

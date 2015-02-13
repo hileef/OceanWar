@@ -8,14 +8,19 @@ import ocean.Element;
 public class Graphique extends AffichageGen {
 	
 	private HashMap<Integer, Coordonnee> destinations;
+	private boolean clignotant;
 
-	public Graphique() { 
+	public Graphique(boolean clignotant) {
+		this.clignotant = clignotant;
 		ProfGraphique.ouvrir("Ocean War", super.tailleOcean() * 50, super.tailleOcean() * 50);
 		reinitaliser();
 	}
+	public Graphique() { 
+		this(true);
+	}
 	
 	@Override
-	public void actualiser(double secondes, boolean clignotant) {
+	public void actualiser(double secondes) {
 		int steps = (clignotant) ? 1 : (secondes == 0.0) ? 5: 10;
 		int facteur = 50 / steps;
 		for(int i = 0; i < steps; ++i) {

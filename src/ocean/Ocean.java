@@ -7,9 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 
-import bateau.FabriqueBateau;
-import affichage.Console;
-
 /**
  * Classe de controle principale, se charge d'orchestrer le jeu.
  *
@@ -32,12 +29,6 @@ public class Ocean implements Observer {
 	private static final double frequenceTours = 4.5;
 	
 	/**
-	 * Permet de choisir entre la representation graphique fluide ou par étapes.
-	 * Sur des machines peu performantes, choisir true, sinon false pour une experience plus agreable.
-	 */
-	private static final boolean clignotant = false;
-	
-	/**
 	 * La reference vers l'affichage qui sera utilise, est initalisee a la contruction de la classe.
 	 */
 	private Affichage affichage;
@@ -58,21 +49,6 @@ public class Ocean implements Observer {
 	 */
 	private Queue<Integer> aRetirer;
 	
-	/**
-	 * Constructeur secondaire
-	 * Ce constructeur lancera le contructeur principal avec un affichage Console en parametre.
-	 */
-	public Ocean(){
-		this(new Console());
-	}
-	/**
-	 * Constructeur secondaire
-	 * Ce constructeur lancera le contructeur principal avec l'affichage donne et une UsineStandard en parametre.
-	 * @param a L'affichage qui sera utilise afin de representer a l'utilisateur l etat du jeu apres chaque tour.
-	 */
-	public Ocean(Affichage a) {
-		this(new FabriqueBateau(), a);
-	}
 	/**
 	 * Constructeur principal
 	 * Se charge d'initialiser les attributs necessaires
@@ -118,7 +94,7 @@ public class Ocean implements Observer {
 				elements.remove(aRetirer.poll());
 			double tempsRestant = (1 / frequenceTours) - ((double)(System.currentTimeMillis() - lag));
 			tempsRestant = (tempsRestant > 0.0) ? tempsRestant : 0.0;
-			affichage.actualiser((1 / frequenceTours), clignotant);
+			affichage.actualiser((1 / frequenceTours));
 		}
 		if(affichage.demanderSiRejouer()) {
 			reinitialiser();
