@@ -6,4 +6,6 @@ public interface Display {
 	
 	public void refresh(double seconds);
 	
+	public boolean askForReplay();
+	
 }

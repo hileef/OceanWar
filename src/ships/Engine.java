@@ -14,10 +14,12 @@ public abstract class Engine implements Extension {
 			if(s.position().distanceTo(e.position()) > 1)
 				heading = s.position().directionTo(e.position());
 			else
-				heading = calculateDirectionFrom(s.position(), s.direction());
+				heading = null;
 		} else
 			heading = calculateDirectionFrom(s.position(), s.direction());
-		s.setDisplacement(this, s.position().nextPointTowards(heading), heading);
+		
+		if(heading != null)
+			s.setDisplacement(this, s.position().nextPointTowards(heading), heading);
 	}
 	
 	public abstract Point.Direction calculateDirectionFrom(Point position, Point.Direction direction) ;

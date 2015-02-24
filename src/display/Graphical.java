@@ -32,5 +32,15 @@ public class Graphical extends ADisplay {
 		ProfGraphique.ajouterImage(0, "/images/ocean.png", 0, 0);
 		ProfGraphique.actualiser();
 	}
+	
+	@Override
+	public boolean askForReplay() {
+		char c;
+		ProfGraphique.retirerTout();
+		ProfGraphique.ajouterLibelle(0, "Desirez-vous relancer (oui / non) ? _ _ _", 50, 50);
+		ProfGraphique.actualiser();
+		while((c = ProfGraphique.lireCaractereNonBloquant()) != 'o' && c !='n');
+		return (c == 'o');
+	}
 
 }

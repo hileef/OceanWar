@@ -1,13 +1,17 @@
 package display;
 
+import java.util.Scanner;
+
 import core.Element;
 import core.World;
 
 public class Console extends ADisplay {
 	
 	private String[][] matrice;
+	private Scanner sc;
 
 	public Console() {
+		sc = new Scanner(System.in);
 		matrice = new String[World.SIZE][World.SIZE];
 		clear();
 	}
@@ -70,6 +74,20 @@ public class Console extends ADisplay {
 		for(int i = 0; i < matrice.length; ++i)
 			for(int j = 0; j < matrice.length; ++j)
 				matrice[i][j] = "  ";
+	}
+
+	@Override
+	public boolean askForReplay() {
+		clear();
+		
+		System.out.print("Voulez-vous rejouer ? (oui/non)");
+		while(true) switch(sc.nextLine().toLowerCase().charAt(0)) {
+		case 'o' :
+			return true;
+		case 'n' :
+			return false;
+		default : ;
+		}
 	}
 	
 }

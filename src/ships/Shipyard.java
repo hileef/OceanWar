@@ -17,13 +17,15 @@ import core.Point;
 public class Shipyard implements Factory {
 
 	private static final int DEFAULT_SHIP_RESISTANCE = 5;
-	private static final int DEFAULT_RANGE_RADAR = 3;
-	private static final int DEFAULT_RANGE_CANNON = 2;
+	private static final int DEFAULT_RANGE_RADAR = 4;
+	private static final int DEFAULT_RANGE_CANNON = 1;
 	
 	private static final int DEFAULT_CIV_ORDER = 10;
-	private static final int DEFAULT_MIL_ORDER = 6;
+	private static final int DEFAULT_MIL_ORDER = 4;
 	private static final int DEFAULT_HOS_ORDER = 6;
-	private static final int DEFAULT_ORDER_MULTIPLIER = 3;
+	private static final int DEFAULT_ORDER_MULTIPLIER = 2;
+	
+	private static final Point.Direction DEFAULT_DIRECTION = Point.Direction.E;
 	
 	private Integer worldKey;
 	private static Integer uniqueIDcounter = 0;
@@ -54,7 +56,7 @@ public class Shipyard implements Factory {
 	}
 	
 	private Ship buildShipBones(String name, String imgURL, int maxLife, Extension...parts) {
-		return new Ship(uniqueId(), Point.random(), null, name, imgURL, maxLife, parts);
+		return new Ship(uniqueId(), Point.random(), DEFAULT_DIRECTION, name, imgURL, maxLife, parts);
 	}
 	
 	private Element buildCivilian() {

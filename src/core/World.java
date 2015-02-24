@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class World {
 	
-	private static final double REFRESH_RATE = 5.0;
+	private static final double REFRESH_RATE = 6.0;
 	public static final int SIZE = 20;
 	
 	private List<Integer> garbage;
@@ -31,6 +31,7 @@ public class World {
 	
 	public void run(int turns) {
 		for(int i = 0; i < turns; ++i) {
+//			System.out.println("---------------------------------------");
 			prepareKeysForRadarRequestPerformance();
 			for(Element e : elements.values()) {
 				e.update(this);
