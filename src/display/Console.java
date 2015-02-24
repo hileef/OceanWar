@@ -80,14 +80,19 @@ public class Console extends ADisplay {
 	public boolean askForReplay() {
 		clear();
 		
-		System.out.print("Voulez-vous rejouer ? (oui/non)");
-		while(true) switch(sc.nextLine().toLowerCase().charAt(0)) {
-		case 'o' :
-			return true;
-		case 'n' :
-			return false;
-		default : ;
+		System.out.print("Voulez-vous rejouer ? (oui/non) ");
+		while(true) {
+			String test = sc.nextLine().toLowerCase();
+			if(test.length() > 0)
+			switch(test.charAt(0)) {
+			case 'o' :
+				return true;
+			case 'n' :
+				return false;
+			default : ;
+			}
 		}
+
 	}
 	
 }

@@ -1,6 +1,5 @@
 package core;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,44 +8,48 @@ import java.util.Map;
 public class World {
 	
 	private static final double REFRESH_RATE = 6.0;
-	public static final int SIZE = 20;
+	public static final int SIZE = 15;
 	
 	private List<Integer> garbage;
 	private Map<Integer, Element> elements;
 	private Integer key;
 	private Display display;
-	
-	private Integer[] keys;
+	private Factory factory;
 	
 	public World(Factory f, Display d) {
+		factory = f;
+		display = d;
+	}
+	
+	private void reset() {
 		key = this.hashCode() + (int)(Math.random() * Integer.MAX_VALUE);
 		elements = new LinkedHashMap<Integer, Element>();
 		garbage = new LinkedList<Integer>();
-		display = d;
-		f.setWorldKey(key);
-		for(Element e : f.build()) {
+
+		factory.setWorldKey(key);
+		for(Element e : factory.build()) {
 			elements.put(e.id(), e);
 		}
 	}
 	
 	public void run(int turns) {
-		for(int i = 0; i < turns; ++i) {
-//			System.out.println("---------------------------------------");
-			prepareKeysForRadarRequestPerformance();
-			for(Element e : elements.values()) {
-				e.update(this);
-				display.update(e);
+		
+		do {
+			
+			reset();
+			for(int i = 0; i < turns; ++i) {
+				for(Element e : elements.values()) {
+					e.update(this);
+					display.update(e);
+				}
+				
+				for(Integer id : garbage)
+					elements.remove(id);
+				display.refresh(1.0 / REFRESH_RATE);
 			}
 			
-			for(Integer id : garbage)
-				elements.remove(id);
-			display.refresh(1.0 / REFRESH_RATE);
-		}
-	}
-	
-	private void prepareKeysForRadarRequestPerformance() {
-		keys = new Integer[elements.keySet().size()];
-		keys = elements.keySet().toArray(keys);
+		} while(display.askForReplay());
+		
 	}
 
 	private void authorize(Integer authorizationKey) {
@@ -64,7 +67,8 @@ public class World {
 	}
 	
 	public Integer[] getElementKeys(Integer authorizationKey) {
-		return Arrays.copyOf(keys, keys.length);
+		Integer[] keys = new Integer[elements.keySet().size()];
+		return elements.keySet().toArray(keys);
 	}
 	
 	public Element getElementWithKey(Integer authorizationKey, Integer key) {

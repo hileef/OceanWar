@@ -6,7 +6,7 @@ import core.Element;
 import core.Point;
 import core.World;
 
-public class Animated extends ADisplay {
+public class Animated extends Graphical {
 	
 	private HashMap<Integer, Point> destinations;
 
@@ -34,6 +34,7 @@ public class Animated extends ADisplay {
 			destinations.put(Integer.parseInt("" + e.id()), e.position().multiply(IMAGE_SIZE));
 		}
 	}
+	
 	@Override
 	public void refresh(double seconds) {
 		int steps = (seconds == 0.0) ? 5: 10;
@@ -44,36 +45,14 @@ public class Animated extends ADisplay {
 				Point differentiel = Point.differentialTowards(origine.directionTo(destinations.get(id))).multiply(facteur);
 				ProfGraphique.deplacerElement(id, differentiel.x(), differentiel.y());
 			}
-			ProfGraphique.actualiser();
-			pause(seconds / steps);
+			super.refresh(seconds / steps);
 		}
 	}
 
-//	@Override
-//	protected void detruire(Element a) {
-//		ProfGraphique.retirerElement(a.id());
-//		destinations.remove(a.id());
-//		
-//	}
-
-
-//
-//	@Override
+	@Override
 	public void reinitaliser() {
 		destinations = new HashMap<Integer, Point>();
-		ProfGraphique.retirerTout();
-		ProfGraphique.ajouterImage(0, "/images/ocean.png", 0, 0);
-		ProfGraphique.actualiser();
-	}
-
-	@Override
-	public boolean askForReplay() {
-		char c;
-		ProfGraphique.retirerTout();
-		ProfGraphique.ajouterLibelle(0, "Desirez-vous relancer (oui / non) ? _ _ _", 50, 50);
-		ProfGraphique.actualiser();
-		while((c = ProfGraphique.lireCaractereNonBloquant()) != 'o' && c !='n');
-		return (c == 'o');
+		super.reinitaliser();
 	}
 
 }
