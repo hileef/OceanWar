@@ -1,4 +1,4 @@
-package affichage;
+package display;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,12 +23,12 @@ import javax.swing.JPanel;
  * d'images et de textes au sein d'une fenetre ainsi que la lecture des
  * Caracteres saisis au clavier lorsque la fenetre a le focus.
  * <p>
- * L'ouverture de la fenetre ({@link Graphique#ouvrir}) provoque son affichage.
- * Images et Textes sont ajoutes e la fenetre par {@link Graphique#ajouterImage}
- * et ({@link Graphique#ajouterLibelle}). Des methodes au nom suffisament
+ * L'ouverture de la fenetre ({@link Animated#ouvrir}) provoque son affichage.
+ * Images et Textes sont ajoutes e la fenetre par {@link Animated#ajouterImage}
+ * et ({@link Animated#ajouterLibelle}). Des methodes au nom suffisament
  * parlant permettent de placer, deplacer, supprimer une ou tous les images et
  * textes. La mise e jour de l'affichage peut etre force par l'emploi de la
- * methode {@link Graphique#actualiser}.
+ * methode {@link Animated#actualiser}.
  * <p>
  * Les images doivent etre fournies sous la forme de fichier gif, jpeg ou png.
  * Les fichiers gif animes ou transparents sont supportes.
@@ -38,13 +38,13 @@ import javax.swing.JPanel;
  * correspondant provoque automatiquement la fin de l'application
  * (System.exit(0)).
  * <p>
- * La lecture d'un Caractere par la methode {@link Graphique#lireCaractere} est
- * bloquante alors que la methode {@link Graphique#lireCaractereNonBloquant} ne
+ * La lecture d'un Caractere par la methode {@link Animated#lireCaractere} est
+ * bloquante alors que la methode {@link Animated#lireCaractereNonBloquant} ne
  * l'est pas.
  * <p>
  * Tout appel de methode avant l'ouverture de la fenetre provoque une erreur.
- * Enfin, si la methode {@link Graphique#fermer} a ete appelee, tout appel autre
- * qu'e la methode {@link Graphique#ouvrir} provoque une erreur.
+ * Enfin, si la methode {@link Animated#fermer} a ete appelee, tout appel autre
+ * qu'e la methode {@link Animated#ouvrir} provoque une erreur.
  */
 public class ProfGraphique {
 	private static JFrame frame = null;

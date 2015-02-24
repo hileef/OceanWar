@@ -1,4 +1,5 @@
-/affichage
-/appli
-/bateau
-/ocean
+/core
+/display
+/images
+/run
+/ships

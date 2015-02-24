@@ -1,26 +1,25 @@
-package bateau.deplacement;
+package ships.engines;
 
-import bateau.StrategieDeplacement;
-import ocean.Coordonnee;
-import ocean.Direction;
-import ocean.Ocean;
+import ships.Engine;
+import core.Point;
+import core.Point.Direction;
 
-public class Boustrophedon implements StrategieDeplacement {
+public class Boustrophedon extends Engine {
 	
-	private Direction suivante = null;
+	private Point.Direction suivante = null;
 	private boolean retour = false;
-	
+
 	@Override
-	public Direction calculerDirection(Coordonnee position, Direction precedente) {
-		if(precedente == null) {
-			if(position.estUneBordure(0, Ocean.TAILLE_MATRICE - 1)) {
-				switch(position.interpreterDirectionBordure(0, Ocean.TAILLE_MATRICE - 1)) {
+	public Direction calculateDirectionFrom(Point position, Direction direction) {
+		if(direction == null) {
+			if(position.isAtBorder()) {
+				switch(position.borderHeading()) {
 				case NE :
-					suivante = Direction.O;
+					suivante = Direction.W;
 					return Direction.S;
 				case SE :
 				case E :
-					return Direction.O;
+					return Direction.W;
 				default :
 					return Direction.E;
 				}
@@ -30,9 +29,9 @@ public class Boustrophedon implements StrategieDeplacement {
 			suivante = null;
 			return tmp;
 		} else {
-			if(position.estUneBordure(0, Ocean.TAILLE_MATRICE - 1)) {
-				switch(position.interpreterDirectionBordure(0, Ocean.TAILLE_MATRICE - 1)) {
-				case NO:
+			if(position.isAtBorder()) {
+				switch(position.borderHeading()) {
+				case NW:
 					if(retour){ 
 						retour = false;
 						return Direction.E;
@@ -42,18 +41,18 @@ public class Boustrophedon implements StrategieDeplacement {
 				case NE:
 					if(retour) {
 						retour = false;
-						return Direction.O;
+						return Direction.W;
 					}
-					suivante = Direction.O;
+					suivante = Direction.W;
 					return Direction.S;
 				case SE:
 					if(retour) {
-						suivante = Direction.O;
+						suivante = Direction.W;
 						return Direction.N;
 					}
 					retour = true;
-					return Direction.O;
-				case SO:
+					return Direction.W;
+				case SW:
 					if(retour) {
 						suivante = Direction.E;
 						return Direction.N;
@@ -61,16 +60,16 @@ public class Boustrophedon implements StrategieDeplacement {
 					retour = true;
 					return Direction.E;
 				case E:
-					suivante = Direction.O;
+					suivante = Direction.W;
 					return (retour) ? Direction.N : Direction.S;
-				case O:
+				case W:
 					suivante = Direction.E;
 					return (retour) ? Direction.N : Direction.S;
 				default:
-					return precedente;	
+					return direction;	
 				}
 			} else {
-				return precedente;
+				return direction;
 			}
 
 		}
