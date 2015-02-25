@@ -12,22 +12,24 @@ import ships.extensions.RepairDock;
 import ships.radar.Radar;
 import core.Element;
 import core.Factory;
+import core.InspectableWorld;
 import core.Point;
 
 public class Shipyard implements Factory {
 
 	private static final int DEFAULT_SHIP_RESISTANCE = 5;
-	private static final int DEFAULT_RANGE_RADAR = 4;
-	private static final int DEFAULT_RANGE_CANNON = 1;
+	private static final int DEFAULT_HOS_RADAR_RANGE = 0;
+	private static final int DEFAULT_MIL_RADAR_RANGE = 4;
+	private static final int DEFAULT_CANNON_RANGE = 2;
 	
-	private static final int DEFAULT_CIV_ORDER = 10;
-	private static final int DEFAULT_MIL_ORDER = 4;
-	private static final int DEFAULT_HOS_ORDER = 6;
-	private static final int DEFAULT_ORDER_MULTIPLIER = 2;
+	private static final int DEFAULT_CIV_ORDER = 5;
+	private static final int DEFAULT_MIL_ORDER = 1;
+	private static final int DEFAULT_HOS_ORDER = 2;
+	private static final int DEFAULT_ORDER_MULTIPLIER = 4;
 	
 	private static final Point.Direction DEFAULT_DIRECTION = Point.Direction.E;
 	
-	private Integer worldKey;
+	private InspectableWorld world;
 	private static Integer uniqueIDcounter = 0;
 	
 	private static Integer uniqueId() {
@@ -35,9 +37,15 @@ public class Shipyard implements Factory {
 		return uniqueIDcounter;
 	}
 	
+	private InspectableWorld world() {
+		if(world == null)
+			throw new IllegalStateException("World reference has not been passed.");
+		else return world;
+	}
+	
 	@Override
-	public void setWorldKey(Integer key) {
-		this.worldKey = key;
+	public void setWorldAccess(InspectableWorld world) {
+		this.world = world;
 	}
 
 	@Override
@@ -50,25 +58,27 @@ public class Shipyard implements Factory {
 	private List<Element> order(int civilian, int military, int hospital) {
 		List<Element> liste = new LinkedList<Element>();
 		for(int i = 0; i < civilian; ++i) liste.add(buildCivilian());
-		for(int i = 0; i < military; ++i) liste.add(buildMilitary());
 		for(int i = 0; i < hospital; ++i) liste.add(buildHospital());
+		for(int i = 0; i < military; ++i) liste.add(buildMilitary());
 		return liste;
 	}
 	
-	private Ship buildShipBones(String name, String imgURL, int maxLife, Extension...parts) {
+	private Element buildSpecificShip(String name, String imgURL, int maxLife, Extension...parts) {
 		return new Ship(uniqueId(), Point.random(), DEFAULT_DIRECTION, name, imgURL, maxLife, parts);
 	}
 	
 	private Element buildCivilian() {
-		return buildShipBones("P", "civil", DEFAULT_SHIP_RESISTANCE, new Boustrophedon());
+		return buildSpecificShip("P", "civil", DEFAULT_SHIP_RESISTANCE, new Boustrophedon(null));
 	}
 	
 	private Element buildMilitary() {
-		return buildShipBones("M", "militaire", DEFAULT_SHIP_RESISTANCE, new Radar(worldKey, DEFAULT_RANGE_RADAR), new RandomFrenzy(), new Cannon(worldKey, DEFAULT_RANGE_CANNON));
+		Inspector radar = new Radar(world(), DEFAULT_MIL_RADAR_RANGE);
+		return buildSpecificShip("M", "militaire", DEFAULT_SHIP_RESISTANCE, radar, new RandomFrenzy(radar), new Cannon(radar, DEFAULT_CANNON_RANGE));
 	}
 	
 	private Element buildHospital() {
-		return buildShipBones("H", "hopital", DEFAULT_SHIP_RESISTANCE, new Pong(), new RepairDock(worldKey));
+		Inspector radar = new Radar(world(), DEFAULT_HOS_RADAR_RANGE);
+		return buildSpecificShip("H", "hopital", DEFAULT_SHIP_RESISTANCE, new Pong(null), new RepairDock(radar));
 	}
 
 }

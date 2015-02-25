@@ -1,30 +1,24 @@
 package ships.extensions;
 
 import core.Element;
-import core.World;
-import ships.Extension;
-import ships.Ship;
+import ships.CuriousExtension;
+import ships.Inspector;
+import ships.IShip;
 
-public class RepairDock implements Extension  {
+public class RepairDock extends CuriousExtension  {
 	
-	private Integer worldKey;
-	
-	public RepairDock(Integer worldKey) {
-		this.worldKey = worldKey;
+	public RepairDock(Inspector i) {
+		super(i);
 	}
 	
 	@Override
-	public void update(World w, Ship s) {
+	public void update(IShip s) {
 		
-		for(Integer i : w.getElementKeys(worldKey)) {
-			Element e = w.getElementWithKey(worldKey, i);
-			if(s.position().equals(e.position()) && (e != s)) {
-				if(!e.isDestroyed())
-					e.repair();
-			}
+		for(int i = 0; i < radar().nbOfElementsAtSamePosition(); ++i) {
+			Element e = radar().elementAtSamePosition(i);
+			if(!e.isDestroyed())
+				e.repair();
 		}
-		
-
 
 	}
 

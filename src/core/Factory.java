@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public interface Factory {
 
-	public void setWorldKey(Integer i);
+	public void setWorldAccess(InspectableWorld world);
 	
 	public Collection<Element> build();
 	

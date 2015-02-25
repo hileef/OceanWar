@@ -1,28 +1,35 @@
 package run;
 
-import core.Display;
-import core.World;
-import ships.Shipyard;
-import display.Animated;
-import display.Console;
-import display.Graphical;
+import core.CoreFactory;
+import core.RunnableWorld;
 
 public class Launcher {
 
 	private static final boolean accountForConsoleArguments = true;
+	private static final int DEFAULT_NUMBER_OF_TURNS = 200;
 	
 	public static void main(String[] args) {
-		Display d = new Console();
+		
+		RunnableWorld world = null;
+		int turns = DEFAULT_NUMBER_OF_TURNS;
 		
 		if(accountForConsoleArguments && args.length > 0) {
-			if(args[0].toLowerCase().equals("graphical"))
-				d = new Graphical();
-			else if(args[0].toLowerCase().equals("animated"))
-				d = new Animated();
+			try {
+				turns = Integer.parseInt(args[0]);
+			} catch(Exception e) { ; }
+		} 
+		
+		if(accountForConsoleArguments && args.length > 1) {
+			if(args[1].toLowerCase().equals("graphical"))
+				world = CoreFactory.buildGraphicalWorld();
+			else if(args[1].toLowerCase().equals("animated"))
+				world = CoreFactory.buildAnimatedWorld();
 		}
 		
-		World world = new World(new Shipyard(), d);
-		world.run(10);
+		if(world == null)
+			world = CoreFactory.buildConsoleWorld();
+		
+		world.run(turns);
 		System.exit(0);
 
 	}

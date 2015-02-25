@@ -1,34 +1,36 @@
 package ships.extensions;
 
-import ships.Extension;
-import ships.Ship;
+import ships.CuriousExtension;
+import ships.Inspector;
+import ships.IShip;
 import core.Element;
-import core.World;
 
-public class Cannon implements Extension {
+public class Cannon extends CuriousExtension {
 
-	private Integer worldKey;
 	private int range;
 
-	public Cannon(Integer worldKey, int range) {
-		this.worldKey = worldKey;
+	public Cannon(Inspector i, int range) {
+		super(i);
 		this.range = range;
 	}
 
 	@Override
-	public void update(World w, Ship s) {
-		if (s.neighbors() > 0) {
-			Element target = s.neighbor(0);
+	public void update(IShip s) {
+		if(radar() == null)
+			throw new IllegalStateException("An Inspector must be given to this extension at construction.");
+		else if(radar().nbOfElementsAtClosestPosition() > 0) {
+			Element target = radar().elementsAtClosestPosition(0);
 			int d = s.position().distanceTo(target.position());
-			if (d > 0 && d <= range)
-				for (int i = 0; i < s.neighbors(); ++i) {
-					Element e = s.neighbor(i);
+			if(d > 0 && d <= range)
+				for (int i = 0; i < radar().nbOfElementsAtClosestPosition(); ++i) {
+					Element e = radar().elementsAtClosestPosition(i);
 					if (e.position().equals(target.position())) {
 						e.hit();
 						if (e.isDestroyed())
-							w.notifyDeath(worldKey, e);
+							radar().notifyDeath(e);
 					}
-				}
+				}	
+			
 		}
 
 	}

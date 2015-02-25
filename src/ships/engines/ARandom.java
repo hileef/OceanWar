@@ -4,9 +4,13 @@ import java.util.LinkedList;
 
 import core.Point;
 import ships.Engine;
+import ships.Inspector;
 
 public abstract class ARandom extends Engine {
 
+	public ARandom(Inspector i) {
+		super(i);
+	}
 	protected Point.Direction directionAleatoire(Point position) {
 		LinkedList<Point.Direction> options = new LinkedList<Point.Direction>();
 		if(!position.isAtBorder())

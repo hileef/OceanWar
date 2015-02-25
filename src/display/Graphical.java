@@ -1,22 +1,22 @@
 package display;
 
-import core.Element;
-import core.World;
+import core.Displayable;
 
 public class Graphical extends ADisplay {
 
-	public Graphical() {
-		ProfGraphique.ouvrir("Ocean War", World.SIZE * IMAGE_SIZE, World.SIZE * IMAGE_SIZE);
-		reinitaliser();
+	public Graphical(int size) {
+		super(size);
+		ProfGraphique.ouvrir("Ocean War",  worldSize() * imageSize(),  worldSize() * imageSize());
+		reset();
 	}
 	
 	@Override
-	public void update(Element e) {
+	public void update(Displayable e) {
 		ProfGraphique.retirerElement(e.id());
-		if(!e.isDestroyed()) {
+		if(!e.isDisplayable()) {
 			int x, y;
-			x = e.position().multiply(IMAGE_SIZE).x();
-			y = e.position().multiply(IMAGE_SIZE).y();
+			x = e.position().multiply(imageSize()).x();
+			y = e.position().multiply(imageSize()).y();
 			ProfGraphique.ajouterImage(e.id(), "/images/" + e.imgURL(), x, y);
 		}
 	}
@@ -27,8 +27,10 @@ public class Graphical extends ADisplay {
 		pause(seconds);
 	}
 
-	public void reinitaliser() {
+	@Override
+	public void reset() {
 		ProfGraphique.retirerTout();
+		ProfGraphique.actualiser();
 		ProfGraphique.ajouterImage(0, "/images/ocean.png", 0, 0);
 		ProfGraphique.actualiser();
 	}

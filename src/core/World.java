@@ -5,14 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class World {
+class World implements InspectableWorld, RunnableWorld {
 	
 	private static final double REFRESH_RATE = 6.0;
-	public static final int SIZE = 15;
 	
 	private List<Integer> garbage;
 	private Map<Integer, Element> elements;
-	private Integer key;
 	private Display display;
 	private Factory factory;
 	
@@ -22,24 +20,25 @@ public class World {
 	}
 	
 	private void reset() {
-		key = this.hashCode() + (int)(Math.random() * Integer.MAX_VALUE);
 		elements = new LinkedHashMap<Integer, Element>();
 		garbage = new LinkedList<Integer>();
 
-		factory.setWorldKey(key);
+		factory.setWorldAccess(this);
 		for(Element e : factory.build()) {
 			elements.put(e.id(), e);
 		}
 	}
 	
+	@Override
 	public void run(int turns) {
 		
 		do {
-			
 			reset();
+			display.reset();
+			
 			for(int i = 0; i < turns; ++i) {
 				for(Element e : elements.values()) {
-					e.update(this);
+					e.update();
 					display.update(e);
 				}
 				
@@ -51,14 +50,9 @@ public class World {
 		} while(display.askForReplay());
 		
 	}
-
-	private void authorize(Integer authorizationKey) {
-		if(!authorizationKey.equals(this.key))
-			throw new IllegalAccessError("Unauthorized Access.");
-	}
 	
-	public void notifyDeath(Integer authorizationKey, Element e) {
-		authorize(authorizationKey);
+	@Override
+	public void notifyDeath(Element e) {
 		if(e.isDestroyed()) {
 			garbage.add(e.id());
 			display.update(e);
@@ -66,13 +60,14 @@ public class World {
 			
 	}
 	
-	public Integer[] getElementKeys(Integer authorizationKey) {
+	@Override
+	public Integer[] getElementKeys() {
 		Integer[] keys = new Integer[elements.keySet().size()];
 		return elements.keySet().toArray(keys);
 	}
 	
-	public Element getElementWithKey(Integer authorizationKey, Integer key) {
-		authorize(authorizationKey);
+	@Override
+	public Element getElementWithKey(Integer key) {
 		return elements.get(key);
 	}
 

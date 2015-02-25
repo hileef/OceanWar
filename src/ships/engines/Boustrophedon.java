@@ -1,11 +1,16 @@
 package ships.engines;
 
 import ships.Engine;
+import ships.Inspector;
 import core.Point;
 import core.Point.Direction;
 
 public class Boustrophedon extends Engine {
 	
+	public Boustrophedon(Inspector i) {
+		super(i);
+	}
+
 	private Point.Direction suivante = null;
 	private boolean retour = false;
 

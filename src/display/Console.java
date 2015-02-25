@@ -2,32 +2,34 @@ package display;
 
 import java.util.Scanner;
 
-import core.Element;
-import core.World;
+import core.Displayable;
 
 public class Console extends ADisplay {
 	
 	private String[][] matrice;
 	private Scanner sc;
 
-	public Console() {
+	public Console(int size) {
+		super(size);
 		sc = new Scanner(System.in);
-		matrice = new String[World.SIZE][World.SIZE];
+		matrice = new String[worldSize()][worldSize()];
 		clear();
 	}
 
 	@Override
-	public void update(Element e) {
-		int x = e.position().x();
-		int y = e.position().y();
-		String cmp = matrice[x][y];
-		int c;
-		if(cmp.equals("  ")) {
-			matrice[x][y] = e.toString() + " ";
-		} else if((c = (cmp.charAt(0) - '0')) > 0 && c <= 9) {
-			matrice[x][y] = ((++c) + "x");
-		} else {
-			matrice[x][y] = "2x";
+	public void update(Displayable e) {
+		if(!e.isDisplayable()) {
+			int x = e.position().x();
+			int y = e.position().y();
+			String cmp = matrice[x][y];
+			int c;
+			if(cmp.equals("  ")) {
+				matrice[x][y] = e.toString() + " ";
+			} else if((c = (cmp.charAt(0) - '0')) > 0 && c <= 9) {
+				matrice[x][y] = ((++c) + "x");
+			} else {
+				matrice[x][y] = "2x";
+			}
 		}
 	}
 	
@@ -93,6 +95,11 @@ public class Console extends ADisplay {
 			}
 		}
 
+	}
+
+	@Override
+	public void reset() {
+		clear();
 	}
 	
 }

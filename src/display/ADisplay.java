@@ -4,7 +4,12 @@ import core.Display;
 
 public abstract class ADisplay implements Display {
 
-	public static final int IMAGE_SIZE = 50;
+	private static final int IMAGE_SIZE = 50;
+	private int worldSize;
+	
+	public ADisplay(int size) {
+		this.worldSize = size;
+	}
 	
 	public static void pause(double secondes) {
 		try {
@@ -13,5 +18,8 @@ public abstract class ADisplay implements Display {
 			e.printStackTrace();
 		}
 	}
+	
+	protected int worldSize() { return worldSize; }
+	protected int imageSize() { return IMAGE_SIZE; } 
 	
 }

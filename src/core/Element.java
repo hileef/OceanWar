@@ -1,15 +1,8 @@
 package core;
 
-public interface Element {
-
-	public Integer id();
+public interface Element extends Displayable {
 	
-	public void update(World w) ;
-	
-	public Point.Direction direction();
-	public Point position();
-	
-	public String imgURL();
+	public void update() ;
 	
 	public boolean isDestroyed();
 	public void hit();

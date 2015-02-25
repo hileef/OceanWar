@@ -3,13 +3,14 @@ package core;
 public class Point {
 
 	public static enum Direction { N, S, E, W, NE, NW, SE, SW };
+	private static int worldSize = CoreFactory.SIZE;
 	
 	private int x;
 	private int y;
 	
 	public static Point random() {
-		int x = (int) Math.round(Math.random() * (World.SIZE - 1));
-		int y = (int) Math.round(Math.random() * (World.SIZE - 1));
+		int x = (int) Math.round(Math.random() * (worldSize - 1));
+		int y = (int) Math.round(Math.random() * (worldSize - 1));
 		return new Point(x, y);
 	}
 	
@@ -79,21 +80,21 @@ public class Point {
 	}
 	
 	public boolean isAtBorder() {
-		return (x() == 0 || y() == 0 || x() == World.SIZE - 1 || y() == World.SIZE - 1);
+		return (x() == 0 || y() == 0 || x() == worldSize - 1 || y() == worldSize - 1);
 	}
 	
 	public Point.Direction borderHeading() {
 		if(!isAtBorder()) return null;
 		if(x == 0) {
 			if(y == 0) return Direction.NW;
-			else if(y == World.SIZE - 1) return Direction.SW;
+			else if(y == worldSize - 1) return Direction.SW;
 			else return Direction.W;
-		} else if(x == World.SIZE - 1) {
+		} else if(x == worldSize - 1) {
 			if(y == 0) return Direction.NE;
-			else if(y == World.SIZE - 1) return Direction.SE;
+			else if(y == worldSize - 1) return Direction.SE;
 			else return Direction.E;
 		} else if(y == 0) return Direction.N;
-		else if(y == World.SIZE - 1) return Direction.S;
+		else if(y == worldSize - 1) return Direction.S;
 		else return null;
 	}
 	

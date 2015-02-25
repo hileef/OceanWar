@@ -1,18 +1,13 @@
 package ships;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import core.Element;
 import core.Point;
 import core.Point.Direction;
-import core.World;
 
-public class Ship implements Element {
+class Ship implements IShip {
 
-	private List<Element> neighbors;
 	private List<Extension> parts;
 	private Integer id;
 	private Point position;
@@ -25,7 +20,6 @@ public class Ship implements Element {
 	public Ship(Integer id, Point position, Point.Direction direction, String name, String imgURL, int maxLife, Extension...parts) {
 		this.id = id;
 		this.parts = new LinkedList<Extension>();
-		this.neighbors = new ArrayList<Element>();
 		this.position = position;
 		this.direction = direction;
 		this.imgURL = imgURL;
@@ -36,36 +30,17 @@ public class Ship implements Element {
 			this.parts.add(e);
 			
 	}
-	
-	private void authorize(Extension e) {
-		if(!this.parts.contains(e))
-			throw new IllegalAccessError("Unathorized Access.");
-	}
 
-	public void setNeighbors(Extension e, Collection<Element> env) {
-		authorize(e);
-		this.neighbors.clear();
-		this.neighbors.addAll(env);
-	}
-
-	public void setDisplacement(Extension e, Point position, Point.Direction direction) {
-		authorize(e);
+	@Override
+	public void setDisplacement(Point position, Point.Direction direction) {
 		this.position = position;
 		this.direction = direction;
 	}
-
-	public int neighbors() {
-		return neighbors.size();
-	}
-
-	public Element neighbor(int i) {
-		return neighbors.get(i);
-	}
 	
 	@Override
-	public void update(World w) {
+	public void update() {
 		for (Extension sp : parts)
-			sp.update(w, this);
+			sp.update(this);
 	}
 
 	@Override
@@ -118,6 +93,11 @@ public class Ship implements Element {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public boolean isDisplayable() {
+		return isDestroyed();
 	}
 
 }
