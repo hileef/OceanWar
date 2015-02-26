@@ -5,7 +5,7 @@ public interface Displayable {
 	public Integer id();	
 	public String imgURL();
 	
-	public Point.Direction direction();
+	public Point.Dir dir();
 	public Point position();
 	
 	public boolean isDisplayable();

@@ -1,5 +1,4 @@
-/core/
-/display/
-/images/
-/run/
-/ships/
+/core
+/ships
+/display
+/tests

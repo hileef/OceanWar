@@ -3,7 +3,7 @@ package ships.engines;
 import ships.Engine;
 import ships.Inspector;
 import core.Point;
-import core.Point.Direction;
+import core.Point.Dir;
 
 public class Boustrophedon extends Engine {
 	
@@ -11,73 +11,35 @@ public class Boustrophedon extends Engine {
 		super(i);
 	}
 
-	private Point.Direction suivante = null;
-	private boolean retour = false;
+	private Point.Dir previous = null;
+	private Point.Dir next = null;
+	private boolean up = true;
 
 	@Override
-	public Direction calculateDirectionFrom(Point position, Direction direction) {
-		if(direction == null) {
-			if(position.isAtBorder()) {
-				switch(position.borderHeading()) {
-				case NE :
-					suivante = Direction.W;
-					return Direction.S;
-				case SE :
-				case E :
-					return Direction.W;
-				default :
-					return Direction.E;
-				}
-			} else return Direction.E;
-		} else if(suivante != null) {
-			Direction tmp = suivante;
-			suivante = null;
-			return tmp;
-		} else {
-			if(position.isAtBorder()) {
-				switch(position.borderHeading()) {
-				case NW:
-					if(retour){ 
-						retour = false;
-						return Direction.E;
-					}
-					suivante = Direction.E;
-					return Direction.S;
-				case NE:
-					if(retour) {
-						retour = false;
-						return Direction.W;
-					}
-					suivante = Direction.W;
-					return Direction.S;
-				case SE:
-					if(retour) {
-						suivante = Direction.W;
-						return Direction.N;
-					}
-					retour = true;
-					return Direction.W;
-				case SW:
-					if(retour) {
-						suivante = Direction.E;
-						return Direction.N;
-					}
-					retour = true;
-					return Direction.E;
-				case E:
-					suivante = Direction.W;
-					return (retour) ? Direction.N : Direction.S;
-				case W:
-					suivante = Direction.E;
-					return (retour) ? Direction.N : Direction.S;
-				default:
-					return direction;	
-				}
-			} else {
-				return direction;
-			}
-
+	public Dir calculateDirectionFrom(Point position, Dir dir) {
+		
+		if(previous == null)
+			previous = dir;
+		
+		Dir now = dir;
+		
+		if(next != null) {
+			now = next;
+			next = null;
+		} else if(position.isAtBorder()) {
+			if(position.borderHeading() == Dir.NE || position.borderHeading() == Dir.NW || 
+					position.borderHeading() == Dir.SE || position.borderHeading() == Dir.SW) { 
+					next = Point.inverseDirection(previous);
+					now = ((up) ? Dir.S : Dir.N);
+					up = !up;
+			} else if(position.borderHeading() == Dir.E || position.borderHeading() == Dir.W) { 
+				now = (up) ? Dir.N: Dir.S;
+				next = Point.inverseDirection(previous);
+			} 
 		}
+
+		previous = now;
+		return now;
 	}
 
 	

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
+
 class World implements InspectableWorld, RunnableWorld {
 	
 	private static final double REFRESH_RATE = 6.0;
@@ -69,6 +71,13 @@ class World implements InspectableWorld, RunnableWorld {
 	@Override
 	public Element getElementWithKey(Integer key) {
 		return elements.get(key);
+	}
+
+	@Test
+	@Override
+	public void runTests(RunnableWorld w) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

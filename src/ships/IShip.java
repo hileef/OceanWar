@@ -5,6 +5,6 @@ import core.Point;
 
 public interface IShip extends Element {
 
-	public void setDisplacement(Point position, Point.Direction direction);
+	public void setDisplacement(Point position, Point.Dir dir);
 	
 }

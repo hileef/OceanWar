@@ -2,7 +2,7 @@ package core;
 
 public class Point {
 
-	public static enum Direction { N, S, E, W, NE, NW, SE, SW };
+	public static enum Dir { N, S, E, W, NE, SW, NW, SE };
 	private static int worldSize = CoreFactory.SIZE;
 	
 	private int x;
@@ -38,32 +38,36 @@ public class Point {
 		return (this.x() == a.x() && this.y() == a.y());
 	}
 	
+	public static Dir inverseDirection(Dir d) {
+		return Dir.values()[(((d.ordinal() % 2) == 1) ? (d.ordinal() - 1): d.ordinal() + 1)];
+	}
+	
 	public Point multiply(int f) {
 		return new Point(this.x() * f, this.y() * f);
 	}
 	
-	public static Point differentialTowards(Direction d) {
+	public static Point differentialTowards(Dir d) {
 		return (new Point(0, 0)).nextPointTowards(d);
 	}
 	
-	public Direction directionTo(Point b) {
+	public Dir directionTo(Point b) {
 		assert(b != null);
 		int dy = this.differenceY(b);
 		int dx = this.differenceX(b);
 		boolean d = this.x() == b.x() && this.y() == b.y();
 		if(d) return null;
-		if(dx == 0) return (b.y() > this.y()) ? Direction.S: Direction.N; 
-		if(dy == 0) return (b.x() > this.x()) ? Direction.E: Direction.W;
+		if(dx == 0) return (b.y() > this.y()) ? Dir.S: Dir.N; 
+		if(dy == 0) return (b.x() > this.x()) ? Dir.E: Dir.W;
 		if(dy > 0) { 
-			if(dx > 0) return Direction.SE;
-			else return Direction.SW;
+			if(dx > 0) return Dir.SE;
+			else return Dir.SW;
 		} else {
-			if(dx > 0) return Direction.NE;
-			else return Direction.NW;
+			if(dx > 0) return Dir.NE;
+			else return Dir.NW;
 		}
 	}
 	
-	public Point nextPointTowards(Direction dir) {
+	public Point nextPointTowards(Dir dir) {
 		if(dir == null)
 			return this;
 		switch(dir) {
@@ -83,18 +87,18 @@ public class Point {
 		return (x() == 0 || y() == 0 || x() == worldSize - 1 || y() == worldSize - 1);
 	}
 	
-	public Point.Direction borderHeading() {
+	public Point.Dir borderHeading() {
 		if(!isAtBorder()) return null;
 		if(x == 0) {
-			if(y == 0) return Direction.NW;
-			else if(y == worldSize - 1) return Direction.SW;
-			else return Direction.W;
+			if(y == 0) return Dir.NW;
+			else if(y == worldSize - 1) return Dir.SW;
+			else return Dir.W;
 		} else if(x == worldSize - 1) {
-			if(y == 0) return Direction.NE;
-			else if(y == worldSize - 1) return Direction.SE;
-			else return Direction.E;
-		} else if(y == 0) return Direction.N;
-		else if(y == worldSize - 1) return Direction.S;
+			if(y == 0) return Dir.NE;
+			else if(y == worldSize - 1) return Dir.SE;
+			else return Dir.E;
+		} else if(y == 0) return Dir.N;
+		else if(y == worldSize - 1) return Dir.S;
 		else return null;
 	}
 	

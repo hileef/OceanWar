@@ -5,7 +5,7 @@ import display.Console;
 import display.Graphical;
 import ships.Shipyard;
 
-public class CoreFactory {
+public final class CoreFactory {
 	
 	public static final int SIZE = 15;
 	

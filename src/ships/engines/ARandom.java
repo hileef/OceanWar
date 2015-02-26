@@ -11,63 +11,63 @@ public abstract class ARandom extends Engine {
 	public ARandom(Inspector i) {
 		super(i);
 	}
-	protected Point.Direction directionAleatoire(Point position) {
-		LinkedList<Point.Direction> options = new LinkedList<Point.Direction>();
+	protected Point.Dir directionAleatoire(Point position) {
+		LinkedList<Point.Dir> options = new LinkedList<Point.Dir>();
 		if(!position.isAtBorder())
 			return directionAleatoireSansPenserAuBords();
 		switch(position.borderHeading()) {
 		case NW :
-			options.add(Point.Direction.SE);
-			options.add(Point.Direction.S);
-			options.add(Point.Direction.E);
+			options.add(Point.Dir.SE);
+			options.add(Point.Dir.S);
+			options.add(Point.Dir.E);
 			break;
 		case NE :
-			options.add(Point.Direction.SW);
-			options.add(Point.Direction.S);
-			options.add(Point.Direction.W);
+			options.add(Point.Dir.SW);
+			options.add(Point.Dir.S);
+			options.add(Point.Dir.W);
 			break;
 		case SW :
-			options.add(Point.Direction.NE);
-			options.add(Point.Direction.N);
-			options.add(Point.Direction.E);
+			options.add(Point.Dir.NE);
+			options.add(Point.Dir.N);
+			options.add(Point.Dir.E);
 			break;
 		case SE :
-			options.add(Point.Direction.NW);
-			options.add(Point.Direction.N);
-			options.add(Point.Direction.W);
+			options.add(Point.Dir.NW);
+			options.add(Point.Dir.N);
+			options.add(Point.Dir.W);
 			break;
 		case N :
-			options.add(Point.Direction.S);
-			options.add(Point.Direction.SE);
-			options.add(Point.Direction.SW);
+			options.add(Point.Dir.S);
+			options.add(Point.Dir.SE);
+			options.add(Point.Dir.SW);
 			break;
 		case S :
-			options.add(Point.Direction.N);
-			options.add(Point.Direction.NE);
-			options.add(Point.Direction.NW);
+			options.add(Point.Dir.N);
+			options.add(Point.Dir.NE);
+			options.add(Point.Dir.NW);
 			break;
 		case W :
-			options.add(Point.Direction.E);
-			options.add(Point.Direction.NE);
-			options.add(Point.Direction.SE);
+			options.add(Point.Dir.E);
+			options.add(Point.Dir.NE);
+			options.add(Point.Dir.SE);
 			break;
 		case E :
-			options.add(Point.Direction.W);
-			options.add(Point.Direction.NW);
-			options.add(Point.Direction.SW);
+			options.add(Point.Dir.W);
+			options.add(Point.Dir.NW);
+			options.add(Point.Dir.SW);
 			break;
 		default:
 			return directionAleatoireSansPenserAuBords();
 		}
 		return directionAleatoireDepuis(options);
 	}
-	protected Point.Direction directionAleatoireSansPenserAuBords() {
-		LinkedList<Point.Direction> liste = new LinkedList<Point.Direction>();
-		for(Point.Direction d : Point.Direction.values())
+	protected Point.Dir directionAleatoireSansPenserAuBords() {
+		LinkedList<Point.Dir> liste = new LinkedList<Point.Dir>();
+		for(Point.Dir d : Point.Dir.values())
 			liste.add(d);
 		return directionAleatoireDepuis(liste);
 	}
-	protected Point.Direction directionAleatoireDepuis(LinkedList<Point.Direction> options) {
+	protected Point.Dir directionAleatoireDepuis(LinkedList<Point.Dir> options) {
 		return options.get((int) (Math.random() * (options.size())));
 	}
 

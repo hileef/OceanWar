@@ -15,7 +15,7 @@ import core.Factory;
 import core.InspectableWorld;
 import core.Point;
 
-public class Shipyard implements Factory {
+public final class Shipyard implements Factory {
 
 	private static final int DEFAULT_SHIP_RESISTANCE = 5;
 	private static final int DEFAULT_HOS_RADAR_RANGE = 0;
@@ -27,7 +27,7 @@ public class Shipyard implements Factory {
 	private static final int DEFAULT_HOS_ORDER = 2;
 	private static final int DEFAULT_ORDER_MULTIPLIER = 4;
 	
-	private static final Point.Direction DEFAULT_DIRECTION = Point.Direction.E;
+	private static final Point.Dir DEFAULT_DIRECTION = Point.Dir.E;
 	
 	private InspectableWorld world;
 	private static Integer uniqueIDcounter = 0;

@@ -4,24 +4,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 import core.Point;
-import core.Point.Direction;
+import core.Point.Dir;
 
 class Ship implements IShip {
 
 	private List<Extension> parts;
 	private Integer id;
 	private Point position;
-	private Point.Direction direction;
+	private Point.Dir dir;
 	private String imgURL;
 	private String name;
 	private int maxLife;
 	private int life;
 
-	public Ship(Integer id, Point position, Point.Direction direction, String name, String imgURL, int maxLife, Extension...parts) {
+	public Ship(Integer id, Point position, Point.Dir dir, String name, String imgURL, int maxLife, Extension...parts) {
 		this.id = id;
 		this.parts = new LinkedList<Extension>();
 		this.position = position;
-		this.direction = direction;
+		this.dir = dir;
 		this.imgURL = imgURL;
 		this.maxLife = maxLife;
 		this.life = maxLife;
@@ -32,9 +32,9 @@ class Ship implements IShip {
 	}
 
 	@Override
-	public void setDisplacement(Point position, Point.Direction direction) {
+	public void setDisplacement(Point position, Point.Dir dir) {
 		this.position = position;
-		this.direction = direction;
+		this.dir = dir;
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ class Ship implements IShip {
 	@Override
 	public String imgURL() {
 		String ddir;
-		switch (direction) {
+		switch (dir) {
 		case E:
 		case NE:
 		case SE:
@@ -86,8 +86,8 @@ class Ship implements IShip {
 	}
 
 	@Override
-	public Direction direction() {
-		return direction;
+	public Dir dir() {
+		return dir;
 	}
 
 	@Override
