@@ -4,12 +4,20 @@ import core.Displayable;
 
 public class Graphical extends ADisplay {
 
+	/**
+	 * Constructeur d'affichage Graphique
+	 * @param size La taille de l'Ocean
+	 */
 	public Graphical(int size) {
 		super(size);
 		ProfGraphique.ouvrir("Ocean War",  worldSize() * imageSize(),  worldSize() * imageSize());
 		reset();
 	}
 	
+	/**
+	 * Mets a jour un affichable sur l'affichage :
+	 * le supprime, change sa position et/ou son image selon son etat
+	 */
 	@Override
 	public void update(Displayable e) {
 		ProfGraphique.retirerElement(e.id());
@@ -21,12 +29,20 @@ public class Graphical extends ADisplay {
 		}
 	}
 	
+	/**
+	 * Actualiser l'affichage : rendre les changements demandés visibles
+	 * @param seconds Le temps a attendre en secondes apres l'actualisation
+	 */
 	@Override
 	public void refresh(double seconds) {
 		ProfGraphique.actualiser();
 		pause(seconds);
 	}
 
+	/**
+	 * Reinitialisation : supprime tout les affichables et
+	 * remet l'affichage graphique a son etat inital.
+	 */
 	@Override
 	public void reset() {
 		ProfGraphique.retirerTout();
@@ -35,6 +51,10 @@ public class Graphical extends ADisplay {
 		ProfGraphique.actualiser();
 	}
 	
+	/**
+	 * Demande à l'utilisateur s'il souhaite rejouer.
+	 * @return Renvoie la decision de l'utilisateur
+	 */
 	@Override
 	public boolean askForReplay() {
 		char c;
