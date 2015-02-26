@@ -10,13 +10,16 @@ public class Graphical extends ADisplay {
 	 */
 	public Graphical(int size) {
 		super(size);
-		ProfGraphique.ouvrir("Ocean War",  worldSize() * imageSize(),  worldSize() * imageSize());
+		ProfGraphique.ouvrir("Ocean War", 
+				super.worldSize() * super.imageSize(), 
+				super.worldSize() * super.imageSize()  );
 		reset();
 	}
 	
 	/**
 	 * Mets a jour un affichable sur l'affichage :
 	 * le supprime, change sa position et/ou son image selon son etat
+	 * @param L'affichable a prendre en compte pour mettre a jour sur l'affichage
 	 */
 	@Override
 	public void update(Displayable e) {
