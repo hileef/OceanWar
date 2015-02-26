@@ -8,4 +8,6 @@ public interface Factory {
 	
 	public Collection<Element> build();
 	
+	public Element buildTest();
+	
 }

@@ -81,4 +81,9 @@ public final class Shipyard implements Factory {
 		return buildSpecificShip("H", "hopital", DEFAULT_SHIP_RESISTANCE, new Pong(null), new RepairDock(radar));
 	}
 
+	@Override
+	public Element buildTest() {
+		return buildCivilian();
+	}
+
 }

@@ -97,7 +97,7 @@ class Ship implements IShip {
 
 	@Override
 	public boolean isDisplayable() {
-		return isDestroyed();
+		return !isDestroyed();
 	}
 
 }

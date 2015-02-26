@@ -1,5 +1,7 @@
 package core;
 
+import static org.junit.Assert.*;
+
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,8 +77,27 @@ class World implements InspectableWorld, RunnableWorld {
 
 	@Test
 	@Override
-	public void runTests(RunnableWorld w) {
+	public void runTests(Factory f, Display d) {
 		// TODO Auto-generated method stub
+		
+		World w = new World(f, d) ;
+		w.reset();
+		assertFalse(w.display == null);
+		assertFalse(w.factory == null);
+		assertFalse(w.garbage == null);
+		assertFalse(w.elements == null);
+		w.elements.clear();
+		assertEquals(w.elements.size(), 0);
+		Element e = w.factory.buildTest();
+		w.elements.put(e.id(), e);
+		Integer[] list = w.getElementKeys();
+		assertEquals(list.length, 1);
+		assertEquals(w.getElementWithKey(list[0]), e);
+		while(!e.isDestroyed())
+			e.hit();
+		w.notifyDeath(e);
+		assertEquals(w.garbage.size(), 1);
+		assertEquals(e, w.elements.get(w.garbage.get(0)));
 		
 	}
 

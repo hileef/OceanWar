@@ -1,18 +1,16 @@
 package tests.core;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
+import ships.Shipyard;
 import core.CoreFactory;
-import core.RunnableWorld;
+import display.Console;
 
 public class WorldTest {
 
 	@Test
 	public void test() {
-		RunnableWorld w = CoreFactory.buildConsoleWorld();
-		w.runTests(w);
+		CoreFactory.buildConsoleWorld().runTests(new Shipyard(), new Console(CoreFactory.SIZE));
 	}
 
 }

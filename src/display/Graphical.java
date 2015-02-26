@@ -13,7 +13,7 @@ public class Graphical extends ADisplay {
 	@Override
 	public void update(Displayable e) {
 		ProfGraphique.retirerElement(e.id());
-		if(!e.isDisplayable()) {
+		if(e.isDisplayable()) {
 			int x, y;
 			x = e.position().multiply(imageSize()).x();
 			y = e.position().multiply(imageSize()).y();

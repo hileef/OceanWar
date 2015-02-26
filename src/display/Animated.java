@@ -15,7 +15,7 @@ public class Animated extends Graphical {
 	
 	@Override
 	public void update(Displayable e) {
-		if(e.isDisplayable()) {
+		if(!e.isDisplayable()) {
 			ProfGraphique.retirerElement(e.id());
 			destinations.remove(e.id());
 		} else {
