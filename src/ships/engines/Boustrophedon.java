@@ -18,8 +18,16 @@ public class Boustrophedon extends Engine {
 	@Override
 	public Dir calculateDirectionFrom(Point position, Dir dir) {
 		
-		if(previous == null)
-			previous = dir;
+		if(previous == null) {
+			Dir tdir = (position.isAtBorder()) ? position.borderHeading(): null;
+			if(tdir != null && tdir == Dir.W)
+				previous = Dir.W;
+			else
+				previous = Dir.E;
+			if(tdir != null && (tdir == Dir.S || tdir == Dir.SE || tdir == Dir.SW)) {
+				up = false;
+			}
+		}
 		
 		Dir now = dir;
 		

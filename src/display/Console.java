@@ -18,7 +18,7 @@ public class Console extends ADisplay {
 
 	@Override
 	public void update(Displayable e) {
-		if(!e.isDisplayable()) {
+		if(e.isDisplayable()) {
 			int x = e.position().x();
 			int y = e.position().y();
 			String cmp = matrice[x][y];

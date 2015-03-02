@@ -23,9 +23,9 @@ public final class Shipyard implements Factory {
 	private static final int DEFAULT_CANNON_RANGE = 2;
 	
 	private static final int DEFAULT_CIV_ORDER = 5;
-	private static final int DEFAULT_MIL_ORDER = 1;
+	private static final int DEFAULT_MIL_ORDER = 0;
 	private static final int DEFAULT_HOS_ORDER = 2;
-	private static final int DEFAULT_ORDER_MULTIPLIER = 4;
+	private static final int DEFAULT_ORDER_MULTIPLIER = 20;
 	
 	private static final Point.Dir DEFAULT_DIRECTION = Point.Dir.E;
 	

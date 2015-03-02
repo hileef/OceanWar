@@ -28,6 +28,8 @@ public class Launcher {
 		
 		if(world == null)
 			world = CoreFactory.buildConsoleWorld();
+//			world = CoreFactory.buildGraphicalWorld();
+//			world = CoreFactory.buildAnimatedWorld();
 		
 		world.run(turns);
 		System.exit(0);
